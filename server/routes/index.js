@@ -6,5 +6,6 @@ const UserController = require('../controllers/user');
 module.exports = (app) => {
   app.get('/', UserController.greeting);
   app.get('/api/authorize', UserController.authorize);
-  app.get('/api/signin', UserController.signIn);
+  app.get('/api/error/:errorMsg', UserController.error);
+  app.get('/callback', UserController.signIn);
 };

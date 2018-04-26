@@ -23,13 +23,17 @@ const wrongUsername = { username: 'jill', password: credentials.password };
 const wrongPassword = { username: credentials.username, password: 'jlqer' };
 const seededUser = { username: 'samantha', password: '314dsfadkfeaf' };
 
-describe('GET /api/signin', () => {
+describe('GET /api/authorize', () => {
   it('should allow a user to authorize access to their Spotify account', async () => {
     const route = '/api/authorize';
     const res = await chai.request(app).get(route);
 
     expect(res).to.have.status(code.OK);
-    expect(res.body.code).to.be.a('number');
-    expect(res.body.state).to.be.a('string');
+    expect(res.redirects).to.have.length(1);
+    expect(res.redirects[0]).to.be.a('string');
   });
+});
+
+describe('GET /api/signin', () => {
+  it('should give a user an access token', async () => {});
 });

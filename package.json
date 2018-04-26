@@ -28,7 +28,8 @@
     "passport-local": "^1.0.0",
     "querystring": "^0.2.0",
     "ramda": "^0.25.0",
-    "randomstring": "^1.1.5"
+    "randomstring": "^1.1.5",
+    "request": "^2.85.0"
   },
   "devDependencies": {
     "node-env-run": "^3.0.2",
