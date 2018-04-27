@@ -8,6 +8,7 @@ const User = require('../models/User');
 const code = require('../utils/statusCodes');
 const createToken = require('../utils/createToken');
 const keys = require('../config/keys');
+const to = require('../utils/to');
 
 const redirectUri = 'http://localhost:8080/callback';
 const stateKey = 'spotify_auth_state';
@@ -81,11 +82,11 @@ const signIn = async (req, res, next) => {
   });
 };
 
+let tokenExpiration;
+
 const getUser = (body, res) => {
   const accessToken = body.access_token,
     refreshToken = body.refresh_token;
-
-  console.log({ refreshToken });
 
   const options = {
     url: 'https://api.spotify.com/v1/me',
@@ -94,43 +95,56 @@ const getUser = (body, res) => {
   };
 
   // use the access token to access the Spotify Web API
-  request.get(options, (error, response, body) => {
-    console.log(body);
+  request.get(options, async (error, response, body) => {
+    const spotifyId = body.id;
+    const name = body.display_name;
+
+    const userData = {
+      spotifyId,
+      name,
+      accessToken,
+      refreshToken
+    };
+
+    const [userErr, user] = await to(User.findOne({ spotifyId }));
+
+    if (user) {
+      await User.findOneAndUpdate({ spotifyId }, { accessToken });
+      res.send(userData);
+      return;
+    }
+
+    // if user exists, update their access token
+    // otherwise, create a new user
+    user
+      ? await User.findOneAndUpdate({ spotifyId }, { accessToken })
+      : await User.create(userData);
+
+    res.send(userData);
   });
-
-  // we can also pass the token to the browser to make requests from there
-  const params = {
-    access_token: accessToken,
-    refresh_token: refreshToken
-  };
-
-  res.send(params);
-
-  redirectToHash(res, params);
 };
 
-const refreshToken = async (req, res) => {
-  var refresh_token = req.query.refresh_token;
-  var authOptions = {
+const refreshToken = (req, res) => {
+  const { refreshToken, spotifyId } = req.body;
+  const authOptions = {
     url: 'https://accounts.spotify.com/api/token',
-    headers: {
-      Authorization:
-        'Basic ' +
-        new Buffer(keys.spotifyClientId + ':' + keys.spotifyClientSecret).toString('base64')
-    },
     form: {
       grant_type: 'refresh_token',
-      refresh_token: refresh_token
+      refresh_token: refreshToken,
+      client_id: keys.spotifyClientId,
+      client_secret: keys.spotifyClientSecret
     },
     json: true
   };
 
-  request.post(authOptions, function(error, response, body) {
+  request.post(authOptions, async (error, response, body) => {
     if (!error && response.statusCode === 200) {
-      var access_token = body.access_token;
-      res.send({
-        access_token: access_token
-      });
+      const accessToken = body.access_token;
+
+      spotifyId ? await User.findOneAndUpdate({ spotifyId }, { accessToken }) : '';
+
+      res.send({ accessToken });
+      return;
     }
   });
 };

@@ -32,16 +32,13 @@ const UserSchema = new Schema({
   spotifyId: {
     type: Number
   },
-  username: {
+  name: {
     type: String
   },
-  password: {
+  accessToken: {
     type: String
   },
-  firstName: {
-    type: String
-  },
-  lastName: {
+  refreshToken: {
     type: String
   },
   playlists: [PlaylistSchema]

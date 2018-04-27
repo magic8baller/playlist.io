@@ -10,7 +10,7 @@ module.exports = (app) => {
   app.get('/api/authorize', UserController.authorize);
   app.get('/api/error/:errorMsg', UserController.error);
   app.get('/callback', UserController.signIn);
-  app.get('/api/refresh_token', UserController.refreshToken);
+  app.post('/api/refresh-token', UserController.refreshToken);
 
   // Playlist
   app.post('/api/search', PlaylistController.search);
