@@ -16,6 +16,18 @@ const invalidQuery = { query: '', type: 'playlist', token: keys.spotifyAccessTok
 const invalidType = { query: 'programming', type: '', token: keys.spotifyAccessToken };
 const unknownQuery = { query: 'safdsafds', type: 'playlist', token: keys.spotifyAccessToken };
 
+const route = '/api/search';
+
+const errReq = async (data, errorMsg) => {
+  const res = await chai
+    .request(app)
+    .post(route)
+    .send(data);
+
+  expect(res).to.have.status(code.USER_ERROR);
+  expect(res.body.error).to.equal(errorMsg);
+};
+
 describe('GET /api/search', () => {
   it('should return 50 playlists based on a search query', async () => {
     const route = `/api/search`;
@@ -34,52 +46,23 @@ describe('GET /api/search', () => {
   });
 
   it('should return an error when given an invalid token', async () => {
-    const route = `/api/search`;
-
-    const res = await chai
-      .request(app)
-      .post(route)
-      .send(invalidToken);
-
-    expect(res).to.have.status(code.USER_ERROR);
-    expect(res.body.error).to.equal('Token is invalid.');
+    const errMsg = 'Token is invalid.';
+    errReq(invalidToken, errMsg);
   });
 
   it('should return an error when given an invalid query', async () => {
-    const route = `/api/search`;
-
-    const res = await chai
-      .request(app)
-      .post(route)
-      .send(invalidQuery);
-
-    expect(res).to.have.status(code.USER_ERROR);
-    expect(res.body.error).to.equal('Query is invalid.');
+    const errMsg = 'Query is invalid.';
+    errReq(invalidQuery, errMsg);
   });
 
   it('should return an error when given an invalid type', async () => {
-    const route = `/api/search`;
-
-    const res = await chai
-      .request(app)
-      .post(route)
-      .send(invalidType);
-
-    expect(res).to.have.status(code.USER_ERROR);
-    expect(res.body.error).to.equal('Type is invalid.');
+    const errMsg = 'Type is invalid.';
+    errReq(invalidType, errMsg);
   });
 
-  it('should return an error when given an incomprehensible query', async () => {
-    const route = `/api/search`;
-
-    const res = await chai
-      .request(app)
-      .post(route)
-      .send(unknownQuery);
-
+  it('should return an error when given an unknown query', async () => {
     const { query } = unknownQuery;
-
-    expect(res).to.have.status(code.USER_ERROR);
-    expect(res.body.error).to.equal(`No playlists found containing "${query}". Please try again.`);
+    const errMsg = `No playlists found containing "${query}". Please try again.`;
+    errReq(unknownQuery, errMsg);
   });
 });
