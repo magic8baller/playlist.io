@@ -23,7 +23,7 @@ const redirectToHash = redirect('/#');
 
 const redirectToSpotifyAuth = redirect('https://accounts.spotify.com/authorize?');
 
-const isError = (error, response) => error || response.statusCode !== code.OK;
+const isError = (error, res) => error || res.statusCode !== code.OK;
 
 /*
 ===== Controllers =======
@@ -85,7 +85,7 @@ const getUser = (body, res) => {
   const accessToken = body.access_token,
     refreshToken = body.refresh_token;
 
-  process.env.DEV_SPOTIFY_ACCESS_TOKEN = accessToken;
+  console.log({ refreshToken });
 
   const options = {
     url: 'https://api.spotify.com/v1/me',
@@ -100,17 +100,39 @@ const getUser = (body, res) => {
 
   // we can also pass the token to the browser to make requests from there
   const params = {
-    accessToken,
-    refreshToken
+    access_token: accessToken,
+    refresh_token: refreshToken
   };
 
   res.send(params);
 
-  // redirectToHash(res, params);
+  redirectToHash(res, params);
 };
 
 const refreshToken = async (req, res) => {
-  res.send({});
+  var refresh_token = req.query.refresh_token;
+  var authOptions = {
+    url: 'https://accounts.spotify.com/api/token',
+    headers: {
+      Authorization:
+        'Basic ' +
+        new Buffer(keys.spotifyClientId + ':' + keys.spotifyClientSecret).toString('base64')
+    },
+    form: {
+      grant_type: 'refresh_token',
+      refresh_token: refresh_token
+    },
+    json: true
+  };
+
+  request.post(authOptions, function(error, response, body) {
+    if (!error && response.statusCode === 200) {
+      var access_token = body.access_token;
+      res.send({
+        access_token: access_token
+      });
+    }
+  });
 };
 
 const error = (req, res) => {

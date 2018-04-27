@@ -33,7 +33,3 @@ describe('GET /api/authorize', () => {
     expect(res.redirects[0]).to.be.a('string');
   });
 });
-
-// describe('GET /api/signin', () => {
-//   xit('should give a user an access token', async () => {});
-// });

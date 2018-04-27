@@ -18,21 +18,42 @@ const setHeaders = (token) => ({
 const spotifyRootUrl = 'https://api.spotify.com/v1/';
 const spotifySearchUrl = `${spotifyRootUrl}search?limit=50&`;
 
-const search = async (req, res) => {
-  const { query, type } = req.params;
+const search = async (req, res, next) => {
+  const { query, type, token } = req.body;
+
+  if (!query) {
+    const errMsg = 'Query is invalid.';
+    next(errMsg);
+    return;
+  }
+
+  if (!type) {
+    const errMsg = 'Type is invalid.';
+    next(errMsg);
+    return;
+  }
 
   const url = `${spotifySearchUrl}q=${query}&type=${type}`;
-
-  const token =
-    'BQBMKEjNTBMBLMcwX09-CFQ94vsUPwB7-QcIzwTq-5k2eu_MGu13esddJX5UwbvKd6gD4jp_1HcrgC0Z5kwKn5u-DHYxhvbfXNC7z_JJonUS2a2SICifpE6vB7rtlakpCdlUj4Y0ofrkErCF3khgbSfjzNOE7BcaeQ';
 
   const config = {
     headers: setHeaders(token)
   };
 
-  const { data } = await axios.get(url, config).catch((err) => {
-    // console.log(err);
+  const results = await axios.get(url, config).catch((err) => {
+    const errMsg = 'Token is invalid.';
+    next(errMsg);
+    return;
   });
+
+  if (!results) return;
+
+  const { data } = results;
+
+  if (data.playlists.items.length === 0) {
+    const errMsg = `No playlists found containing "${query}". Please try again.`;
+    next(errMsg);
+    return;
+  }
 
   res.send(data);
 };
