@@ -9,10 +9,7 @@ const code = require('../utils/statusCodes');
 const createToken = require('../utils/createToken');
 const keys = require('../config/keys');
 
-const INVALID_CREDENTIALS = 'You must provide a username and password';
-const INVALID_USERNAME = 'Username already exists. Please try again.';
 const redirectUri = 'http://localhost:8080/callback';
-
 const stateKey = 'spotify_auth_state';
 
 /*
@@ -40,13 +37,11 @@ const authorize = async (req, res, next) => {
   const chars = 16;
   const state = randomString.generate(chars);
 
-  const scope = 'user-read-private user-read-email';
-
   const params = {
     response_type: 'code',
+    scope: 'user-read-private user-read-email',
     client_id: keys.spotifyClientId,
     redirect_uri: redirectUri,
-    scope,
     state
   };
 
@@ -90,6 +85,8 @@ const getUser = (body, res) => {
   const accessToken = body.access_token,
     refreshToken = body.refresh_token;
 
+  process.env.DEV_SPOTIFY_ACCESS_TOKEN = accessToken;
+
   const options = {
     url: 'https://api.spotify.com/v1/me',
     headers: { Authorization: 'Bearer ' + accessToken },
@@ -103,14 +100,20 @@ const getUser = (body, res) => {
 
   // we can also pass the token to the browser to make requests from there
   const params = {
-    access_token: accessToken,
-    refresh_token: refreshToken
+    accessToken,
+    refreshToken
   };
 
-  redirectToHash(res, params);
+  res.send(params);
+
+  // redirectToHash(res, params);
 };
 
-const error = async (req, res) => {
+const refreshToken = async (req, res) => {
+  res.send({});
+};
+
+const error = (req, res) => {
   res.send({ error: req.query.error });
 };
 
@@ -118,5 +121,6 @@ module.exports = {
   greeting,
   authorize,
   signIn,
+  refreshToken,
   error
 };
