@@ -141,8 +141,8 @@ const refreshToken = (req, res) => {
     if (!error && response.statusCode === 200) {
       const accessToken = body.access_token;
 
+      // test does not have spotify id so don't update db when testing
       spotifyId ? await User.findOneAndUpdate({ spotifyId }, { accessToken }) : '';
-
       res.send({ accessToken });
       return;
     }
