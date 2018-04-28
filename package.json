@@ -1,0 +1,49 @@
+{
+  "name": "frontend-notes-app",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "axios": "^0.18.0",
+    "immutable": "^3.8.2",
+    "lodash": "^4.17.5",
+    "material-ui": "^0.20.0",
+    "prop-types": "^15.6.1",
+    "ramda": "^0.25.0",
+    "react": "^16.3.1",
+    "react-contexify": "^3.0.0",
+    "react-dom": "^16.3.1",
+    "react-feather": "^1.1.0",
+    "react-fontawesome": "^1.6.1",
+    "react-icons": "^2.2.7",
+    "react-immutable-proptypes": "^2.1.0",
+    "react-nestable": "git+https://github.com/pxr13/react-nestable.git",
+    "react-redux": "^5.0.7",
+    "react-router-dom": "^4.2.2",
+    "react-scripts": "1.1.4",
+    "react-svg": "^2.2.18",
+    "redux": "^3.7.2",
+    "redux-actions": "^2.3.0",
+    "redux-form": "^7.3.0",
+    "redux-thunk": "^2.2.0",
+    "slate": "^0.33.4",
+    "slate-react": "^0.12.4",
+    "styled-components": "^3.2.5"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "jest-cli": "^20.0.4",
+    "react-test-renderer": "^16.3.1"
+  },
+  "jest": {
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ]
+  }
+}
