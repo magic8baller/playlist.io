@@ -7,9 +7,11 @@ export const Wrapper = styled.div`
   margin: 2rem 5rem 0;
 `;
 
-export const TitleWrapper = styled.div`
+export const TitleWrapper = styled.a`
   display: flex;
   align-items: center;
+  text-decoration: none;
+  color: inherit;
 `;
 
 export const NavText = styled.div`

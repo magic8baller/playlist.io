@@ -7,8 +7,10 @@ class Nav extends Component {
   render() {
     return (
       <Wrapper>
-        <TitleWrapper>
-          <NavText style={nameStyle}>Playlist.io</NavText>
+        <TitleWrapper href="/">
+          <NavText href="/" style={nameStyle}>
+            Playlist.io
+          </NavText>
           <MusicIcon size={22} />
         </TitleWrapper>
         <NavText>Welcome!</NavText>
