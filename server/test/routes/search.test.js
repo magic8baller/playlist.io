@@ -24,7 +24,8 @@ const errReq = async (data, errorMsg) => {
 
 const now = () => new Date().getTime();
 
-describe('POST /api/search', () => {
+describe('POST /api/search', function() {
+  this.timeout(15000);
   let validData, invalidQuery, invalidType, unknownQuery;
 
   before(async () => {
@@ -40,7 +41,7 @@ describe('POST /api/search', () => {
     // console.log(accessToken);
 
     const accessToken =
-      'BQDC8fnodlPOMhj5mtjJ-B9dlINqV3-Zh8Vuft09Y49yAS-2NICTnhncL5ICRnW-VbQ9kUg_QbAd5aN0ZKhC7YC5CGJ8adscZK2glfXGQkXF9juYszgPjIpkTXyLhaf80i1QwUaCKPkld0E4h5PutoX-_N2-k4wibg';
+      'BQDEA1XrSODavH_liNiVwmz7tnzkohb4ydMnNc5qEG0vk9q5Wo6dDabZ7JzY8MYnz644UxeXU65CrO_y4VX35Kt36f0hrZKH5S4YfyYSsCVhp585_wtWWNw_ddIibtIGcnGq06l9TlJ8I47ZnpdcGImuRe7aM26vBQ';
 
     validData = { query: 'programming', token: accessToken };
     invalidToken = { query: 'programming', token: 'invalid' };
@@ -49,20 +50,21 @@ describe('POST /api/search', () => {
     unknownQuery = { query: 'safdsafds', token: accessToken };
   });
 
-  it('should return 50 playlists based on a search query', async () => {
+  it('should return 50 playlists based on a search query', function(done) {
+    this.timeout(15000);
+    setTimeout(done, 15000);
+
     const route = `/api/search`;
 
-    const res = await chai
+    chai
       .request(app)
       .post(route)
-      .send(validData);
-
-    expect(res).to.have.status(code.OK);
-    expect(res.body).to.have.property('playlists');
-    expect(res.body.playlists.items).to.have.length(50);
-    expect(res.body.playlists.items[0]).to.have.property('tracks');
-    expect(res.body.playlists.items[0]).to.have.property('id');
-    expect(res.body.playlists.items[0]).to.have.property('name');
+      .send(validData)
+      .then((res) => {
+        expect(res).to.have.status(code.OK);
+        expect(res.body).to.have.length(100);
+        done();
+      });
   });
 
   it('should return an error when given an invalid token', async () => {
