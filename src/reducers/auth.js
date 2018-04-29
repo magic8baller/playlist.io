@@ -10,6 +10,9 @@ export default handleActions(
       ...state,
       ...action.payload,
       isAuthenticated: true
+    }),
+    UNAUTH_USER: (state, action) => ({
+      ...initialState
     })
   },
   initialState

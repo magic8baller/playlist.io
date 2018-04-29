@@ -15,6 +15,7 @@ import {
   Settings,
   AngleWrapper
 } from './NavStyles.js';
+import { signOutUser } from '../../actions/auth';
 
 class Nav extends Component {
   renderNav = () => {
@@ -25,9 +26,9 @@ class Nav extends Component {
   renderSignedOut = () => (
     <Wrapper>
       <TitleWrapper href="/">
-        <NavText href="/" style={nameStyle}>
+        <Title href="/" style={nameStyle}>
           Playlist.io
-        </NavText>
+        </Title>
         <MusicIcon size={22} />
       </TitleWrapper>
       <NavText>Welcome!</NavText>
@@ -46,7 +47,7 @@ class Nav extends Component {
         <NavText>Now Playing</NavText>
       </TabsWrapper>
       <div>
-        <Settings>
+        <Settings onClick={() => this.props.signOutUser()}>
           <div>{this.props.auth.name}</div>
           <AngleWrapper>
             <AngleDown size={18} />
@@ -63,4 +64,4 @@ class Nav extends Component {
 
 const mapStateToProps = (state) => ({ auth: state.auth });
 
-export default connect(mapStateToProps)(Nav);
+export default connect(mapStateToProps, { signOutUser })(Nav);

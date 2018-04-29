@@ -45,6 +45,7 @@ export const Settings = styled.div`
   align-items: center;
   padding-bottom: 16px;
   color: rgba(99, 111, 123, 0.8);
+  cursor: pointer;
 `;
 
 export const nameStyle = { marginRight: '5px' };

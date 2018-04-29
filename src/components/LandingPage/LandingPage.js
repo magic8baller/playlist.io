@@ -5,6 +5,7 @@ import queryString from 'query-string';
 import { isEmpty } from 'ramda';
 
 import * as Style from './LandingPageStyles.js';
+import { withRouter } from 'react-router-dom';
 import { signInUser } from '../../actions/auth';
 
 const signInUserEndpoint = 'http://localhost:8080/api/authorize';
@@ -16,7 +17,7 @@ class LandingPage extends React.Component {
 
     if (!isEmpty(parsed)) {
       signInUser(parsed);
-      history.push('/search');
+      history.push('/');
     }
   }
 
@@ -40,4 +41,4 @@ class LandingPage extends React.Component {
   }
 }
 
-export default connect(null, { signInUser })(LandingPage);
+export default connect(null, { signInUser })(withRouter(LandingPage));
