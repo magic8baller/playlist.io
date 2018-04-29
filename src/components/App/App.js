@@ -11,10 +11,9 @@ const App = () => (
   <MuiThemeProvider>
     <Router>
       <Wrapper>
-        <Route path="/" component={Nav} />
+        <Nav />
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route exact path="/landing" component={LandingPage} />
         </Switch>
       </Wrapper>
     </Router>

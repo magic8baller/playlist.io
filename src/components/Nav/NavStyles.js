@@ -21,7 +21,8 @@ export const TitleWrapper = styled.a`
   text-decoration: none;
   color: inherit;
   margin-right: 35px;
-  padding-bottom: 16px;
+  margin-bottom: 14px;
+  margin-top: -4px;
 `;
 
 export const Title = styled.div`
@@ -34,10 +35,12 @@ export const AngleWrapper = styled.div`
   margin-left: 6px;
 `;
 
-export const NavText = styled.div`
+export const NavText = styled.a`
   margin-right: 20px;
   padding-bottom: 16px;
+  text-decoration: none;
   color: rgba(99, 111, 123, 0.8);
+  border-bottom: ${(props) => (props.isSelected ? '2px solid #1DB954' : '2px solid #fff')};
 `;
 
 export const Settings = styled.div`
