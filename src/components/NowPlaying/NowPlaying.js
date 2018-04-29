@@ -1,32 +1,43 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import map from 'lodash/map';
+import { connect } from 'react-redux';
+import { Plus, Search } from 'react-feather';
 
 import data from './data';
-import { Wrapper, Picture, Tracks, TrackWrapper, Data, ArtistName } from './NowPlayingStyles';
+import * as Style from './NowPlayingStyles';
 
 const renderTrack = ({ album: { artists, images }, name }, idx) => (
-  <TrackWrapper key={`${name}-${idx}`}>
+  <Style.TrackWrapper key={`${name}-${idx}`}>
     <div>
       <img src={images[2].url} />
     </div>
-    <Data>
+    <Style.Data>
       <div>{name}</div>
-      <ArtistName>{artists[0].name}</ArtistName>
-    </Data>
-  </TrackWrapper>
+      <Style.ArtistName>{artists[0].name}</Style.ArtistName>
+    </Style.Data>
+  </Style.TrackWrapper>
 );
 
 const NowPlaying = ({ current }) => {
-  const tracks = map(current, renderTrack);
+  const tracks = map(data, renderTrack);
 
   return (
-    <Wrapper>
-      <Picture>
-        <div>I am a picture</div>
-      </Picture>
-      <Tracks>{tracks}</Tracks>
-    </Wrapper>
+    <Style.Wrapper>
+      <Style.ActionWrapper>
+        <Plus size={20} style={Style.icon} />
+        <Style.ActionText>Save Playlist</Style.ActionText>
+      </Style.ActionWrapper>
+      <Style.ActionWrapper style={Style.search}>
+        <Search size={18} style={Style.icon} />
+        <Style.ActionText>New Search</Style.ActionText>
+      </Style.ActionWrapper>
+      <Style.ContentWrapper>
+        <Style.Picture>
+          <img src="https://source.unsplash.com/user/erondu/452x452" />
+        </Style.Picture>
+        <Style.Tracks>{tracks}</Style.Tracks>
+      </Style.ContentWrapper>
+    </Style.Wrapper>
   );
 };
 

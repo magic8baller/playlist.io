@@ -2,13 +2,34 @@ import styled from 'styled-components';
 
 export const Wrapper = styled.div`
   display: flex;
+  flex-direction: column;
+  width: 950px;
+  margin: 1rem auto 0;
+`;
+
+export const ContentWrapper = styled.div`
+  display: flex;
   align-items: center;
-  border: 2px solid red;
-  margin: 4rem auto;
+`;
+
+export const ActionWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  width: 110px;
+  color: rgba(99, 111, 123, 0.8);
+  &:hover {
+    color: inherit;
+    cursor: pointer;
+  }
+`;
+
+export const ActionText = styled.div`
+  font-size: 14px;
 `;
 
 export const Picture = styled.div`
   flex-grow: 1;
+  display: block;
 `;
 
 export const Tracks = styled.div`
@@ -22,22 +43,10 @@ export const TrackWrapper = styled.div`
   font-size: 14px;
 `;
 
-// export const TrackNumberWrapper = styled.div`
-//   height: 20px;
-//   width: 20px;
-//   border-radius: 50%;
-//   background-color: rgba(129, 236, 236, 0.1);
-//   border: 1px solid rgba(0, 184, 148, 0.3);
-//   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px;
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-// `;
-
 export const TrackNumberWrapper = styled.div``;
 
 export const Data = styled.div`
-  margin-left: 25px;
+  margin-left: 16px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -46,3 +55,11 @@ export const Data = styled.div`
 export const ArtistName = styled.div`
   opacity: 0.6;
 `;
+
+export const icon = {
+  marginRight: '6px'
+};
+
+export const search = {
+  marginTop: '14px'
+};
