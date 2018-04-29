@@ -6,16 +6,7 @@ import { withRouter } from 'react-router-dom';
 import { values, map, pipe } from 'ramda';
 
 import navOptions from './data';
-import {
-  Wrapper,
-  TabsWrapper,
-  Title,
-  TitleWrapper,
-  NavText,
-  nameStyle,
-  Settings,
-  AngleWrapper
-} from './NavStyles.js';
+import * as Style from './NavStyles.js';
 import { signOutUser } from '../../actions/auth';
 
 class Nav extends Component {
@@ -27,35 +18,35 @@ class Nav extends Component {
   };
 
   renderSignedOut = () => (
-    <Wrapper>
-      <TitleWrapper href="/">
-        <Title href="/" style={nameStyle}>
+    <Style.Wrapper>
+      <Style.TitleWrapper href="/">
+        <Style.Title href="/" style={Style.nameStyle}>
           Playlist.io
-        </Title>
+        </Style.Title>
         <MusicIcon size={22} />
-      </TitleWrapper>
-      <NavText>Welcome!</NavText>
-    </Wrapper>
+      </Style.TitleWrapper>
+      <Style.NavText>Welcome!</Style.NavText>
+    </Style.Wrapper>
   );
 
   renderSignedIn = ({ name }) => (
-    <Wrapper>
-      <TabsWrapper>
-        <TitleWrapper href="/">
-          <Title style={nameStyle}>Playlist.io</Title>
+    <Style.Wrapper>
+      <Style.TabsWrapper>
+        <Style.TitleWrapper href="/">
+          <Style.Title style={Style.nameStyle}>Playlist.io</Style.Title>
           <MusicIcon size={22} />
-        </TitleWrapper>
+        </Style.TitleWrapper>
         {this.renderNavOptions(navOptions)}
-      </TabsWrapper>
+      </Style.TabsWrapper>
       <div>
-        <Settings onClick={() => this.props.signOutUser()}>
+        <Style.Settings onClick={() => this.props.signOutUser()}>
           <div>{name}</div>
-          <AngleWrapper>
+          <Style.AngleWrapper>
             <AngleDown size={18} />
-          </AngleWrapper>
-        </Settings>
+          </Style.AngleWrapper>
+        </Style.Settings>
       </div>
-    </Wrapper>
+    </Style.Wrapper>
   );
 
   renderNavOptions = (navOptions) => pipe(values, this.mapNavOptions)(navOptions);
@@ -63,9 +54,9 @@ class Nav extends Component {
   mapNavOptions = (navOptions) => map(this.renderNavOption, navOptions);
 
   renderNavOption = ({ name, path, isSelected }) => (
-    <NavText key={`${name}${path}`} href={path} isSelected={isSelected}>
+    <Style.NavText key={`${name}-${path}`} href={path} isSelected={isSelected}>
       {name}
-    </NavText>
+    </Style.NavText>
   );
 
   render() {

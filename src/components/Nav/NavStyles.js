@@ -41,6 +41,10 @@ export const NavText = styled.a`
   text-decoration: none;
   color: ${(props) => (props.isSelected ? 'inherit' : 'rgba(99, 111, 123, 0.8)')};
   border-bottom: ${(props) => (props.isSelected ? '2px solid #1DB954' : '2px solid #fff')};
+  &:hover {
+    color: inherit;
+    cursor: pointer;
+  }
 `;
 
 export const Settings = styled.div`

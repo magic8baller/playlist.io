@@ -28,14 +28,16 @@ class LandingPage extends React.Component {
   render() {
     return (
       <Style.Wrapper>
-        <Style.CompanyName>Playlist.io</Style.CompanyName>
-        <Style.Description>
-          Automagically create Spotify playlists with a keyword search.
-        </Style.Description>
-        <Style.Btn onClick={this.handleBtnClick}>
-          <SpotifyLogo size={30} style={Style.spotifyLogo} />
-          <Style.BtnText>Log in with Spotify</Style.BtnText>
-        </Style.Btn>
+        <Style.InnerWrapper>
+          <Style.CompanyName>Playlist.io</Style.CompanyName>
+          <Style.Description>
+            Automagically create Spotify playlists with a keyword search.
+          </Style.Description>
+          <Style.Btn onClick={this.handleBtnClick}>
+            {/* <SpotifyLogo size={30} style={Style.spotifyLogo} /> */}
+            <Style.BtnText>Log in with Spotify</Style.BtnText>
+          </Style.Btn>
+        </Style.InnerWrapper>
       </Style.Wrapper>
     );
   }

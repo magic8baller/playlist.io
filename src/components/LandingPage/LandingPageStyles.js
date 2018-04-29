@@ -1,16 +1,25 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url('https://source.unsplash.com/cZWZjymwI9o/1600x900');
+  height: 80vh;
+`;
+
+export const InnerWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 6rem auto;
   align-items: center;
 `;
 
 export const CompanyName = styled.div`
   font-size: 5rem;
   font-weight: bold;
-  margin: 1rem 0;
 `;
 
 export const Description = styled.div`
@@ -23,15 +32,15 @@ export const Btn = styled.div`
   align-items: center;
   justify-content: center;
   height: 45px;
-  width: 250px;
+  width: 220px;
   border-radius: 4px;
-  background-color: rgba(129, 236, 236, 0.1);
+  background-color: #1db954;
   margin: 1rem 0;
   border: 1px solid rgba(0, 184, 148, 0.3);
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px;
-  color: #1db954;
+  color: #fff;
   &:hover {
-    background-color: rgba(58, 56, 52, 0.08);
+    opacity: 0.9;
     cursor: pointer;
     transition: background-color 100ms ease-in;
   }
