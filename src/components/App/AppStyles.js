@@ -8,7 +8,7 @@ export const AppStyles = injectGlobal`
 `;
 
 export const Wrapper = styled.div`
-  color: rgb(4, 4, 2);
+  color: rgb(66, 66, 65);
   fill: currentcolor;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, 'Apple Color Emoji', Arial,
     sans-serif, 'Segoe UI Emoji', 'Segoe UI Symbol';

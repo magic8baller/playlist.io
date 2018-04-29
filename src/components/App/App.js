@@ -10,7 +10,7 @@ const App = () => (
   <MuiThemeProvider>
     <Router>
       <Wrapper>
-        <Nav />
+        <Route path="/" component={Nav} />
         <Switch>
           <Route exact path="/" component={LandingPage} />
         </Switch>
