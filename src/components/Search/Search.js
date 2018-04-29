@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { isEmpty } from 'ramda';
 import { withRouter } from 'react-router-dom';
 
-import { Wrapper, Title, Form, Input, Btn, BtnText, SearchIcon } from './SearchStyles';
+import * as Style from './SearchStyles';
 import { fetchPlaylist } from '../../actions/search';
 
 class Search extends Component {
@@ -15,33 +15,35 @@ class Search extends Component {
   };
 
   renderSearchField = ({ input }) => (
-    <Form {...input}>
-      <SearchIcon />
-      <Input />
-      <Btn type="submit">
-        <BtnText>Search</BtnText>
-      </Btn>
-    </Form>
+    <Style.Form {...input}>
+      <Style.SearchIcon />
+      <Style.Input />
+      <Style.Btn type="submit">
+        <Style.BtnText>Search</Style.BtnText>
+      </Style.Btn>
+    </Style.Form>
   );
 
   render() {
     const { handleSubmit } = this.props;
 
     return (
-      <Wrapper>
-        <Title>
-          Enter a keyword and we'll create a playlist from the most popular Spotify songs in
-          playlists with that title
-        </Title>
-        <form onSubmit={handleSubmit(this.handleFormSubmit)}>
-          <Field
-            name="query"
-            type="text"
-            component={this.renderSearchField}
-            placeholder="Enter a keyword..."
-          />
-        </form>
-      </Wrapper>
+      <Style.Wrapper>
+        <Style.InnerWrapper>
+          <Style.Title>
+            Enter a keyword and we'll create a playlist from the most popular Spotify songs in
+            playlists with that title
+          </Style.Title>
+          <form onSubmit={handleSubmit(this.handleFormSubmit)}>
+            <Field
+              name="query"
+              type="text"
+              component={this.renderSearchField}
+              placeholder="Enter a keyword..."
+            />
+          </form>
+        </Style.InnerWrapper>
+      </Style.Wrapper>
     );
   }
 }

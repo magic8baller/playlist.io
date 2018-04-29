@@ -2,10 +2,20 @@ import styled from 'styled-components';
 import { Search } from 'react-feather';
 
 export const Wrapper = styled.div`
+  margin: 2rem auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url('https://source.unsplash.com/wejxKZ-9IZg/1500x800');
+  height: 80vh;
+`;
+
+export const InnerWrapper = styled.div`
   width: 800px;
   margin: 8rem auto;
   display: flex;
-
   flex-direction: column;
 `;
 
@@ -22,6 +32,7 @@ export const Form = styled.div`
   box-shadow: rgba(29, 29, 31, 0.15) 0 10px 60px;
   display: flex;
   align-items: center;
+  background-color: #fff;
 `;
 
 export const Input = styled.input`
@@ -39,6 +50,7 @@ export const Btn = styled.button`
   width: 90px;
   height: 45px;
   margin-right: 14px;
+  margin-left: 20px;
   border-radius: 4px;
   cursor: pointer;
   background-color: #1db954;
@@ -62,4 +74,6 @@ export const BtnText = styled.div`
 
 export const SearchIcon = styled(Search)`
   margin-left: 1rem;
+  z-index: 999;
+  color: black;
 `;
