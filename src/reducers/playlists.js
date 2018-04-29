@@ -6,7 +6,7 @@ export default handleActions(
   {
     ADD_PLAYLIST: (state, action) => ({
       ...state,
-      current: { ...action.payload }
+      current: [...action.payload]
     })
   },
   initialState

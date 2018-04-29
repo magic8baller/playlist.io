@@ -6,7 +6,7 @@ import { Plus, Search } from 'react-feather';
 import data from './data';
 import * as Style from './NowPlayingStyles';
 
-const renderTrack = ({ album: { artists, images }, name }, idx) => (
+const renderTopFiveTrack = ({ album: { artists, images }, name }, idx) => (
   <Style.TrackWrapper key={`${name}-${idx}`}>
     <div>
       <img src={images[2].url} />
@@ -19,21 +19,18 @@ const renderTrack = ({ album: { artists, images }, name }, idx) => (
 );
 
 const NowPlaying = ({ current }) => {
-  const tracks = map(data, renderTrack);
+  const topFiveTracks = current.slice(0, 5);
+  const tracks = map(topFiveTracks, renderTopFiveTrack);
 
   return (
     <Style.Wrapper>
       <Style.ActionWrapper>
         <Plus size={20} style={Style.icon} />
-        <Style.ActionText>Save Playlist</Style.ActionText>
-      </Style.ActionWrapper>
-      <Style.ActionWrapper style={Style.search}>
-        <Search size={18} style={Style.icon} />
-        <Style.ActionText>New Search</Style.ActionText>
+        <Style.ActionText>Save</Style.ActionText>
       </Style.ActionWrapper>
       <Style.ContentWrapper>
         <Style.Picture>
-          <img src="https://source.unsplash.com/user/erondu/452x452" />
+          <img src="https://source.unsplash.com/user/rawpixel/800x500/?nature" />
         </Style.Picture>
         <Style.Tracks>{tracks}</Style.Tracks>
       </Style.ContentWrapper>
