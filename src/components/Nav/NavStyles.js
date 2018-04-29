@@ -39,7 +39,7 @@ export const NavText = styled.a`
   margin-right: 20px;
   padding-bottom: 16px;
   text-decoration: none;
-  color: rgba(99, 111, 123, 0.8);
+  color: ${(props) => (props.isSelected ? 'inherit' : 'rgba(99, 111, 123, 0.8)')};
   border-bottom: ${(props) => (props.isSelected ? '2px solid #1DB954' : '2px solid #fff')};
 `;
 
