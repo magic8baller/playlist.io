@@ -31,8 +31,8 @@ class Search extends Component {
       <Style.Wrapper>
         <Style.InnerWrapper>
           <Style.Title>
-            Enter a keyword and we'll create a playlist from the most popular Spotify songs in
-            playlists with that title
+            Enter a keyword and our robots will find the most popular songs in Spotify playlists
+            with that word.
           </Style.Title>
           <form onSubmit={handleSubmit(this.handleFormSubmit)}>
             <Field

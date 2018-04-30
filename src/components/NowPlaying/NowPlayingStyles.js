@@ -52,6 +52,12 @@ export const Data = styled.div`
   justify-content: flex-start;
 `;
 
+export const TracksGridWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 export const ArtistName = styled.div`
   opacity: 0.6;
 `;

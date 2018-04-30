@@ -3,8 +3,11 @@ import map from 'lodash/map';
 import { connect } from 'react-redux';
 import { Plus, Search } from 'react-feather';
 
+import TracksGrid from '../TracksGrid/TracksGrid';
 import data from './data';
 import * as Style from './NowPlayingStyles';
+
+const randomPic = 'https://source.unsplash.com/user/tentides/452x452/?wallpaper';
 
 const renderTopFiveTrack = ({ album: { artists, images }, name }, idx) => (
   <Style.TrackWrapper key={`${name}-${idx}`}>
@@ -19,22 +22,28 @@ const renderTopFiveTrack = ({ album: { artists, images }, name }, idx) => (
 );
 
 const NowPlaying = ({ current }) => {
-  const topFiveTracks = current.slice(0, 5);
+  current = [...current]; // copy the array instead of mutating directly
+  const topFiveTracks = current.splice(0, 5);
   const tracks = map(topFiveTracks, renderTopFiveTrack);
 
   return (
-    <Style.Wrapper>
-      <Style.ActionWrapper>
-        <Plus size={20} style={Style.icon} />
-        <Style.ActionText>Save</Style.ActionText>
-      </Style.ActionWrapper>
-      <Style.ContentWrapper>
-        <Style.Picture>
-          <img src="https://source.unsplash.com/user/rawpixel/800x500/?nature" />
-        </Style.Picture>
-        <Style.Tracks>{tracks}</Style.Tracks>
-      </Style.ContentWrapper>
-    </Style.Wrapper>
+    <div>
+      <Style.Wrapper>
+        <Style.ActionWrapper>
+          <Plus size={20} style={Style.icon} />
+          <Style.ActionText>Save</Style.ActionText>
+        </Style.ActionWrapper>
+        <Style.ContentWrapper>
+          <Style.Picture>
+            <img src={randomPic} />
+          </Style.Picture>
+          <Style.Tracks>{tracks}</Style.Tracks>
+        </Style.ContentWrapper>
+      </Style.Wrapper>
+      <Style.TracksGridWrapper>
+        <TracksGrid tracks={current} />
+      </Style.TracksGridWrapper>
+    </div>
   );
 };
 
