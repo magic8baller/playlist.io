@@ -28,7 +28,7 @@ export const ActionText = styled.div`
 `;
 
 export const Picture = styled.div`
-  flex-grow: 1;
+  margin-right: 7rem;
   display: block;
 `;
 

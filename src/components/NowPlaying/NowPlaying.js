@@ -31,13 +31,16 @@ const NowPlaying = ({ current }) => {
       <Style.Wrapper>
         <Style.ActionWrapper>
           <Plus size={20} style={Style.icon} />
-          <Style.ActionText>Save</Style.ActionText>
+          <Style.ActionText>Save Playlist</Style.ActionText>
         </Style.ActionWrapper>
         <Style.ContentWrapper>
           <Style.Picture>
             <img src={randomPic} />
           </Style.Picture>
-          <Style.Tracks>{tracks}</Style.Tracks>
+          <div>
+            <span>🙌 Top 5 Songs</span>
+            <Style.Tracks>{tracks}</Style.Tracks>
+          </div>
         </Style.ContentWrapper>
       </Style.Wrapper>
       <Style.TracksGridWrapper>

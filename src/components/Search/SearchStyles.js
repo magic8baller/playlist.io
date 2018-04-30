@@ -76,4 +76,5 @@ export const SearchIcon = styled(Search)`
   margin-left: 1rem;
   z-index: 999;
   color: black;
+  margin-top: 3px;
 `;
