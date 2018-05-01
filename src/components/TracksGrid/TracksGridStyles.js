@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { GridList } from 'material-ui/GridList';
 
 export const Grid = styled.div`
   display: grid;

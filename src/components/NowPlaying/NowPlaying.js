@@ -44,7 +44,7 @@ const NowPlaying = ({ current }) => {
         </Style.ContentWrapper>
       </Style.Wrapper>
       <Style.TracksGridWrapper>
-        <TracksGrid tracks={current} />
+        <TracksGrid allTracks={current} />
       </Style.TracksGridWrapper>
     </div>
   );
