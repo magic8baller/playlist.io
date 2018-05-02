@@ -3,7 +3,6 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Home from '../Home/Home';
-import LandingPage from '../LandingPage/LandingPage';
 import Nav from '../Nav/Nav';
 import NowPlaying from '../NowPlaying/NowPlaying';
 import { Wrapper, AppStyles } from './AppStyles';

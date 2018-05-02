@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import SpotifyLogo from 'react-icons/lib/fa/spotify';
 import queryString from 'query-string';
 import { isEmpty } from 'ramda';
 

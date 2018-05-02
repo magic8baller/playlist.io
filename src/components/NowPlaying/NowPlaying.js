@@ -1,10 +1,9 @@
 import React from 'react';
 import map from 'lodash/map';
 import { connect } from 'react-redux';
-import { Plus, Search } from 'react-feather';
+import { Plus } from 'react-feather';
 
 import TracksGrid from '../TracksGrid/TracksGrid';
-import data from './data';
 import * as Style from './NowPlayingStyles';
 
 const randomPic = 'https://source.unsplash.com/user/tentides/452x452/?wallpaper';
@@ -12,7 +11,7 @@ const randomPic = 'https://source.unsplash.com/user/tentides/452x452/?wallpaper'
 const renderTopFiveTrack = ({ album: { artists, images }, name }, idx) => (
   <Style.TrackWrapper key={`${name}-${idx}`}>
     <div>
-      <img src={images[2].url} />
+      <img alt="Album" src={images[2].url} />
     </div>
     <Style.Data>
       <div>{name}</div>
@@ -35,10 +34,15 @@ const NowPlaying = ({ current }) => {
         </Style.ActionWrapper>
         <Style.ContentWrapper>
           <Style.Picture>
-            <img src={randomPic} />
+            <img alt="Random Pic" src={randomPic} />
           </Style.Picture>
           <div>
-            <span>🙌 Top 5 Songs</span>
+            <span>
+              <span role="img" aria-label="Hallelujah">
+                🙌
+              </span>{' '}
+              Top 5 Songs
+            </span>
             <Style.Tracks>{tracks}</Style.Tracks>
           </div>
         </Style.ContentWrapper>

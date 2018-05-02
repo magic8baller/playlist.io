@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
-import { isEmpty } from 'ramda';
 import { withRouter } from 'react-router-dom';
 
 import * as Style from './SearchStyles';
