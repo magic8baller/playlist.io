@@ -82,8 +82,6 @@ const signIn = async (req, res, next) => {
   });
 };
 
-let tokenExpiration;
-
 const getUser = (body, res) => {
   const accessToken = body.access_token,
     refreshToken = body.refresh_token;
@@ -108,19 +106,21 @@ const getUser = (body, res) => {
 
     const [userErr, user] = await to(User.findOne({ spotifyId }));
 
-    if (user) {
-      await User.findOneAndUpdate({ spotifyId }, { accessToken });
-      res.send(userData);
-      return;
-    }
-
     // if user exists, update their access token
     // otherwise, create a new user
     user
       ? await User.findOneAndUpdate({ spotifyId }, { accessToken })
       : await User.create(userData);
 
-    res.send(userData);
+    res.redirect(
+      'http://localhost:3000/?' +
+        queryString.stringify({
+          accessToken,
+          refreshToken,
+          spotifyId,
+          name
+        })
+    );
   });
 };
 

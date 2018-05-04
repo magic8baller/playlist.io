@@ -13,5 +13,5 @@ module.exports = (app) => {
   app.post('/api/refresh-token', UserController.refreshToken);
 
   // Playlist
-  app.post('/api/search', PlaylistController.search);
+  app.post('/api/playlist', PlaylistController.save);
 };

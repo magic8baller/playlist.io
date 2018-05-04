@@ -9,7 +9,7 @@ const code = require('./utils/statusCodes');
 const app = express();
 
 app.use(helmet());
-app.use(cors());
+// app.use(cors());
 app.use(express.json());
 
 routes(app);

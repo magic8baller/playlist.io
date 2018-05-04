@@ -2,30 +2,13 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
-const TrackSchema = new Schema({
-  spotifyId: {
-    type: Number
-  },
-  artist: {
-    type: String
-  },
-  album: {
-    name: String,
-    image: String
-  },
-  name: {
-    type: String
-  }
-});
-
 const PlaylistSchema = new Schema({
-  spotifyId: {
-    type: Number
-  },
   title: {
     type: String
   },
-  tracks: [TrackSchema]
+  tracks: {
+    type: Array
+  }
 });
 
 const UserSchema = new Schema({
