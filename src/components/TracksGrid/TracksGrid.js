@@ -1,6 +1,6 @@
 import React from 'react';
 
-import GridItems from '../GridItems/GridItems';
+import Tracks from '../Tracks/Tracks';
 import { Grid, GridWrapper, TracksGridWrapper, Text } from './TracksGridStyles';
 
 const TracksGrid = (props) => (
@@ -8,7 +8,7 @@ const TracksGrid = (props) => (
     <Text>🏅 Honorable Mentions</Text>
     <GridWrapper>
       <Grid cellHeight={180}>
-        <GridItems {...props} />
+        <Tracks {...props} />
       </Grid>
     </GridWrapper>
   </TracksGridWrapper>
