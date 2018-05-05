@@ -6,7 +6,7 @@ const initTestSetup = require('../testSetup');
 const code = require('../../utils/statusCodes');
 const app = require('../../app');
 
-// initTestSetup();
+initTestSetup();
 
 chai.use(chaiHttp);
 const expect = chai.expect;

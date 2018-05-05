@@ -11,7 +11,7 @@ chai.use(chaiHttp);
 const expect = chai.expect;
 
 describe('POST /api/playlist', () => {
-  xit('should save a playlist', async () => {
+  it('should save a playlist', async () => {
     const route = '/api/playlist';
     const data = {
       spotifyId: 123,
@@ -19,22 +19,22 @@ describe('POST /api/playlist', () => {
       tracks: [{ name: 'Heller' }, { name: 'Ayo' }]
     };
 
-    const user = new User({ spotifyId: 123, playlists: [] });
+    let user = new User({ spotifyId: 123, playlists: [] });
     await user.save();
 
-    // const oldCount = await User.find({});
-
-    // console.log(oldCount);
+    user = await User.findOne({ spotifyId: 123 });
+    const oldPlaylistCount = user.playlists.length;
 
     const res = await chai
       .request(app)
       .post(route)
       .send(data);
 
-    // const newCount = await User.count({});
+    user = await User.findOne({ spotifyId: 123 });
+    const newPlaylistCount = user.playlists.length;
 
     expect(res).to.have.status(code.OK);
-    expect(res.body).to.include(data);
-    expect(newCount).to.equal(oldCount + 1);
+    expect(res.body.success).to.be.true;
+    expect(newPlaylistCount).to.equal(oldPlaylistCount + 1);
   });
 });

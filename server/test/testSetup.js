@@ -13,11 +13,8 @@ module.exports = () => {
 
   before((done) => {
     users = mongoose.connection.collections.users;
-    users.drop().catch(() => done());
-  });
-
-  after((done) => {
-    users = mongoose.connection.collections.users;
-    users.drop().catch(() => done());
+    users.drop(() => {
+      done();
+    });
   });
 };

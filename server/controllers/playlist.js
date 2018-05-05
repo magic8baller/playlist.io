@@ -5,13 +5,12 @@ const save = async (req, res, next) => {
   const playlistId = randomId();
   const newPlaylist = { ...req.body, playlistId };
 
-  const targetUser = User.findOne({ spotifyId: req.body.spotifyId });
+  const targetUser = await User.findOne({ spotifyId: req.body.spotifyId });
 
-  console.log(targetUser.playlists);
-  // targetUser.playlists.push(newPlaylist);
-  // await targetUser.save();
+  targetUser.playlists.push(newPlaylist);
+  await targetUser.save();
 
-  // res.send(targetUser);
+  res.send({ success: true, playlistId });
 };
 
 module.exports = {
