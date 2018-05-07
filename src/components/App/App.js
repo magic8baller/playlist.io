@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Home from '../Home/Home';
 import Nav from '../Nav/Nav';
 import NowPlaying from '../NowPlaying/NowPlaying';
+import YourPlaylists from '../YourPlaylists/YourPlaylists';
 import { Wrapper, AppStyles } from './AppStyles';
 
 const App = () => (
@@ -14,7 +15,8 @@ const App = () => (
         <Nav />
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route exact path="/playing" component={NowPlaying} />
+          <Route path="/playing" component={NowPlaying} />
+          <Route path="/playlists" component={YourPlaylists} />
         </Switch>
       </Wrapper>
     </Router>

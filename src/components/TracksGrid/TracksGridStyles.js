@@ -3,34 +3,20 @@ import styled from 'styled-components';
 export const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-gap: 40px;
-  grid-auto-rows: minmax(100px, 300px);
-`;
-
-export const GridTile = styled.div`
-  position: relative;
-  display: block;
-  height: 100%;
-  overflow: hidden;
+  grid-gap: 30px;
+  grid-auto-rows: minmax(100px, 250px);
 `;
 
 export const GridWrapper = styled.div`
-  width: 1200px;
   margin: 0 auto;
 `;
 
 export const TracksGridWrapper = styled.div`
-  margin-top: 2rem;
+  width: 1200px;
+  margin: 2rem auto;
 `;
 
 export const Text = styled.div`
   font-size: 1.8rem;
   margin-bottom: 3rem;
-`;
-
-export const TrackImg = styled.img`
-  height: 100%;
-  transform: translateX(-50%);
-  position: relative;
-  left: 50%;
 `;

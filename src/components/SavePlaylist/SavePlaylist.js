@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
 import { Plus } from 'react-feather';
 import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
 import './styles.css';
 
 import { savePlaylist } from '../../actions/playlists';
@@ -39,9 +38,8 @@ class SavePlaylist extends Component {
 
     const playlistData = { spotifyId, title, tracks };
 
-    savePlaylist(playlistData, () => {
-      this.handleClose();
-    });
+    savePlaylist(playlistData);
+    this.handleClose();
   };
 
   isEnterKey = ({ key }) => key === 'Enter';
