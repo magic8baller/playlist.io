@@ -1,14 +1,20 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { ThemeProvider } from 'styled-components';
 import { Plus } from 'react-feather';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import './styles.css';
 
+import { savePlaylist } from '../../actions/playlists';
+import { getSpotifyId } from '../../reducers/auth';
+import { getCurrentTracks } from '../../reducers/playlists';
 import * as Style from './SavePlaylistStyles.js';
 
 class SavePlaylist extends Component {
   state = {
-    open: false
+    open: false,
+    title: ''
   };
 
   handleOpen = () => {
@@ -19,18 +25,46 @@ class SavePlaylist extends Component {
     this.setState({ open: false });
   };
 
-  render() {
-    const actions = [
-      <FlatButton label="Ok" primary={true} keyboardFocused={true} onClick={this.handleClose} />
-    ];
+  handleInputChange = (e) => {
+    this.setState({ title: e.target.value });
+  };
 
+  handleKeyDown = (e) => {
+    if (this.isEnterKey(e)) this.handleSubmit();
+  };
+
+  handleSubmit = () => {
+    const { spotifyId, tracks, savePlaylist } = this.props;
+    const { title } = this.state;
+
+    const playlistData = { spotifyId, title, tracks };
+
+    savePlaylist(playlistData, () => {
+      this.handleClose();
+    });
+  };
+
+  isEnterKey = ({ key }) => key === 'Enter';
+
+  renderActions = () => (
+    <ThemeProvider theme={Style.theme}>
+      <div>
+        <ThemeProvider theme={Style.invertTheme}>
+          <Style.Btn onClick={this.handleSubmit}>Submit</Style.Btn>
+        </ThemeProvider>
+        <Style.Btn onClick={this.handleClose}>Cancel</Style.Btn>
+      </div>
+    </ThemeProvider>
+  );
+
+  render() {
     return (
       <Style.Wrapper onClick={this.handleOpen}>
         <Plus size={20} style={Style.icon} />
         <Style.Text>Save Playlist</Style.Text>
         <Dialog
           title="Save Playlist"
-          actions={actions}
+          actions={this.renderActions()}
           modal={false}
           open={this.state.open}
           onRequestClose={this.handleClose}
@@ -38,7 +72,12 @@ class SavePlaylist extends Component {
           <div>
             <Style.Title>Title</Style.Title>
             <Style.InputWrapper>
-              <Style.Input className="input__save-playlist" placeholder="Enter a playlist title" />
+              <Style.Input
+                onKeyDown={this.handleKeyDown}
+                className="input__save-playlist"
+                placeholder="Enter a playlist title"
+                onChange={this.handleInputChange}
+              />
             </Style.InputWrapper>
           </div>
         </Dialog>
@@ -47,4 +86,9 @@ class SavePlaylist extends Component {
   }
 }
 
-export default SavePlaylist;
+export const mapStateToProps = (state) => ({
+  spotifyId: getSpotifyId(state),
+  tracks: getCurrentTracks(state)
+});
+
+export default connect(mapStateToProps, { savePlaylist })(SavePlaylist);

@@ -17,3 +17,5 @@ export default handleActions(
   },
   initialState
 );
+
+export const getSpotifyId = (state) => state.auth.spotifyId;

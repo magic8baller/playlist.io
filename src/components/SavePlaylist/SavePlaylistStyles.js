@@ -13,6 +13,7 @@ export const Wrapper = styled.div`
 
 export const Text = styled.div`
   font-size: 14px;
+  font-family: inherit;
 `;
 
 export const InputWrapper = styled.div`
@@ -50,6 +51,36 @@ export const Input = styled.input`
     outline: none;
   }
 `;
+
+export const Btn = styled.button`
+  color: ${(props) => props.theme.fg};
+  background: ${(props) => props.theme.bg};
+
+  border: 2px solid #1db954;
+  font-size: 1em;
+  margin: 1em;
+  margin-left: 3px;
+  padding: 0.25em 1em;
+  border-radius: 4px;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.8;
+  }
+  &:focus {
+    outline: none;
+  }
+`;
+
+export const theme = {
+  fg: '#1db954',
+  bg: 'white'
+};
+
+export const invertTheme = ({ fg, bg }) => ({
+  fg: bg,
+  bg: fg
+});
 
 export const customContentStyle = {
   width: '500px'
