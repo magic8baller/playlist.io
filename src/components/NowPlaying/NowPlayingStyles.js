@@ -12,21 +12,6 @@ export const ContentWrapper = styled.div`
   align-items: center;
 `;
 
-export const ActionWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  width: 110px;
-  color: rgba(99, 111, 123, 0.8);
-  &:hover {
-    color: inherit;
-    cursor: pointer;
-  }
-`;
-
-export const ActionText = styled.div`
-  font-size: 14px;
-`;
-
 export const Picture = styled.div`
   margin-right: 7rem;
   display: block;
@@ -61,10 +46,6 @@ export const TracksGridWrapper = styled.div`
 export const ArtistName = styled.div`
   opacity: 0.6;
 `;
-
-export const icon = {
-  marginRight: '6px'
-};
 
 export const search = {
   marginTop: '14px'

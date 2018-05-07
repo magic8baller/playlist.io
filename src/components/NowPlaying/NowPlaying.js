@@ -1,10 +1,10 @@
 import React from 'react';
 import map from 'lodash/map';
 import { connect } from 'react-redux';
-import { Plus } from 'react-feather';
 
 import TracksGrid from '../TracksGrid/TracksGrid';
 import * as Style from './NowPlayingStyles';
+import SavePlaylist from '../SavePlaylist/SavePlaylist';
 
 const randomPic = 'https://source.unsplash.com/user/tentides/452x452/?wallpaper';
 
@@ -28,10 +28,7 @@ const NowPlaying = ({ current }) => {
   return (
     <div>
       <Style.Wrapper>
-        <Style.ActionWrapper>
-          <Plus size={20} style={Style.icon} />
-          <Style.ActionText>Save Playlist</Style.ActionText>
-        </Style.ActionWrapper>
+        <SavePlaylist />
         <Style.ContentWrapper>
           <Style.Picture>
             <img alt="Random Pic" src={randomPic} />
