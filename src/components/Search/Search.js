@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
-import { Field, reduxForm } from 'redux-form';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { Field } from 'redux-form';
 
 import * as Style from './SearchStyles';
-import { fetchPlaylist } from '../../actions/search';
-import { setPath } from '../../actions/nav';
 
 class Search extends Component {
   handleFormSubmit = ({ query }) => {
@@ -54,11 +50,4 @@ class Search extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  accessToken: state.auth.accessToken,
-  playlists: state.playlists
-});
-
-export default reduxForm({
-  form: 'search'
-})(connect(mapStateToProps, { fetchPlaylist, setPath })(withRouter(Search)));
+export default Search;

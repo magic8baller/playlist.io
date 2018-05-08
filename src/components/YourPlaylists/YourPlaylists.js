@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import map from 'lodash/map';
 
 import Nav from '../Nav/Nav';
-import { setCurrentPlaylist } from '../../actions/playlists';
-import { setPath } from '../../actions/nav';
 import { GridItem } from './YourPlaylistsStyles';
 import { Grid, TracksGridWrapper, Text } from '../TracksGrid/TracksGridStyles';
 
@@ -39,10 +36,4 @@ class YourPlaylists extends Component {
   }
 }
 
-export const getPlaylists = (state) => state.playlists.saved;
-
-const mapStateToProps = (state) => ({
-  playlists: getPlaylists(state)
-});
-
-export default connect(mapStateToProps, { setCurrentPlaylist, setPath })(YourPlaylists);
+export default YourPlaylists;

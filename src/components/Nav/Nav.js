@@ -1,17 +1,11 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import MusicIcon from 'react-icons/lib/fa/music';
 import AngleDown from 'react-icons/lib/fa/angle-down';
-import { withRouter } from 'react-router-dom';
 import { values, map, curry } from 'ramda';
 import forEach from 'lodash/forEach';
 
 import * as Style from './NavStyles.js';
 import navOptions from './data';
-import { setPath } from '../../actions/nav';
-import { getAuth } from '../../reducers/auth';
-import { getPath } from '../../reducers/nav';
-import { signOutUser } from '../../actions/auth';
 
 class Nav extends Component {
   handleNavOptionClick = (path) => {
@@ -87,9 +81,4 @@ class Nav extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  auth: getAuth(state),
-  path: getPath(state)
-});
-
-export default connect(mapStateToProps, { signOutUser, setPath })(withRouter(Nav));
+export default Nav;

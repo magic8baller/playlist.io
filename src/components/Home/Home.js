@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import LandingPage from '../LandingPage/LandingPage';
-import Search from '../Search/Search';
+import LandingPageContainer from '../LandingPage/LandingPageContainer';
+import SearchContainer from '../Search/SearchContainer';
 
 class Home extends Component {
-  renderView = () => (this.props.isAuthenticated ? <Search /> : <LandingPage />);
+  renderView = () => (this.props.isAuthenticated ? <SearchContainer /> : <LandingPageContainer />);
 
   render() {
     return <div>{this.renderView()}</div>;

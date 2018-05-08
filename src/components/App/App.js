@@ -3,20 +3,20 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Home from '../Home/Home';
-import Nav from '../Nav/Nav';
+import NavContainer from '../Nav/NavContainer';
 import NowPlayingContainer from '../NowPlaying/NowPlayingContainer';
-import YourPlaylists from '../YourPlaylists/YourPlaylists';
+import YourPlaylistsContainer from '../YourPlaylists/YourPlaylistsContainer';
 import { Wrapper, AppStyles } from './AppStyles';
 
 const App = () => (
   <MuiThemeProvider>
     <Router>
       <Wrapper>
-        <Nav />
+        <NavContainer />
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/playing" component={NowPlayingContainer} />
-          <Route path="/playlists" component={YourPlaylists} />
+          <Route path="/playlists" component={YourPlaylistsContainer} />
         </Switch>
       </Wrapper>
     </Router>

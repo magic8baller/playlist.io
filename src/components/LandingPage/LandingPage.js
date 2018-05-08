@@ -1,11 +1,8 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import queryString from 'query-string';
 import { isEmpty } from 'ramda';
 
 import * as Style from './LandingPageStyles.js';
-import { withRouter } from 'react-router-dom';
-import { signInUser } from '../../actions/auth';
 
 const signInUserEndpoint = 'http://localhost:8080/api/authorize';
 
@@ -33,7 +30,6 @@ class LandingPage extends React.Component {
             Automagically create Spotify playlists with a keyword search.
           </Style.Description>
           <Style.Btn onClick={this.handleBtnClick}>
-            {/* <SpotifyLogo size={30} style={Style.spotifyLogo} /> */}
             <Style.BtnText>Log in with Spotify</Style.BtnText>
           </Style.Btn>
         </Style.InnerWrapper>
@@ -42,4 +38,4 @@ class LandingPage extends React.Component {
   }
 }
 
-export default connect(null, { signInUser })(withRouter(LandingPage));
+export default LandingPage;

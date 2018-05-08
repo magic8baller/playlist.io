@@ -20,7 +20,6 @@ const renderTopFiveTrack = ({ album: { artists, images }, name }, idx) => (
 );
 
 const NowPlaying = ({ current }) => {
-  console.log({ current });
   if (!current) return <div>Loading</div>;
 
   current = [...current]; // copy the array instead of mutating directly
