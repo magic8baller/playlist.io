@@ -11,18 +11,6 @@ initTestSetup();
 chai.use(chaiHttp);
 const expect = chai.expect;
 
-const credentials = {
-  firstName: 'Bob',
-  username: 'bob',
-  password: 'qoeru1934p'
-};
-const noUsername = { password: credentials.password };
-const noPassword = { username: credentials.username };
-const emptyPassword = { username: credentials.username, password: '' };
-const wrongUsername = { username: 'jill', password: credentials.password };
-const wrongPassword = { username: credentials.username, password: 'jlqer' };
-const seededUser = { username: 'samantha', password: '314dsfadkfeaf' };
-
 describe('GET /api/authorize', () => {
   it('should allow a user to authorize access to their Spotify account', async () => {
     const route = '/api/authorize';

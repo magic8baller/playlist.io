@@ -13,6 +13,21 @@ const save = async (req, res, next) => {
   res.send({ success: true, playlistId });
 };
 
+const fetch = async (req, res, next) => {
+  const targetUser = await User.findOne({ spotifyId: req.body.spotifyId });
+
+  if (!targetUser) {
+    const errMsg = 'Invalid Spotify ID';
+    next(errMsg);
+    return;
+  }
+
+  const { playlists } = targetUser;
+
+  res.send({ success: true, playlists });
+};
+
 module.exports = {
-  save
+  save,
+  fetch
 };

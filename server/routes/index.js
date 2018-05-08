@@ -14,4 +14,5 @@ module.exports = (app) => {
 
   // Playlist
   app.post('/api/playlist', PlaylistController.save);
+  app.post('/api/playlists', PlaylistController.fetch);
 };

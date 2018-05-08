@@ -17,8 +17,8 @@ app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 routes(app);
 
 // Custom middleware for error handling
-app.use((error, req, res, next) => {
-  res.status(code.USER_ERROR).send({ error });
+app.use((message, req, res, next) => {
+  res.status(code.USER_ERROR).send({ error: true, message });
 });
 
 module.exports = app;
