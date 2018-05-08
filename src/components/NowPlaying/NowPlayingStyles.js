@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
+  font-size: 14px;
   display: flex;
   flex-direction: column;
   width: 950px;
@@ -9,12 +10,16 @@ export const Wrapper = styled.div`
 
 export const ContentWrapper = styled.div`
   display: flex;
-  align-items: center;
+
+  margin-top: 1rem;
+  ${'' /* align-items: center; */};
 `;
 
 export const Picture = styled.div`
   margin-right: 7rem;
   display: block;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const Tracks = styled.div`
@@ -27,8 +32,6 @@ export const TrackWrapper = styled.div`
   align-items: center;
   font-size: 14px;
 `;
-
-export const TrackNumberWrapper = styled.div``;
 
 export const Data = styled.div`
   margin-left: 16px;

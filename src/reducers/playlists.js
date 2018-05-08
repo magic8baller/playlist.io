@@ -1,7 +1,7 @@
 import { handleActions } from 'redux-actions';
 import { find, propEq } from 'ramda';
 
-const initialState = { saved: [] };
+const initialState = { saved: [], current: [] };
 
 export default handleActions(
   {
@@ -26,6 +26,10 @@ export default handleActions(
         current: newCurrentPlaylist.tracks
       };
     },
+    DELETE_CURRENT_PLAYLIST: (state, action) => ({
+      ...state,
+      current: []
+    }),
     FETCH_SAVED_PLAYLISTS: (state, action) => ({
       ...state,
       saved: action.payload

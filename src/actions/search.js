@@ -29,6 +29,8 @@ export const fetchPlaylist = (token, query) => {
   };
 
   return async (dispatch) => {
+    dispatch({ type: 'DELETE_CURRENT_PLAYLIST' });
+
     const results = await axios.get(spotifySearchUrlWithQuery, config).catch((err) => {
       const errMsg = 'Token is invalid.';
       return { type: 'SEARCH_ERROR', payload: errMsg };

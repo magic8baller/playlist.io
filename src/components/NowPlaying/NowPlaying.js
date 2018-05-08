@@ -1,8 +1,9 @@
 import React from 'react';
 import map from 'lodash/map';
 
-import TracksGrid from '../TracksGrid/TracksGrid';
 import * as Style from './NowPlayingStyles';
+import NowPlayingLoader from './NowPlayingLoader';
+import TracksGrid from '../TracksGrid/TracksGrid';
 import SavePlaylistContainer from '../SavePlaylist/SavePlaylistContainer';
 
 const randomPic = 'https://source.unsplash.com/user/tentides/452x452/?wallpaper';
@@ -20,7 +21,7 @@ const renderTopFiveTrack = ({ album: { artists, images }, name }, idx) => (
 );
 
 const NowPlaying = ({ current }) => {
-  if (!current) return <div>Loading</div>;
+  if (!current.length) return <NowPlayingLoader />;
 
   current = [...current]; // copy the array instead of mutating directly
   const topFiveTracks = current.splice(0, 5);
