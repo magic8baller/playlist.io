@@ -13,3 +13,8 @@ export const savePlaylist = ({ spotifyId, title, tracks }) => (dispatch) => {
       console.log(err);
     });
 };
+
+export const setCurrentPlaylist = (playlistId, callback) => (dispatch) => {
+  dispatch({ type: 'SET_CURRENT_PLAYLIST', playlistId });
+  callback();
+};

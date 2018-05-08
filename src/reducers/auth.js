@@ -18,4 +18,6 @@ export default handleActions(
   initialState
 );
 
+export const getAuth = (state) => state.auth;
+
 export const getSpotifyId = (state) => state.auth.spotifyId;

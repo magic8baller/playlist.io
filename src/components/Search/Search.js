@@ -5,12 +5,16 @@ import { withRouter } from 'react-router-dom';
 
 import * as Style from './SearchStyles';
 import { fetchPlaylist } from '../../actions/search';
+import { setPath } from '../../actions/nav';
 
 class Search extends Component {
   handleFormSubmit = ({ query }) => {
-    const { fetchPlaylist, accessToken, history } = this.props;
+    const { fetchPlaylist, accessToken, history, setPath } = this.props;
+
     fetchPlaylist(accessToken, query);
-    history.push('/playing');
+
+    const newPath = '/playing';
+    setPath(history, newPath);
   };
 
   renderSearchField = ({ input }) => (
@@ -54,4 +58,4 @@ const mapStateToProps = (state) => ({
 
 export default reduxForm({
   form: 'search'
-})(connect(mapStateToProps, { fetchPlaylist })(withRouter(Search)));
+})(connect(mapStateToProps, { fetchPlaylist, setPath })(withRouter(Search)));

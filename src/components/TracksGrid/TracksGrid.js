@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Tracks from '../Tracks/Tracks';
-import { Grid, GridWrapper, TracksGridWrapper, Text } from './TracksGridStyles';
+import { Grid, TracksGridWrapper, Text } from './TracksGridStyles';
 
 const TracksGrid = (props) => (
   <TracksGridWrapper>

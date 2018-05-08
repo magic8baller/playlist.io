@@ -75,6 +75,7 @@ class SavePlaylist extends Component {
                 className="input__save-playlist"
                 placeholder="Enter a playlist title"
                 onChange={this.handleInputChange}
+                autoFocus={true}
               />
             </Style.InputWrapper>
           </div>

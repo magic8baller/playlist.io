@@ -3,16 +3,31 @@ import { connect } from 'react-redux';
 import MusicIcon from 'react-icons/lib/fa/music';
 import AngleDown from 'react-icons/lib/fa/angle-down';
 import { withRouter } from 'react-router-dom';
-import { values, map, pipe } from 'ramda';
+import { values, map, curry } from 'ramda';
+import forEach from 'lodash/forEach';
 
-import navOptions from './data';
 import * as Style from './NavStyles.js';
+import navOptions from './data';
+import { setPath } from '../../actions/nav';
+import { getAuth } from '../../reducers/auth';
+import { getPath } from '../../reducers/nav';
 import { signOutUser } from '../../actions/auth';
 
 class Nav extends Component {
+  handleNavOptionClick = (path) => {
+    const { setPath, history } = this.props;
+    setPath(history, path);
+  };
+
+  setIsSelected = curry((path, navOption) => {
+    navOption.isSelected = path === navOption.path;
+  });
+
   renderNav = () => {
-    const { auth, location: { pathname } } = this.props;
-    navOptions[pathname].isSelected = true; // set selected path for styling
+    const { auth, path } = this.props;
+
+    // set selected path for styling
+    forEach(navOptions, this.setIsSelected(path));
 
     return auth.isAuthenticated ? this.renderSignedIn(auth) : this.renderSignedOut();
   };
@@ -49,12 +64,13 @@ class Nav extends Component {
     </Style.Wrapper>
   );
 
-  renderNavOptions = (navOptions) => pipe(values, this.mapNavOptions)(navOptions);
-
-  mapNavOptions = (navOptions) => map(this.renderNavOption, navOptions);
+  renderNavOptions = (navOptions) => map(this.renderNavOption, values(navOptions));
 
   renderNavOption = ({ name, path, isSelected }) => (
-    <Style.NavText key={`${name}-${path}`} href={path} isSelected={isSelected}>
+    <Style.NavText
+      key={`${name}-${path}`}
+      onClick={() => this.handleNavOptionClick(path)}
+      isSelected={isSelected}>
       {name}
     </Style.NavText>
   );
@@ -64,6 +80,9 @@ class Nav extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({ auth: state.auth });
+const mapStateToProps = (state) => ({
+  auth: getAuth(state),
+  path: getPath(state)
+});
 
-export default connect(mapStateToProps, { signOutUser })(withRouter(Nav));
+export default connect(mapStateToProps, { signOutUser, setPath })(withRouter(Nav));
