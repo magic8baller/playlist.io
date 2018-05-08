@@ -12,7 +12,6 @@ export const ContentWrapper = styled.div`
   display: flex;
 
   margin-top: 1rem;
-  ${'' /* align-items: center; */};
 `;
 
 export const Picture = styled.div`
@@ -24,6 +23,10 @@ export const Picture = styled.div`
 
 export const Tracks = styled.div`
   flex-grow: 1;
+`;
+
+export const RandomPic = styled.img`
+  margin-top: 2.2rem;
 `;
 
 export const TrackWrapper = styled.div`
@@ -52,4 +55,23 @@ export const ArtistName = styled.div`
 
 export const search = {
   marginTop: '14px'
+};
+
+export const style = {
+  randomPic: {
+    width: '452px',
+    height: '452px',
+    marginTop: '-2rem'
+  },
+  headline: {
+    width: '300px'
+  },
+  tracks: {
+    marginTop: '-2.7rem',
+    marginLeft: '-1.05rem'
+  },
+  dummyRandomPic: {
+    width: '0',
+    height: '0'
+  }
 };
