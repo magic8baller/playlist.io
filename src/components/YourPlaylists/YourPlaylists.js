@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
 import map from 'lodash/map';
 
-import Nav from '../Nav/Nav';
 import { GridItem } from './YourPlaylistsStyles';
 import { Grid, TracksGridWrapper, Text } from '../TracksGrid/TracksGridStyles';
 
 const randomPicRoot = 'https://source.unsplash.com/user/tentides/452x452/weekly?wallpaper&sig=';
 
 class YourPlaylists extends Component {
+  componentDidMount() {
+    const { playlists, spotifyId, fetchSavedPlaylists } = this.props;
+
+    if (!playlists.length) fetchSavedPlaylists(spotifyId);
+  }
+
   handlePlaylistClick = (playlistId) => {
     const { setCurrentPlaylist, setPath, history } = this.props;
 

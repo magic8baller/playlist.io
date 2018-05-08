@@ -1,6 +1,8 @@
 import axios from 'axios';
 
-const savePlaylistEndpoint = 'http://localhost:8080/api/playlist';
+const API_ROOT = 'http://localhost:8080/api';
+const savePlaylistEndpoint = `${API_ROOT}/playlist`;
+const fetchSavedPlaylistsEndpoint = `${API_ROOT}/playlists`;
 
 export const savePlaylist = ({ spotifyId, title, tracks }) => (dispatch) => {
   axios
@@ -17,4 +19,15 @@ export const savePlaylist = ({ spotifyId, title, tracks }) => (dispatch) => {
 export const setCurrentPlaylist = (playlistId, callback) => (dispatch) => {
   dispatch({ type: 'SET_CURRENT_PLAYLIST', playlistId });
   callback();
+};
+
+export const fetchSavedPlaylists = (spotifyId) => (dispatch) => {
+  axios
+    .post(fetchSavedPlaylistsEndpoint, { spotifyId })
+    .then((res) => {
+      dispatch({ type: 'FETCH_SAVED_PLAYLISTS', payload: res.data.playlists });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };

@@ -25,7 +25,11 @@ export default handleActions(
         ...state,
         current: newCurrentPlaylist.tracks
       };
-    }
+    },
+    FETCH_SAVED_PLAYLISTS: (state, action) => ({
+      ...state,
+      saved: action.payload
+    })
   },
   initialState
 );

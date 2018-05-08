@@ -4,7 +4,7 @@ import NowPlaying from './NowPlaying';
 import { getCurrentTracks } from '../../reducers/playlists';
 
 const mapStateToProps = (state) => ({
-  current: state.playlists.current
+  current: getCurrentTracks(state)
 });
 
 export default connect(mapStateToProps)(NowPlaying);
