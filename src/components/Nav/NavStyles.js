@@ -23,6 +23,10 @@ export const TitleWrapper = styled.a`
   margin-right: 35px;
   margin-bottom: 14px;
   margin-top: -4px;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const Title = styled.div`

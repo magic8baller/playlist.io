@@ -19,6 +19,15 @@ class Nav extends Component {
     setPath(history, path);
   };
 
+  handleSignOutClick = () => {
+    const { history, setPath, signOutUser } = this.props;
+
+    signOutUser();
+
+    const newPath = '/';
+    setPath(history, newPath);
+  };
+
   setIsSelected = curry((path, navOption) => {
     navOption.isSelected = path === navOption.path;
   });
@@ -34,10 +43,8 @@ class Nav extends Component {
 
   renderSignedOut = () => (
     <Style.Wrapper>
-      <Style.TitleWrapper href="/">
-        <Style.Title href="/" style={Style.nameStyle}>
-          Playlist.io
-        </Style.Title>
+      <Style.TitleWrapper>
+        <Style.Title tyle={Style.nameStyle}>Playlist.io</Style.Title>
         <MusicIcon size={22} />
       </Style.TitleWrapper>
       <Style.NavText>Welcome!</Style.NavText>
@@ -47,14 +54,14 @@ class Nav extends Component {
   renderSignedIn = ({ name }) => (
     <Style.Wrapper>
       <Style.TabsWrapper>
-        <Style.TitleWrapper href="/">
+        <Style.TitleWrapper onClick={() => this.handleNavOptionClick('/')}>
           <Style.Title style={Style.nameStyle}>Playlist.io</Style.Title>
           <MusicIcon size={22} />
         </Style.TitleWrapper>
         {this.renderNavOptions(navOptions)}
       </Style.TabsWrapper>
       <div>
-        <Style.Settings onClick={() => this.props.signOutUser()}>
+        <Style.Settings onClick={this.handleSignOutClick}>
           <div>{name}</div>
           <Style.AngleWrapper>
             <AngleDown size={18} />

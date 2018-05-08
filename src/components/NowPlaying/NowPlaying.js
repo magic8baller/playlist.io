@@ -1,10 +1,9 @@
 import React from 'react';
 import map from 'lodash/map';
-import { connect } from 'react-redux';
 
 import TracksGrid from '../TracksGrid/TracksGrid';
 import * as Style from './NowPlayingStyles';
-import SavePlaylist from '../SavePlaylist/SavePlaylist';
+import SavePlaylistContainer from '../SavePlaylist/SavePlaylistContainer';
 
 const randomPic = 'https://source.unsplash.com/user/tentides/452x452/?wallpaper';
 
@@ -21,6 +20,9 @@ const renderTopFiveTrack = ({ album: { artists, images }, name }, idx) => (
 );
 
 const NowPlaying = ({ current }) => {
+  console.log({ current });
+  if (!current) return <div>Loading</div>;
+
   current = [...current]; // copy the array instead of mutating directly
   const topFiveTracks = current.splice(0, 5);
   const tracks = map(topFiveTracks, renderTopFiveTrack);
@@ -28,7 +30,7 @@ const NowPlaying = ({ current }) => {
   return (
     <div>
       <Style.Wrapper>
-        <SavePlaylist />
+        <SavePlaylistContainer />
         <Style.ContentWrapper>
           <Style.Picture>
             <img alt="Random Pic" src={randomPic} />
@@ -51,8 +53,4 @@ const NowPlaying = ({ current }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  current: state.playlists.current
-});
-
-export default connect(mapStateToProps)(NowPlaying);
+export default NowPlaying;

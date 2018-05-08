@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
 import { Plus } from 'react-feather';
 import Dialog from 'material-ui/Dialog';
 import './styles.css';
 
-import { savePlaylist } from '../../actions/playlists';
-import { getSpotifyId } from '../../reducers/auth';
-import { getCurrentTracks } from '../../reducers/playlists';
 import * as Style from './SavePlaylistStyles.js';
 
 class SavePlaylist extends Component {
@@ -85,9 +81,4 @@ class SavePlaylist extends Component {
   }
 }
 
-export const mapStateToProps = (state) => ({
-  spotifyId: getSpotifyId(state),
-  tracks: getCurrentTracks(state)
-});
-
-export default connect(mapStateToProps, { savePlaylist })(SavePlaylist);
+export default SavePlaylist;
