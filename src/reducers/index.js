@@ -14,4 +14,13 @@ const appReducer = combineReducers({
   errors: errorsReducer
 });
 
-export default appReducer;
+// clear state on sign out
+const rootReducer = (state, action) => {
+  if (action.type === 'SIGN_OUT_USER') {
+    state = undefined;
+  }
+
+  return appReducer(state, action);
+};
+
+export default rootReducer;
