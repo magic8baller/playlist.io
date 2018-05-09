@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import map from 'lodash/map';
+import { isEmpty } from 'ramda';
 
 import * as Style from './NowPlayingStyles';
 import * as Placeholder from './LoaderPlaceholders';
@@ -8,6 +9,8 @@ import TracksGrid from '../TracksGrid/TracksGrid';
 import SavePlaylistContainer from '../SavePlaylist/SavePlaylistContainer';
 
 const randomPicEndpoint = 'https://source.unsplash.com/user/tentides/452x452/?wallpaper';
+
+const isNotLoaded = (current, loaded) => isEmpty(current) || !loaded;
 
 class NowPlaying extends React.Component {
   state = {
@@ -34,12 +37,12 @@ class NowPlaying extends React.Component {
     const { current } = this.props;
     const { loaded } = this.state;
 
-    if (!current.length || !loaded)
+    if (isNotLoaded(current, loaded))
       return <NowPlayingLoader handleLoadedPic={this.handleLoadedPic} />;
 
     const currentCopy = [...current]; // copy the array instead of mutating directly
-
     const topFiveTracks = currentCopy.splice(0, 5);
+
     const tracks = map(topFiveTracks, this.renderTopFiveTrack);
 
     return (

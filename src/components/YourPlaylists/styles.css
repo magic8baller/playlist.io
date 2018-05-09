@@ -1,0 +1,7 @@
+.grid__show {
+  display: block;
+}
+
+.grid__hide {
+  display: none;
+}

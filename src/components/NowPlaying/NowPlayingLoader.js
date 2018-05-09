@@ -19,6 +19,7 @@ const renderTopFiveTrackPlaceholder = () => {
 
 const NowPlayingLoader = ({ handleLoadedPic }) => {
   const tracks = renderTopFiveTrackPlaceholder();
+
   return (
     <div>
       <Style.Wrapper>
