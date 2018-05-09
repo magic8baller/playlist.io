@@ -1,13 +1,12 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-  margin: 0 auto;
+  margin: 2rem auto;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #fff;
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url('https://source.unsplash.com/cZWZjymwI9o/1600x900');
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
   height: 80vh;
 `;
 

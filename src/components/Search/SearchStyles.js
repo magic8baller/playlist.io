@@ -2,14 +2,13 @@ import styled from 'styled-components';
 import { Search } from 'react-feather';
 
 export const Wrapper = styled.div`
-  margin: 2rem auto;
+  margin: 2.5rem auto;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #fff;
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url('https://source.unsplash.com/wejxKZ-9IZg/1500x800');
   height: 80vh;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
 `;
 
 export const InnerWrapper = styled.div`
