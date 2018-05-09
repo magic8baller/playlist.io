@@ -29,10 +29,10 @@ class SavePlaylist extends Component {
   };
 
   handleSubmit = () => {
-    const { spotifyId, tracks, savePlaylist } = this.props;
+    const { spotifyId, tracks, savePlaylist, accessToken } = this.props;
     const { title } = this.state;
 
-    const playlistData = { spotifyId, title, tracks };
+    const playlistData = { spotifyId, title, tracks, accessToken };
 
     savePlaylist(playlistData);
     this.handleClose();

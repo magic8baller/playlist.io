@@ -9,14 +9,10 @@ export default handleActions(
       ...state,
       current: [...action.payload]
     }),
-    SAVE_PLAYLIST: (state, { payload: { playlistId, title, tracks } }) => {
-      const newPlaylist = { playlistId, title, tracks };
-
-      return {
-        ...state,
-        saved: [...state.saved, newPlaylist]
-      };
-    },
+    SAVE_PLAYLIST: (state, action) => ({
+      ...state,
+      saved: [...state.saved, action.payload]
+    }),
     SET_CURRENT_PLAYLIST: (state, action) => {
       const { playlistId } = action;
       const newCurrentPlaylist = find(propEq('playlistId', playlistId), state.saved);

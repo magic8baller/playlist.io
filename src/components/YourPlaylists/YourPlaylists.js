@@ -85,12 +85,12 @@ class YourPlaylists extends Component {
             {renderedPlaylists}
           </div>
         </TracksGridWrapper>
-        <div style={styles.placeholderWrapper}>
-          {!loaded && <Headline />}
-          <div style={styles.gridItemPlaceholder}>
-            {!loaded && this.renderGridItemPlaceholder()}
+        {!loaded && (
+          <div style={styles.placeholderWrapper}>
+            <Headline />
+            <div style={styles.gridItemPlaceholder}>{this.renderGridItemPlaceholder()}</div>
           </div>
-        </div>
+        )}
       </div>
     );
   }
