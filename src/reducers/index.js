@@ -5,13 +5,15 @@ import authReducer from './auth';
 import playlistsReducer from './playlists';
 import navReducer from './nav';
 import errorsReducer from './errors';
+import eventsReducer from './events';
 
 const appReducer = combineReducers({
   form: formReducer,
   auth: authReducer,
   playlists: playlistsReducer,
   nav: navReducer,
-  errors: errorsReducer
+  errors: errorsReducer,
+  events: eventsReducer
 });
 
 // clear state on sign out

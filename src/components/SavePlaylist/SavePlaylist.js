@@ -29,10 +29,10 @@ class SavePlaylist extends Component {
   };
 
   handleSubmit = () => {
-    const { spotifyId, tracks, savePlaylist } = this.props;
+    const { spotifyId, tracks, savePlaylist, accessToken } = this.props;
     const { title } = this.state;
 
-    const playlistData = { spotifyId, title, tracks };
+    const playlistData = { spotifyId, title, tracks, accessToken };
 
     savePlaylist(playlistData);
     this.handleClose();
@@ -55,7 +55,7 @@ class SavePlaylist extends Component {
     return (
       <Style.Wrapper onClick={this.handleOpen}>
         <Plus size={20} style={Style.icon} />
-        <Style.Text>Save Playlist</Style.Text>
+        <Style.Text>Save to Spotify</Style.Text>
         <Dialog
           title="Save Playlist"
           actions={this.renderActions()}
