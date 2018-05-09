@@ -55,7 +55,7 @@ class SavePlaylist extends Component {
     return (
       <Style.Wrapper onClick={this.handleOpen}>
         <Plus size={20} style={Style.icon} />
-        <Style.Text>Save Playlist</Style.Text>
+        <Style.Text>Save to Spotify</Style.Text>
         <Dialog
           title="Save Playlist"
           actions={this.renderActions()}

@@ -4,6 +4,7 @@ import { isEmpty } from 'ramda';
 
 import * as Style from './NowPlayingStyles';
 import * as Placeholder from './LoaderPlaceholders';
+import SaveAnimationContainer from '../SaveAnimation/SaveAnimationContainer';
 import NowPlayingLoader from './NowPlayingLoader';
 import TracksGrid from '../TracksGrid/TracksGrid';
 import SavePlaylistContainer from '../SavePlaylist/SavePlaylistContainer';
@@ -49,6 +50,7 @@ class NowPlaying extends React.Component {
       <div>
         <Style.Wrapper>
           <Style.ContentWrapper>
+            <SaveAnimationContainer />
             <Style.Picture>
               <SavePlaylistContainer />
               <Style.RandomPic alt="Random Pic" src={randomPicEndpoint} />
@@ -65,7 +67,7 @@ class NowPlaying extends React.Component {
           </Style.ContentWrapper>
         </Style.Wrapper>
         <Style.TracksGridWrapper>
-          <TracksGrid allTracks={current} />
+          <TracksGrid allTracks={currentCopy} />
         </Style.TracksGridWrapper>
       </div>
     );

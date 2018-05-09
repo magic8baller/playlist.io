@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const API_ROOT = 'http://localhost:8080/api';
+
 const savePlaylistEndpoint = `${API_ROOT}/playlist`;
 const fetchSavedPlaylistsEndpoint = `${API_ROOT}/playlists`;
 
@@ -11,6 +12,10 @@ export const savePlaylist = (data) => (dispatch) => {
       const { playlistId } = res.data;
       const { title, tracks } = data;
 
+<<<<<<< HEAD
+=======
+      dispatch({ type: 'TOGGLE_SAVE_ANIMATION' });
+>>>>>>> dev/playlist
       dispatch({ type: 'SAVE_PLAYLIST', payload: { playlistId, title, tracks } });
     })
     .catch((err) => {
