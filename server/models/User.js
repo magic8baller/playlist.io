@@ -3,9 +3,6 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const PlaylistSchema = new Schema({
-  playlistId: {
-    type: String
-  },
   title: {
     type: String
   },

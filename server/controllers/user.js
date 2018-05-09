@@ -6,7 +6,6 @@ const isNil = require('ramda/src/isNil');
 
 const User = require('../models/User');
 const code = require('../utils/statusCodes');
-const createToken = require('../utils/createToken');
 const keys = require('../config/keys');
 const to = require('../utils/to');
 
@@ -40,7 +39,7 @@ const authorize = async (req, res, next) => {
 
   const params = {
     response_type: 'code',
-    scope: 'user-read-private user-read-email',
+    scope: 'user-read-private user-read-email playlist-modify-public playlist-modify-private',
     client_id: keys.spotifyClientId,
     redirect_uri: redirectUri,
     state
