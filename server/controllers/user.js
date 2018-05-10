@@ -39,7 +39,8 @@ const authorize = async (req, res, next) => {
 
   const params = {
     response_type: 'code',
-    scope: 'user-read-private user-read-email playlist-modify-public playlist-modify-private',
+    scope:
+      'user-read-private user-read-email playlist-modify-public playlist-modify-private streaming user-read-birthdate user-read-email user-read-private',
     client_id: keys.spotifyClientId,
     redirect_uri: redirectUri,
     state

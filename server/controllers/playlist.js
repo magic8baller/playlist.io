@@ -42,7 +42,9 @@ const saveToSpotify = (req) => {
       json: true
     };
 
-    request.post(addTracksOptns);
+    request.post(addTracksOptns, (err, response, body) => {
+      console.log({ err, body });
+    });
   });
 };
 
