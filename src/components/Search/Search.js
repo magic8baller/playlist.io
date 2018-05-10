@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Field } from 'redux-form';
 
 import * as Style from './SearchStyles';
+import media from '../../utils/mediaTemplate';
 import { HomeBackgroundPlaceholder } from '../Home/HomePlaceholder';
 import { HomePlaceholderWrapper, BackgroundImg } from '../Home/HomeStyles';
 import '../Home/styles.css';
@@ -31,7 +32,7 @@ class Search extends Component {
       <Style.SearchIcon />
       <Style.Input
         autoFocus={true}
-        placeholder="Ex: &quot;programming&quot;, &quot;workout&quot;, etc."
+        placeholder={!media.phone && 'Ex: &quot;programming&quot;, &quot;workout&quot;, etc.'}
       />
       <Style.Btn type="submit">
         <Style.BtnText>Search</Style.BtnText>

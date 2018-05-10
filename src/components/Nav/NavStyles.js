@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import media from '../../utils/mediaTemplate';
 
 export const Wrapper = styled.div`
   display: flex;
@@ -8,11 +9,15 @@ export const Wrapper = styled.div`
   border-bottom: 1px solid #ecf0f1;
   font-size: 14px;
   padding: 0 1rem;
+
+  ${media.phone`margin: 1.5rem 0`};
 `;
 
 export const TabsWrapper = styled.div`
   display: flex;
   align-items: center;
+
+  ${media.phone`flex-direction: column`};
 `;
 
 export const TitleWrapper = styled.a`
@@ -45,10 +50,14 @@ export const NavText = styled.a`
   text-decoration: none;
   color: ${(props) => (props.isSelected ? 'inherit' : 'rgba(99, 111, 123, 0.8)')};
   border-bottom: ${(props) => (props.isSelected ? '2px solid #1DB954' : '2px solid #fff')};
+
   &:hover {
     color: inherit;
     cursor: pointer;
   }
+
+  ${media.phone`display: none`};
+  ${media.phone`border-bottom: #fff`};
 `;
 
 export const Settings = styled.div`
