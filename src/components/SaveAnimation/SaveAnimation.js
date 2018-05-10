@@ -7,7 +7,9 @@ class SaveAnimation extends Component {
     open: false
   };
 
-  componentDidMount() {
+  componentDidUpdate(prevProps) {
+    if (prevProps === this.props) return;
+
     const { isSaved, setTimeout, toggleIsSaved } = this.props;
 
     if (!isSaved) {
@@ -16,7 +18,7 @@ class SaveAnimation extends Component {
     }
 
     this.handleOpen();
-    setTimeout(toggleIsSaved, 2000); // === 2 seconds
+    setTimeout(toggleIsSaved, 4000); // === 2 seconds
   }
 
   handleOpen = () => {
