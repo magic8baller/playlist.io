@@ -12,4 +12,4 @@ export default handleActions(
   initialState
 );
 
-export const getDeviceId = (state) => state.playlists.current;
+export const getDeviceId = (state) => state.player.deviceId;

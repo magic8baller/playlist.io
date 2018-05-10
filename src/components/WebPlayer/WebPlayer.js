@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
-
+import Devices from 'react-icons/lib/md/devices';
 import { forEach } from 'ramda';
+import { Play, SkipForward, Volume1 } from 'react-feather';
+
+import * as Style from './WebPlayerStyles';
 
 const songUri = 'spotify:track:7iDa6hUg2VgEL1o1HjmfBn';
 
 class WebPlayer extends Component {
   componentDidMount() {
-    this.checkPlayerInterval = setInterval(() => this.checkPlayer(), 1000); // === 1 second
+    this.checkPlayerInterval = setInterval(() => this.checkPlayer(), 100); // === 0.1 seconds
   }
 
   checkPlayer = () => {
@@ -37,7 +40,7 @@ class WebPlayer extends Component {
     this.player.on('ready', (data) => {
       const { setDeviceId } = this.props;
       const deviceId = data.device_id;
-
+      console.log({ deviceId });
       setDeviceId(deviceId);
     });
   };
@@ -67,7 +70,22 @@ class WebPlayer extends Component {
   };
 
   render() {
-    return <div>WebPlayer!</div>;
+    return (
+      <Style.Wrapper>
+        <Style.Placeholder>Placeholder Boobap</Style.Placeholder>
+        <Style.Controls>
+          <Volume1 size={18} style={Style.secondaryControl} />
+          <Play size={30} style={Style.play} />
+          <SkipForward size={18} style={Style.secondaryControl} />
+        </Style.Controls>
+        <Style.DeviceWrapper>
+          <Style.DeviceText>Playlist.io Web Player</Style.DeviceText>
+          <div>
+            <Devices color="rgba(99, 111, 123, 0.8)" size={26} />
+          </div>
+        </Style.DeviceWrapper>
+      </Style.Wrapper>
+    );
   }
 }
 

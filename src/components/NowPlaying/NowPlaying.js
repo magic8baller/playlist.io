@@ -14,6 +14,8 @@ const randomPicEndpoint = 'https://source.unsplash.com/user/tentides/452x452/?wa
 
 const isNotLoaded = (current, loaded) => isEmpty(current) || !loaded;
 
+const getUri = ({ uri }) => uri;
+
 class NowPlaying extends React.Component {
   state = {
     loaded: false
@@ -23,8 +25,24 @@ class NowPlaying extends React.Component {
     this.setState({ loaded: true });
   };
 
+  playTrack = async (idx) => {
+    const { deviceId, accessToken, current } = this.props;
+
+    const nextTwoTracks = current.slice(idx, idx + 3);
+    const uris = map(nextTwoTracks, getUri);
+
+    await fetch(`https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`, {
+      method: 'PUT',
+      body: JSON.stringify({ uris }),
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${accessToken}`
+      }
+    });
+  };
+
   renderTopFiveTrack = ({ album: { artists, images }, name }, idx) => (
-    <Style.TrackWrapper key={`${name}-${idx}`}>
+    <Style.TrackWrapper onClick={() => this.playTrack(idx)} key={`${name}-${idx}`}>
       <div>
         <img alt="Album" src={images[2].url} />
       </div>
