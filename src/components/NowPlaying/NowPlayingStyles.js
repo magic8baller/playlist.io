@@ -10,7 +10,6 @@ export const Wrapper = styled.div`
 
 export const ContentWrapper = styled.div`
   display: flex;
-
   margin-top: 1rem;
 `;
 

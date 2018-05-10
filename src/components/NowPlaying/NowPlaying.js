@@ -51,10 +51,12 @@ class NowPlaying extends React.Component {
         <Style.Wrapper>
           <Style.ContentWrapper>
             <SaveAnimationContainer />
-            <Style.Picture>
-              <SavePlaylistContainer />
-              <Style.RandomPic alt="Random Pic" src={randomPicEndpoint} />
-            </Style.Picture>
+            <div>
+              <Style.Picture>
+                <SavePlaylistContainer />
+                <Style.RandomPic alt="Random Pic" src={randomPicEndpoint} />
+              </Style.Picture>
+            </div>
             <div>
               <span>
                 <span role="img" aria-label="Hallelujah">
