@@ -13,14 +13,14 @@ class SaveAnimation extends Component {
     if (prevProps === this.props) return;
 
     const { isSaved, setTimeout, toggleIsSaved } = this.props;
-    console.log({ isSaved });
+
     if (!isSaved) {
       this.handleClose();
       return;
     }
 
     this.handleOpen();
-    setTimeout(toggleIsSaved, 1000); // === 2 seconds
+    setTimeout(toggleIsSaved, 1000); // === 1 second
   }
 
   handleOpen = () => {

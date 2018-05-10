@@ -4,6 +4,7 @@ import { isEmpty } from 'ramda';
 
 import * as Style from './NowPlayingStyles';
 import * as Placeholder from './LoaderPlaceholders';
+import WebPlayerContainer from '../WebPlayer/WebPlayerContainer';
 import SaveAnimationContainer from '../SaveAnimation/SaveAnimationContainer';
 import NowPlayingLoader from './NowPlayingLoader';
 import TracksGrid from '../TracksGrid/TracksGrid';
@@ -71,6 +72,7 @@ class NowPlaying extends React.Component {
         <Style.TracksGridWrapper>
           <TracksGrid allTracks={currentCopy} />
         </Style.TracksGridWrapper>
+        <WebPlayerContainer />
       </div>
     );
   }
