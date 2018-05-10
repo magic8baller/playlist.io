@@ -6,6 +6,7 @@ import playlistsReducer from './playlists';
 import navReducer from './nav';
 import errorsReducer from './errors';
 import eventsReducer from './events';
+import playerReducer from './player';
 
 const appReducer = combineReducers({
   form: formReducer,
@@ -13,7 +14,8 @@ const appReducer = combineReducers({
   playlists: playlistsReducer,
   nav: navReducer,
   errors: errorsReducer,
-  events: eventsReducer
+  events: eventsReducer,
+  player: playerReducer
 });
 
 // clear state on sign out
