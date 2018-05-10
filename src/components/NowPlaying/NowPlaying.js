@@ -88,7 +88,7 @@ class NowPlaying extends React.Component {
           </Style.ContentWrapper>
         </Style.Wrapper>
         <Style.TracksGridWrapper>
-          <TracksGrid allTracks={currentCopy} />
+          <TracksGrid playTrack={this.playTrack} allTracks={currentCopy} />
         </Style.TracksGridWrapper>
         <WebPlayerContainer />
       </div>

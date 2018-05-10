@@ -33,6 +33,9 @@ export const TrackWrapper = styled.div`
   display: flex;
   align-items: center;
   font-size: 14px;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const Data = styled.div`

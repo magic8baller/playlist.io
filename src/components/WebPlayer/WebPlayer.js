@@ -69,13 +69,18 @@ class WebPlayer extends Component {
     });
   };
 
+  togglePlay = async () => {
+    await this.player.togglePlay();
+    console.log('playing!');
+  };
+
   render() {
     return (
       <Style.Wrapper>
         <Style.Placeholder>Placeholder Boobap</Style.Placeholder>
         <Style.Controls>
           <Volume1 size={18} style={Style.secondaryControl} />
-          <Play size={30} style={Style.play} />
+          <Play onClick={this.togglePlay} size={30} style={Style.play} />
           <SkipForward size={18} style={Style.secondaryControl} />
         </Style.Controls>
         <Style.DeviceWrapper>
