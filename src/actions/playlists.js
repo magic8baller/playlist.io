@@ -1,4 +1,7 @@
 import axios from 'axios';
+import { createAction } from 'redux-actions';
+
+import delayedAnimation from '../utils/delayedAnimation';
 
 const API_ROOT = 'http://localhost:8080/api';
 
@@ -6,13 +9,14 @@ const savePlaylistEndpoint = `${API_ROOT}/playlist`;
 const fetchSavedPlaylistsEndpoint = `${API_ROOT}/playlists`;
 
 export const savePlaylist = (data) => (dispatch) => {
+  delayedAnimation(dispatch);
+
   axios
     .post(savePlaylistEndpoint, { ...data })
     .then((res) => {
       const { playlistId } = res.data;
       const { title, tracks } = data;
 
-      dispatch({ type: 'TOGGLE_SAVE_ANIMATION' });
       dispatch({ type: 'SAVE_PLAYLIST', payload: { playlistId, title, tracks } });
     })
     .catch((err) => {
