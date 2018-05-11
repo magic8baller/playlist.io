@@ -1,13 +1,26 @@
 import React, { Component } from 'react';
 import Devices from 'react-icons/lib/md/devices';
 import { forEach } from 'ramda';
-import { Play, SkipForward, Volume1 } from 'react-feather';
 
+import Icon from './icons';
 import * as Style from './WebPlayerStyles';
+import './styles.css';
 
 const songUri = 'spotify:track:7iDa6hUg2VgEL1o1HjmfBn';
 
 class WebPlayer extends Component {
+  state = {
+    isHovered: false
+  };
+
+  handleMouseEnter = () => {
+    this.setState({ isHovered: true });
+  };
+
+  handleMouseLeave = () => {
+    this.setState({ isHovered: false });
+  };
+
   componentDidMount() {
     this.checkPlayerInterval = setInterval(() => this.checkPlayer(), 100); // === 0.1 seconds
   }
@@ -33,14 +46,14 @@ class WebPlayer extends Component {
   };
 
   createEventHandlers = () => {
-    const eventNames = ['player_state_changed'];
-
-    forEach(this.eventHandler, eventNames);
+    this.player.on('player_state_changed', (data) => {
+      console.log(data);
+    });
 
     this.player.on('ready', (data) => {
       const { setDeviceId } = this.props;
       const deviceId = data.device_id;
-      console.log({ deviceId });
+
       setDeviceId(deviceId);
     });
   };
@@ -70,23 +83,48 @@ class WebPlayer extends Component {
   };
 
   togglePlay = async () => {
+    const { toggleIsPlaying } = this.props;
+
     await this.player.togglePlay();
-    console.log('playing!');
+    await toggleIsPlaying();
   };
 
+  renderSecondaryControl = (Control) => (
+    <Control
+      className="web-player-control__hovered"
+      onMouseEnter={this.handleMouseEnter}
+      onMouseLeave={this.handleMouseLeave}
+      size={18}
+      style={Style.secondaryControl}
+    />
+  );
+
+  renderMainControl = (Control) => (
+    <Control
+      className="web-player-control__hovered"
+      onMouseEnter={this.handleMouseEnter}
+      onMouseLeave={this.handleMouseLeave}
+      onClick={this.togglePlay}
+      size={30}
+      style={Style.play}
+    />
+  );
+
   render() {
+    const { isPlaying, isHovered } = this.props;
+
     return (
       <Style.Wrapper>
         <Style.Placeholder>Placeholder Boobap</Style.Placeholder>
         <Style.Controls>
-          <Volume1 size={18} style={Style.secondaryControl} />
-          <Play onClick={this.togglePlay} size={30} style={Style.play} />
-          <SkipForward size={18} style={Style.secondaryControl} />
+          {this.renderSecondaryControl(Icon.Volume)}
+          {isPlaying ? this.renderMainControl(Icon.Play) : this.renderMainControl(Icon.Pause)}
+          {this.renderSecondaryControl(Icon.SkipForward)}
         </Style.Controls>
         <Style.DeviceWrapper>
           <Style.DeviceText>Playlist.io Web Player</Style.DeviceText>
           <div>
-            <Devices color="rgba(99, 111, 123, 0.8)" size={26} />
+            <Devices style={Style.devices} size={26} />
           </div>
         </Style.DeviceWrapper>
       </Style.Wrapper>

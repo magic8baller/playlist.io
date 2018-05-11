@@ -44,3 +44,7 @@ export const play = {
 export const secondaryControl = {
   fill: 'rgb(66,66,65)'
 };
+
+export const devices = {
+  color: 'rgba(99, 111, 123, 0.8)'
+};

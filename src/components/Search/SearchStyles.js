@@ -27,7 +27,7 @@ export const InnerWrapper = styled.div`
 export const Title = styled.div`
   font-size: 1.8rem;
   width: 650px;
-  margin-bottom: 3rem;
+  margin-bottom: 1rem;
 
   ${media.phone`margin-bottom: 1rem`};
   ${media.phone`font-size: 16px`};
