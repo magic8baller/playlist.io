@@ -21,19 +21,40 @@ export const Placeholder = styled.div`
 export const DeviceWrapper = styled.div`
   display: flex;
   align-items: center;
+  width: 33.3%;
+  justify-content: flex-end;
 `;
 
 export const Controls = styled.div`
   display: flex;
-  flex: 1;
   justify-content: center;
   align-items: center;
+  align-self: center;
+  width: 33.3%;
 `;
 
 export const DeviceText = styled.div`
   color: rgba(99, 111, 123, 0.8);
   font-size: 14px;
   margin-right: 0.6rem;
+`;
+
+export const TrackWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  width: 33.3%;
+`;
+
+export const TrackInfoWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  margin-left: 0.5rem;
+`;
+
+export const TrackName = styled.div``;
+export const ArtistName = styled.div`
+  color: rgba(99, 111, 123, 0.8);
 `;
 
 export const play = {

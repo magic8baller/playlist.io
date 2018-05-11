@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import map from 'lodash/map';
-import { isEmpty } from 'ramda';
 
 import * as Style from './NowPlayingStyles';
 import * as Placeholder from './LoaderPlaceholders';
@@ -9,12 +8,7 @@ import SaveAnimationContainer from '../SaveAnimation/SaveAnimationContainer';
 import NowPlayingLoader from './NowPlayingLoader';
 import TracksGrid from '../TracksGrid/TracksGrid';
 import SavePlaylistContainer from '../SavePlaylist/SavePlaylistContainer';
-
-const randomPicEndpoint = 'https://source.unsplash.com/user/tentides/452x452/?wallpaper';
-
-const isNotLoaded = (current, loaded) => isEmpty(current) || !loaded;
-
-const getUri = ({ uri }) => uri;
+import { randomPicEndpoint, isNotLoaded, playTrackReq, playTrackEndpoint, getUri } from './helpers';
 
 class NowPlaying extends React.Component {
   state = {
@@ -26,19 +20,26 @@ class NowPlaying extends React.Component {
   };
 
   playTrack = async (idx) => {
-    const { deviceId, accessToken, current } = this.props;
+    const {
+      deviceId,
+      accessToken,
+      currentPlaylist,
+      setIsPlaying,
+      setIsActivated,
+      setCurrentTrack,
+      setCurrentIdx
+    } = this.props;
 
-    const nextTwoTracks = current.slice(idx, idx + 3);
+    const currentTrack = currentPlaylist[idx];
+    const nextTwoTracks = currentPlaylist.slice(idx, idx + 3);
     const uris = map(nextTwoTracks, getUri);
 
-    await fetch(`https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`, {
-      method: 'PUT',
-      body: JSON.stringify({ uris }),
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${accessToken}`
-      }
-    });
+    await fetch(playTrackEndpoint(deviceId), playTrackReq(uris, accessToken));
+
+    setCurrentIdx(idx);
+    setCurrentTrack(currentTrack);
+    setIsPlaying();
+    setIsActivated();
   };
 
   renderTopFiveTrack = ({ album: { artists, images }, name }, idx) => (
@@ -54,14 +55,14 @@ class NowPlaying extends React.Component {
   );
 
   render() {
-    const { current } = this.props;
+    const { currentPlaylist } = this.props;
     const { loaded } = this.state;
 
-    if (isNotLoaded(current, loaded))
+    if (isNotLoaded(currentPlaylist, loaded))
       return <NowPlayingLoader handleLoadedPic={this.handleLoadedPic} />;
 
-    const currentCopy = [...current]; // copy the array instead of mutating directly
-    const topFiveTracks = currentCopy.splice(0, 5);
+    const currentPlaylistCopy = [...currentPlaylist]; // copy the array instead of mutating directly
+    const topFiveTracks = currentPlaylistCopy.splice(0, 5);
 
     const tracks = map(topFiveTracks, this.renderTopFiveTrack);
 
@@ -88,9 +89,9 @@ class NowPlaying extends React.Component {
           </Style.ContentWrapper>
         </Style.Wrapper>
         <Style.TracksGridWrapper>
-          <TracksGrid playTrack={this.playTrack} allTracks={currentCopy} />
+          <TracksGrid playTrack={this.playTrack} allTracks={currentPlaylistCopy} />
         </Style.TracksGridWrapper>
-        <WebPlayerContainer />
+        <WebPlayerContainer playTrack={this.playTrack} />
       </div>
     );
   }

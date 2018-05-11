@@ -11,11 +11,23 @@ export default handleActions(
       ...state,
       deviceId: action.payload
     }),
-    SET_IS_ACTIVATED: (state, action) => ({
+    SET_IS_ACTIVATED: (state) => ({
       ...state,
       isActivated: true
     }),
-    TOGGLE_IS_PLAYING: (state, action) => ({
+    SET_IS_PLAYING: (state) => ({
+      ...state,
+      isPlaying: true
+    }),
+    SET_CURRENT_TRACK: (state, action) => ({
+      ...state,
+      currentTrack: action.payload
+    }),
+    SET_CURRENT_IDX: (state, action) => ({
+      ...state,
+      currentIdx: action.payload
+    }),
+    TOGGLE_IS_PLAYING: (state) => ({
       ...state,
       isPlaying: !state.isPlaying
     })
@@ -28,3 +40,7 @@ export const getDeviceId = (state) => state.player.deviceId;
 export const getIsActivated = (state) => state.player.isActivated;
 
 export const getIsPlaying = (state) => state.player.isPlaying;
+
+export const getCurrentTrack = (state) => state.player.currentTrack;
+
+export const getCurrentIdx = (state) => state.player.currentIdx;

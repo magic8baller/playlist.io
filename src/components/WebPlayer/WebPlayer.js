@@ -8,6 +8,10 @@ import './styles.css';
 
 const songUri = 'spotify:track:7iDa6hUg2VgEL1o1HjmfBn';
 
+const image = 'https://i.scdn.co/image/d0a9b0370891fe68f68467ea32cb60a35e346bf5';
+const artistName = 'B';
+const trackName = 'M';
+
 class WebPlayer extends Component {
   state = {
     isHovered: false
@@ -26,23 +30,25 @@ class WebPlayer extends Component {
   }
 
   checkPlayer = () => {
-    const { accessToken } = this.props;
-
     if (window.Spotify) {
       clearInterval(this.checkPlayerInterval);
-
-      this.player = new window.Spotify.Player({
-        name: 'Playlist.io',
-        getOAuthToken: (cb) => {
-          cb(accessToken);
-        }
-      });
-
+      this.initPlayer();
       this.createEventHandlers();
       this.createErrorHandlers();
-
-      this.player.connect();
     }
+  };
+
+  initPlayer = () => {
+    const { accessToken } = this.props;
+
+    this.player = new window.Spotify.Player({
+      name: 'Playlist.io',
+      getOAuthToken: (cb) => {
+        cb(accessToken);
+      }
+    });
+
+    this.player.connect();
   };
 
   createEventHandlers = () => {
@@ -76,12 +82,6 @@ class WebPlayer extends Component {
     });
   };
 
-  eventHandler = (eventName) => {
-    this.player.on(eventName, (e) => {
-      console.log(e);
-    });
-  };
-
   togglePlay = async () => {
     const { toggleIsPlaying } = this.props;
 
@@ -89,13 +89,44 @@ class WebPlayer extends Component {
     await toggleIsPlaying();
   };
 
-  renderSecondaryControl = (Control) => (
+  nextTrack = () => {
+    const { currentIdx, playTrack } = this.props;
+    const nextIdx = currentIdx + 1;
+
+    playTrack(nextIdx);
+  };
+
+  setVolume = () => {
+    console.log('Set volume');
+  };
+
+  renderTrackInfoArea = ({ album: { artists, images }, name }) => (
+    <Style.TrackWrapper>
+      <img src={images[2].url} />
+      <Style.TrackInfoWrapper>
+        <Style.TrackName>{name}</Style.TrackName>
+        <Style.ArtistName>{artists[0].name}</Style.ArtistName>{' '}
+      </Style.TrackInfoWrapper>
+    </Style.TrackWrapper>
+  );
+
+  renderPlaceholder = () => (
+    <Style.TrackWrapper>
+      <Style.Placeholder>Placeholder</Style.Placeholder>
+    </Style.TrackWrapper>
+  );
+
+  renderActivatedMainControl = () =>
+    this.props.isPlaying ? this.renderMainControl(Icon.Pause) : this.renderMainControl(Icon.Play);
+
+  renderSecondaryControl = (Control, handleClick) => (
     <Control
       className="web-player-control__hovered"
       onMouseEnter={this.handleMouseEnter}
       onMouseLeave={this.handleMouseLeave}
       size={18}
       style={Style.secondaryControl}
+      onClick={handleClick}
     />
   );
 
@@ -111,15 +142,15 @@ class WebPlayer extends Component {
   );
 
   render() {
-    const { isPlaying, isHovered } = this.props;
+    const { isPlaying, isHovered, isActivated, currentTrack } = this.props;
 
     return (
       <Style.Wrapper>
-        <Style.Placeholder>Placeholder Boobap</Style.Placeholder>
+        {isActivated ? this.renderTrackInfoArea(currentTrack) : this.renderPlaceholder()}
         <Style.Controls>
-          {this.renderSecondaryControl(Icon.Volume)}
-          {isPlaying ? this.renderMainControl(Icon.Play) : this.renderMainControl(Icon.Pause)}
-          {this.renderSecondaryControl(Icon.SkipForward)}
+          {this.renderSecondaryControl(Icon.Volume, this.setVolume)}
+          {isActivated ? this.renderActivatedMainControl() : this.renderMainControl(Icon.Play)}
+          {this.renderSecondaryControl(Icon.SkipForward, this.nextTrack)}
         </Style.Controls>
         <Style.DeviceWrapper>
           <Style.DeviceText>Playlist.io Web Player</Style.DeviceText>
