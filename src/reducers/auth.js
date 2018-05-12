@@ -20,3 +20,5 @@ export const getAuth = (state) => state.auth;
 export const getSpotifyId = (state) => state.auth.spotifyId;
 
 export const getAccessToken = (state) => state.auth.accessToken;
+
+export const getIsAuthenticated = (state) => state.auth.isAuthenticated;

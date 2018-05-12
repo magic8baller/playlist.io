@@ -7,12 +7,6 @@ import Icon from './icons';
 import * as Style from './WebPlayerStyles';
 import './styles.css';
 
-const songUri = 'spotify:track:7iDa6hUg2VgEL1o1HjmfBn';
-
-const image = 'https://i.scdn.co/image/d0a9b0370891fe68f68467ea32cb60a35e346bf5';
-const artistName = 'B';
-const trackName = 'M';
-
 class WebPlayer extends Component {
   state = {
     isHovered: false
@@ -38,7 +32,7 @@ class WebPlayer extends Component {
   };
 
   componentDidMount() {
-    this.checkPlayerInterval = setInterval(() => this.checkPlayer(), 100); // === 0.1 seconds
+    this.checkPlayerInterval = setInterval(this.checkPlayer, 100); // === 0.1 seconds
   }
 
   checkPlayer = () => {
@@ -116,10 +110,6 @@ class WebPlayer extends Component {
     const nextIdx = currentIdx - 1;
 
     playTrack(nextIdx);
-  };
-
-  setVolume = () => {
-    console.log('Set volume');
   };
 
   renderTrackInfoArea = ({ album: { artists, images }, name }) => (
