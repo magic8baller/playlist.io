@@ -4,7 +4,7 @@ export const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 80px;
+  height: 100px;
   position: fixed;
   bottom: 0%;
   width: 96vw;
@@ -23,6 +23,14 @@ export const DeviceWrapper = styled.div`
   align-items: center;
   width: 33.3%;
   justify-content: flex-end;
+`;
+
+export const ControlsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 33.3%;
 `;
 
 export const Controls = styled.div`
@@ -52,7 +60,30 @@ export const TrackInfoWrapper = styled.div`
   margin-left: 0.5rem;
 `;
 
+export const ProgressBarArea = styled.div`
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+`;
+
+export const ProgressBarWrapper = styled.div`
+  width: 400px;
+  height: 5px;
+  border-radius: 12px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
+  margin: 0 1rem;
+`;
+
+export const ProgressBar = styled.div`
+  width: 10%;
+  height: 100%;
+  background-color: #1db954;
+  border-radius: 12px;
+`;
+
 export const TrackName = styled.div``;
+
 export const ArtistName = styled.div`
   color: rgba(99, 111, 123, 0.8);
 `;

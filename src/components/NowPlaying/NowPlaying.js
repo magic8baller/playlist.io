@@ -8,7 +8,7 @@ import SaveAnimationContainer from '../SaveAnimation/SaveAnimationContainer';
 import NowPlayingLoader from './NowPlayingLoader';
 import TracksGrid from '../TracksGrid/TracksGrid';
 import SavePlaylistContainer from '../SavePlaylist/SavePlaylistContainer';
-import { randomPicEndpoint, isNotLoaded, playTrackReq, playTrackEndpoint, getUri } from './helpers';
+import { randomPicEndpoint, isNotLoaded, playTrackReq, playTrackEndpoint } from './helpers';
 
 class NowPlaying extends React.Component {
   state = {
@@ -19,7 +19,7 @@ class NowPlaying extends React.Component {
     this.setState({ loaded: true });
   };
 
-  playTrack = async (idx) => {
+  playTrack = (idx = 0) => {
     const {
       deviceId,
       accessToken,
@@ -31,10 +31,8 @@ class NowPlaying extends React.Component {
     } = this.props;
 
     const currentTrack = currentPlaylist[idx];
-    const nextTwoTracks = currentPlaylist.slice(idx, idx + 3);
-    const uris = map(nextTwoTracks, getUri);
 
-    await fetch(playTrackEndpoint(deviceId), playTrackReq(uris, accessToken));
+    fetch(playTrackEndpoint(deviceId), playTrackReq(currentTrack, accessToken));
 
     setCurrentIdx(idx);
     setCurrentTrack(currentTrack);

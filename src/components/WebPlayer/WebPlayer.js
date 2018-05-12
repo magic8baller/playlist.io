@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Devices from 'react-icons/lib/md/devices';
+import moment from 'moment';
 import { forEach } from 'ramda';
 
 import Icon from './icons';
@@ -16,6 +17,17 @@ class WebPlayer extends Component {
   state = {
     isHovered: false
   };
+
+  componentWillUpdate() {
+    const { currentTrack } = this.props;
+    console.log({ currentTrack });
+    if (!currentTrack) return;
+
+    const time = moment.duration(currentTrack.duration);
+    const minutes = time.minutes();
+    const seconds = time.seconds();
+    console.log({ minutes, seconds });
+  }
 
   handleMouseEnter = () => {
     this.setState({ isHovered: true });
@@ -82,6 +94,9 @@ class WebPlayer extends Component {
     });
   };
 
+  handleMainControlClick = () =>
+    this.props.isActivated ? this.togglePlay() : this.props.playTrack();
+
   togglePlay = async () => {
     const { toggleIsPlaying } = this.props;
 
@@ -92,6 +107,13 @@ class WebPlayer extends Component {
   nextTrack = () => {
     const { currentIdx, playTrack } = this.props;
     const nextIdx = currentIdx + 1;
+
+    playTrack(nextIdx);
+  };
+
+  prevTrack = () => {
+    const { currentIdx, playTrack } = this.props;
+    const nextIdx = currentIdx - 1;
 
     playTrack(nextIdx);
   };
@@ -121,7 +143,7 @@ class WebPlayer extends Component {
 
   renderSecondaryControl = (Control, handleClick) => (
     <Control
-      className="web-player-control__hovered"
+      className="hover-active"
       onMouseEnter={this.handleMouseEnter}
       onMouseLeave={this.handleMouseLeave}
       size={18}
@@ -132,10 +154,10 @@ class WebPlayer extends Component {
 
   renderMainControl = (Control) => (
     <Control
-      className="web-player-control__hovered"
+      className="hover-active"
       onMouseEnter={this.handleMouseEnter}
       onMouseLeave={this.handleMouseLeave}
-      onClick={this.togglePlay}
+      onClick={this.handleMainControlClick}
       size={30}
       style={Style.play}
     />
@@ -147,11 +169,20 @@ class WebPlayer extends Component {
     return (
       <Style.Wrapper>
         {isActivated ? this.renderTrackInfoArea(currentTrack) : this.renderPlaceholder()}
-        <Style.Controls>
-          {this.renderSecondaryControl(Icon.Volume, this.setVolume)}
-          {isActivated ? this.renderActivatedMainControl() : this.renderMainControl(Icon.Play)}
-          {this.renderSecondaryControl(Icon.SkipForward, this.nextTrack)}
-        </Style.Controls>
+        <Style.ControlsWrapper>
+          <Style.Controls>
+            {this.renderSecondaryControl(Icon.SkipBack, this.prevTrack)}
+            {isActivated ? this.renderActivatedMainControl() : this.renderMainControl(Icon.Play)}
+            {this.renderSecondaryControl(Icon.SkipForward, this.nextTrack)}
+          </Style.Controls>
+          <Style.ProgressBarArea>
+            <div>0:23</div>
+            <Style.ProgressBarWrapper>
+              <Style.ProgressBar />
+            </Style.ProgressBarWrapper>
+            <div>3:34</div>
+          </Style.ProgressBarArea>
+        </Style.ControlsWrapper>
         <Style.DeviceWrapper>
           <Style.DeviceText>Playlist.io Web Player</Style.DeviceText>
           <div>
