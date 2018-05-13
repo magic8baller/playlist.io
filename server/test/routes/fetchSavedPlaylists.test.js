@@ -48,7 +48,7 @@ describe('POST /api/playlists', () => {
     expect(res.body.playlists[0].tracks).to.eql(playlistData.tracks);
   });
 
-  it('should return an empty array when no playlists have been saved', async () => {
+  it('should return an error message when no playlists have been saved', async () => {
     const user = new User({ spotifyId: 123, playlists: [] });
     await user.save();
 
@@ -60,8 +60,8 @@ describe('POST /api/playlists', () => {
       .post(fetchPlaylistsRoute)
       .send(userData);
 
-    expect(res).to.have.status(code.OK);
-    expect(res.body.playlists.length).to.equal(0);
+    expect(res).to.have.status(code.USER_ERROR);
+    expect(res.body.error.message).to.equal('No playlists have been saved.');
   });
 
   it('should return an error message when given an invalid spotifyId', async () => {
@@ -74,7 +74,6 @@ describe('POST /api/playlists', () => {
       .send(userData);
 
     expect(res).to.have.status(code.USER_ERROR);
-    expect(res.body.error).to.equal(true);
-    expect(res.body.message).to.equal('Invalid Spotify ID');
+    expect(res.body.error.message).to.equal('Invalid Spotify ID');
   });
 });

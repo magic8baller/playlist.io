@@ -64,6 +64,12 @@ const fetch = async (req, res, next) => {
 
   const { playlists } = targetUser;
 
+  if (!playlists.length) {
+    const errMsg = 'No playlists have been saved.';
+    next(errMsg);
+    return;
+  }
+
   res.send({ success: true, playlists });
 };
 
