@@ -76,7 +76,7 @@ export const ProgressBarWrapper = styled.div`
 `;
 
 export const ProgressBar = styled.div`
-  width: 10%;
+  width: ${(props) => props.progressPercentage};
   height: 100%;
   background-color: #1db954;
   border-radius: 12px;

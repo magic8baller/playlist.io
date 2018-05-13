@@ -9,18 +9,22 @@ import './styles.css';
 
 class WebPlayer extends Component {
   state = {
-    isHovered: false
+    isHovered: false,
+    timerIsActivated: false,
+    positionInMs: null,
+    positionFormatted: null,
+    durationInMs: null,
+    durationFormated: null,
+    progressPercentage: 0,
+    prevTrack: {}
   };
 
-  componentWillUpdate() {
-    const { currentTrack } = this.props;
-    console.log({ currentTrack });
-    if (!currentTrack) return;
+  componentDidMount() {
+    this.checkPlayerInterval = setInterval(this.checkPlayer, 100); // === 0.1 seconds
+  }
 
-    const time = moment.duration(currentTrack.duration);
-    const minutes = time.minutes();
-    const seconds = time.seconds();
-    console.log({ minutes, seconds });
+  componentWillUnmount() {
+    clearInterval(this.trackPositionInterval);
   }
 
   handleMouseEnter = () => {
@@ -31,9 +35,35 @@ class WebPlayer extends Component {
     this.setState({ isHovered: false });
   };
 
-  componentDidMount() {
-    this.checkPlayerInterval = setInterval(this.checkPlayer, 100); // === 0.1 seconds
-  }
+  setCurrentTrackDuration = async () => {
+    const [durationInMs, durationFormatted] = await this.getTrack('duration');
+
+    this.setState({
+      durationInMs,
+      durationFormatted,
+      timerIsActivated: true
+    });
+  };
+
+  trackPosition = async () => {
+    const [positionInMs, positionFormatted] = await this.getTrack('position');
+
+    const progressPercentage = positionInMs / this.state.durationInMs * 100;
+
+    this.setState({
+      positionInMs,
+      positionFormatted,
+      progressPercentage: `${progressPercentage}%`
+    });
+  };
+
+  getTrack = async (time) => {
+    const currentState = await this.player.getCurrentState();
+    const timeInMs = currentState[time];
+    const timeFormatted = moment.utc(timeInMs).format('m:ss');
+
+    return [timeInMs, timeFormatted];
+  };
 
   checkPlayer = () => {
     if (window.Spotify) {
@@ -59,7 +89,13 @@ class WebPlayer extends Component {
 
   createEventHandlers = () => {
     this.player.on('player_state_changed', (data) => {
-      console.log(data);
+      const { currentTrack } = this.props;
+      const { prevTrack } = this.state;
+
+      if (currentTrack === prevTrack) return;
+
+      this.setCurrentTrackDuration();
+      this.trackPositionInterval = setInterval(this.trackPosition, 500); // === 0.5 seconds
     });
 
     this.player.on('ready', (data) => {
@@ -155,6 +191,7 @@ class WebPlayer extends Component {
 
   render() {
     const { isPlaying, isHovered, isActivated, currentTrack } = this.props;
+    const { positionFormatted, durationFormatted, progressPercentage } = this.state;
 
     return (
       <Style.Wrapper>
@@ -166,11 +203,11 @@ class WebPlayer extends Component {
             {this.renderSecondaryControl(Icon.SkipForward, this.nextTrack)}
           </Style.Controls>
           <Style.ProgressBarArea>
-            <div>0:23</div>
+            <div>{positionFormatted}</div>
             <Style.ProgressBarWrapper>
-              <Style.ProgressBar />
+              <Style.ProgressBar progressPercentage={progressPercentage} />
             </Style.ProgressBarWrapper>
-            <div>3:34</div>
+            <div>{durationFormatted}</div>
           </Style.ProgressBarArea>
         </Style.ControlsWrapper>
         <Style.DeviceWrapper>
