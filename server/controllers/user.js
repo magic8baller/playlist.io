@@ -122,7 +122,7 @@ const getUser = (body, res) => {
       : await User.create(userData);
 
     res.redirect(
-      'http://localhost:3000/?' +
+      frontendDomain +
         queryString.stringify({
           accessToken,
           refreshToken,
