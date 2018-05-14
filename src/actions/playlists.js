@@ -33,7 +33,11 @@ export const fetchSavedPlaylists = (spotifyId) => (dispatch) => {
   axios
     .post(fetchSavedPlaylistsEndpoint, { spotifyId })
     .then((res) => {
-      dispatch({ type: 'FETCH_SAVED_PLAYLISTS', payload: res.data.playlists });
+      const { data } = res;
+
+      data.error
+        ? dispatch({ type: 'NO_PLAYLISTS_ERROR', payload: data.error })
+        : dispatch({ type: 'FETCH_SAVED_PLAYLISTS', payload: data.playlists });
     })
     .catch((err) => {
       console.log(err);

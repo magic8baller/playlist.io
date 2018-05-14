@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import map from 'lodash/map';
 import { pipe, isEmpty } from 'ramda';
 
+import ErrorPageContainer from '../ErrorPage/ErrorPageContainer';
 import { GridItem, styles } from './YourPlaylistsStyles';
 import { Grid, TracksGridWrapper, Text } from '../TracksGrid/TracksGridStyles';
 import { Headline, GridItemPlaceholder } from './YourPlaylistsPlaceholders';
@@ -20,11 +21,11 @@ const getImageLoadState = (parentNode) => pipe(getImgElements, imagesAreLoaded)(
 const getClassName = (loaded) => (loaded ? 'grid__show' : 'grid__hide');
 
 class YourPlaylists extends Component {
+  gridElement = null;
+
   state = {
     loaded: false
   };
-
-  gridElement = null;
 
   componentDidMount() {
     const { playlists, spotifyId, fetchSavedPlaylists } = this.props;
@@ -72,8 +73,10 @@ class YourPlaylists extends Component {
   };
 
   render() {
-    const { playlists } = this.props;
+    const { playlists, noPlaylistsError } = this.props;
     const { loaded } = this.state;
+
+    if (noPlaylistsError) return <ErrorPageContainer errorMsg={noPlaylistsError} />;
 
     const renderedPlaylists = map(playlists, this.renderPlaylist);
 
