@@ -1,14 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import dotenv from 'dotenv';
-import dotenvExpand from 'dotenv-expand';
 import { Provider } from 'react-redux';
 
 import App from './components/App/App';
 import store from './store';
-
-const myEnv = dotenv.config();
-dotenvExpand(myEnv);
 
 window.store = store;
 
