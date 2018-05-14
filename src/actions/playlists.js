@@ -2,17 +2,13 @@ import axios from 'axios';
 import { createAction } from 'redux-actions';
 
 import delayedAnimation from '../utils/delayedAnimation';
-
-const API_ROOT = 'http://localhost:8080/api';
-
-const savePlaylistEndpoint = `${API_ROOT}/playlist`;
-const fetchSavedPlaylistsEndpoint = `${API_ROOT}/playlists`;
+import { SAVE_PLAYLIST_ENDPOINT, FETCH_SAVED_PLAYLISTS_ENDPOINT } from '../utils/endpoints';
 
 export const savePlaylist = (data) => (dispatch) => {
   delayedAnimation(dispatch);
 
   axios
-    .post(savePlaylistEndpoint, { ...data })
+    .post(SAVE_PLAYLIST_ENDPOINT, { ...data })
     .then((res) => {
       const { playlistId } = res.data;
       const { title, tracks } = data;
@@ -31,7 +27,7 @@ export const setCurrentPlaylist = (playlistId, callback) => (dispatch) => {
 
 export const fetchSavedPlaylists = (spotifyId) => (dispatch) => {
   axios
-    .post(fetchSavedPlaylistsEndpoint, { spotifyId })
+    .post(FETCH_SAVED_PLAYLISTS_ENDPOINT, { spotifyId })
     .then((res) => {
       const { data } = res;
 

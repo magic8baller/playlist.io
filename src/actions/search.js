@@ -1,25 +1,9 @@
 import axios from 'axios';
 import { isEmpty } from 'ramda';
+
 import createPlaylist from '../utils/createPlaylist';
-
-/*
-===== Constants =======
-*/
-
-const SPOTIFY_BASE_API = 'https://api.spotify.com/v1/';
-const SPOTIFY_SEARCH_ENDPOINT = `${SPOTIFY_BASE_API}search?limit=50&type=playlist&`;
-
-/*
-===== Helpers =======
-*/
-
-const setHeaders = (token) => ({
-  Authorization: `Bearer ${token}`
-});
-
-/*
-===== Actions =======
-*/
+import { SPOTIFY_SEARCH_ENDPOINT } from '../utils/endpoints';
+import { setHeaders } from '../utils/helpers';
 
 export const fetchPlaylist = (token, query) => {
   const spotifySearchUrlWithQuery = `${SPOTIFY_SEARCH_ENDPOINT}q=${encodeURIComponent(query)}`;
