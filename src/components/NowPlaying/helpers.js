@@ -15,5 +15,3 @@ export const playTrackReq = ({ uri }, accessToken) => ({
     Authorization: `Bearer ${accessToken}`
   }
 });
-
-export const isNotLoaded = (current, loaded) => isEmpty(current) || !loaded;

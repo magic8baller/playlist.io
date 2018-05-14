@@ -5,12 +5,12 @@ import { setCurrentPlaylist, fetchSavedPlaylists } from '../../actions/playlists
 import { setPath } from '../../actions/nav';
 import { getSavedPlaylists } from '../../reducers/playlists';
 import { getSpotifyId } from '../../reducers/auth';
-import { getNoPlaylistsError } from '../../reducers/errors';
+import { getNoSavedPlaylistsError } from '../../reducers/errors';
 
 const mapStateToProps = (state) => ({
   savedPlaylists: getSavedPlaylists(state),
   spotifyId: getSpotifyId(state),
-  noPlaylistsError: getNoPlaylistsError(state)
+  noSavedPlaylistsError: getNoSavedPlaylistsError(state)
 });
 
 export default connect(mapStateToProps, { setCurrentPlaylist, setPath, fetchSavedPlaylists })(

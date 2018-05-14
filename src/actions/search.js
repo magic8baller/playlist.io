@@ -42,12 +42,11 @@ export const fetchPlaylist = (token, query) => {
     const playlists = results.data.playlists.items;
 
     if (isEmpty(playlists)) {
-      const errMsg = `No playlists found containing "${query}". Please try again.`;
-      return { type: 'SEARCH_ERROR', payload: errMsg };
+      dispatch({ type: 'RESOLVE_CURRENT_PLAYLIST' });
+      return;
     }
 
     const playlist = await createPlaylist(playlists, config);
-
     dispatch({ type: 'ADD_PLAYLIST', payload: playlist });
   };
 };

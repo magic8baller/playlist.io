@@ -36,7 +36,7 @@ export const fetchSavedPlaylists = (spotifyId) => (dispatch) => {
       const { data } = res;
 
       data.error
-        ? dispatch({ type: 'NO_PLAYLISTS_ERROR', payload: data.error })
+        ? dispatch({ type: 'NO_SAVED_PLAYLISTS_ERROR', payload: data.error })
         : dispatch({ type: 'FETCH_SAVED_PLAYLISTS', payload: data.playlists });
     })
     .catch((err) => {

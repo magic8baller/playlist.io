@@ -28,9 +28,9 @@ class YourPlaylists extends Component {
   };
 
   componentDidMount() {
-    const { playlists, spotifyId, fetchSavedPlaylists } = this.props;
+    const { savedPlaylists, spotifyId, fetchSavedPlaylists } = this.props;
 
-    if (isEmpty(playlists)) fetchSavedPlaylists(spotifyId);
+    if (isEmpty(savedPlaylists)) fetchSavedPlaylists(spotifyId);
   }
 
   setGridElementRef = (element) => {
@@ -73,10 +73,10 @@ class YourPlaylists extends Component {
   };
 
   render() {
-    const { savedPlaylists, noPlaylistsError } = this.props;
+    const { savedPlaylists, noSavedPlaylistsError } = this.props;
     const { loaded } = this.state;
 
-    if (!savedPlaylists) return <ErrorPageContainer errorMsg={noPlaylistsError} />;
+    if (!savedPlaylists) return <ErrorPageContainer errorMsg={noSavedPlaylistsError} />;
 
     const renderedPlaylists = map(savedPlaylists, this.renderPlaylist);
 

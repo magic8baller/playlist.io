@@ -5,11 +5,13 @@ import { setIsPlaying, setIsActivated, setCurrentTrack, setCurrentIdx } from '..
 import { getCurrentTracks } from '../../reducers/playlists';
 import { getDeviceId } from '../../reducers/player';
 import { getAccessToken } from '../../reducers/auth';
+import { getSearchError } from '../../reducers/errors';
 
 const mapStateToProps = (state) => ({
   currentPlaylist: getCurrentTracks(state),
   accessToken: getAccessToken(state),
-  deviceId: getDeviceId(state)
+  deviceId: getDeviceId(state),
+  searchError: getSearchError(state)
 });
 
 export default connect(mapStateToProps, {

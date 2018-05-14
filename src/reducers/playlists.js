@@ -22,7 +22,11 @@ export default handleActions(
         current: newCurrentPlaylist.tracks
       };
     },
-    DELETE_CURRENT_PLAYLIST: (state, action) => ({
+    DELETE_CURRENT_PLAYLIST: (state) => ({
+      ...state,
+      current: null
+    }),
+    RESOLVE_CURRENT_PLAYLIST: (state) => ({
       ...state,
       current: []
     }),

@@ -3,20 +3,21 @@ import map from 'lodash/map';
 
 import * as Style from './NowPlayingStyles';
 import * as Placeholder from './LoaderPlaceholders';
+import ErrorPageContainer from '../ErrorPage/ErrorPageContainer';
 import WebPlayerContainer from '../WebPlayer/WebPlayerContainer';
 import SaveAnimationContainer from '../SaveAnimation/SaveAnimationContainer';
 import NowPlayingLoader from './NowPlayingLoader';
 import TracksGrid from '../TracksGrid/TracksGrid';
 import SavePlaylistContainer from '../SavePlaylist/SavePlaylistContainer';
-import { randomPicEndpoint, isNotLoaded, playTrackReq, playTrackEndpoint } from './helpers';
+import { randomPicEndpoint, playTrackReq, playTrackEndpoint } from './helpers';
 
 class NowPlaying extends React.Component {
   state = {
-    loaded: false
+    isLoaded: false
   };
 
   handleLoadedPic = () => {
-    this.setState({ loaded: true });
+    this.setState({ isLoaded: true });
   };
 
   playTrack = (idx = 0) => {
@@ -53,11 +54,13 @@ class NowPlaying extends React.Component {
   );
 
   render() {
-    const { currentPlaylist } = this.props;
-    const { loaded } = this.state;
+    const { currentPlaylist, searchError } = this.props;
+    const { isLoaded } = this.state;
 
-    if (isNotLoaded(currentPlaylist, loaded))
+    if (!isLoaded || currentPlaylist === null)
       return <NowPlayingLoader handleLoadedPic={this.handleLoadedPic} />;
+
+    if (!currentPlaylist.length) return <ErrorPageContainer errorMsg={searchError} />;
 
     const currentPlaylistCopy = [...currentPlaylist]; // copy the array instead of mutating directly
     const topFiveTracks = currentPlaylistCopy.splice(0, 5);
