@@ -1,5 +1,4 @@
 import React from 'react';
-import queryString from 'query-string';
 import { isEmpty } from 'ramda';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -9,6 +8,19 @@ import { signInUser } from '../../actions/auth';
 
 const signInUserEndpoint = 'http://localhost:8080/api/authorize';
 
+const parseAuthParams = (params) => {
+  const authParams = new URLSearchParams(params);
+
+  let parsed = {};
+
+  // Display the key/value pairs
+  for (let pair of authParams.entries()) {
+    parsed[pair[0]] = pair[1];
+  }
+
+  return parsed;
+};
+
 class LandingPageContainer extends React.Component {
   state = {
     isLoaded: false
@@ -16,12 +28,12 @@ class LandingPageContainer extends React.Component {
 
   componentDidMount() {
     const { signInUser, history } = this.props;
-    const parsed = queryString.parse(window.location.search);
+    const parsed = parseAuthParams(window.location.search);
 
-    if (!isEmpty(parsed)) {
-      signInUser(parsed);
-      history.push('/');
-    }
+    if (isEmpty(parsed)) return;
+
+    signInUser(parsed);
+    history.push('/');
   }
 
   handleBtnClick = () => {
