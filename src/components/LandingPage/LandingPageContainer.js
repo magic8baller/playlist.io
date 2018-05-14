@@ -7,7 +7,7 @@ import LandingPage from './LandingPage';
 import { signInUser } from '../../actions/auth';
 import { parseAuthParams } from './helpers';
 
-const signInUserEndpoint = 'http://localhost:8080/api/authorize';
+const signInUserEndpoint = 'https://playlist-io-backend.herokuapp.com/api/authorize';
 
 class LandingPageContainer extends React.Component {
   state = {
@@ -21,7 +21,7 @@ class LandingPageContainer extends React.Component {
     if (isEmpty(parsed)) return;
 
     signInUser(parsed);
-    history.push('/');
+    history.push('https://playlist-io.netlify.com/');
   }
 
   handleBtnClick = () => {
