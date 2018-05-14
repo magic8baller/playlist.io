@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Dialog from 'material-ui/Dialog';
 import ReactTimeout from 'react-timeout';
 
-import { Wrapper, SpotifyIcon, Text, CheckCircleStyled } from './SaveAnimationStyles';
+import { Wrapper, SpotifyIcon, Text, CheckCircleStyled, dialogStyle } from './SaveAnimationStyles';
 
 class SaveAnimation extends Component {
   state = {
@@ -37,16 +37,11 @@ class SaveAnimation extends Component {
         modal={false}
         open={this.state.open}
         onRequestClose={this.handleClose}
-        contentStyle={{
-          width: '200px'
-        }}>
+        contentStyle={dialogStyle}>
         <Wrapper>
+          <Text>Saved to </Text>
           <div>
             <SpotifyIcon color="#1db954" size={28} />
-          </div>
-          <Text>Saved!</Text>
-          <div>
-            <CheckCircleStyled color="#1db954" />
           </div>
         </Wrapper>
       </Dialog>

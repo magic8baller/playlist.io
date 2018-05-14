@@ -30,7 +30,7 @@ class Search extends Component {
   renderSearchField = ({ input }) => (
     <Style.Form {...input}>
       <Style.SearchIcon />
-      <Style.Input autoFocus={true} placeholder={'Ex: "programming", "workout", etc.'} />
+      <Style.Input autoFocus placeholder={'Ex: "programming", "workout", etc.'} />
       <Style.Btn type="submit">
         <Style.BtnText>Search</Style.BtnText>
       </Style.Btn>

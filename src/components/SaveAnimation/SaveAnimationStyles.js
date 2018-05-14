@@ -14,5 +14,9 @@ export const CheckCircleStyled = styled(CheckCircle)``;
 
 export const Text = styled.div`
   font-size: 1.25rem;
-  margin: 0 1.25rem;
+  margin: 0 0.3rem;
 `;
+
+export const dialogStyle = {
+  width: '200px'
+};
