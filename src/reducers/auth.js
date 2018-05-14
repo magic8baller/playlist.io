@@ -6,7 +6,7 @@ const initialState = {
 
 export default handleActions(
   {
-    AUTH_USER: (state, action) => ({
+    SIGN_IN_USER: (state, action) => ({
       ...state,
       ...action.payload,
       isAuthenticated: true

@@ -13,7 +13,7 @@ export const GridWrapper = styled.div`
 
 export const TracksGridWrapper = styled.div`
   width: 1200px;
-  margin: 2rem auto;
+  margin: 3rem auto;
 `;
 
 export const Text = styled.div`

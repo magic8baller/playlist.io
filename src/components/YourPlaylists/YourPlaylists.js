@@ -18,20 +18,14 @@ const getImgElements = (parentNode) => [...parentNode.querySelectorAll('img')];
 
 const getImageLoadState = (parentNode) => pipe(getImgElements, imagesAreLoaded)(parentNode);
 
-const getClassName = (loaded) => (loaded ? 'grid__show' : 'grid__hide');
+const getClassName = (isLoaded) => (isLoaded ? 'grid__show' : 'grid__hide');
 
 class YourPlaylists extends Component {
   gridElement = null;
 
   state = {
-    loaded: false
+    isLoaded: false
   };
-
-  componentDidMount() {
-    const { savedPlaylists, spotifyId, fetchSavedPlaylists } = this.props;
-
-    if (isEmpty(savedPlaylists)) fetchSavedPlaylists(spotifyId);
-  }
 
   setGridElementRef = (element) => {
     this.gridElement = element;
@@ -48,18 +42,23 @@ class YourPlaylists extends Component {
 
   handleLoadedImg = () => {
     this.setState({
-      loaded: getImageLoadState(this.gridElement)
+      isLoaded: getImageLoadState(this.gridElement)
     });
   };
 
-  renderPlaylist = ({ title, playlistId }, idx) => (
-    <GridItem onClick={() => this.handlePlaylistClick(playlistId)} key={title} title={title}>
-      <img
-        alt={`Playlist: ${title}`}
-        src={`${randomPicRoot}${idx}`}
-        onLoad={this.handleLoadedImg}
-      />
-    </GridItem>
+  renderPlaceholder = (isLoaded) => (
+    <div>
+      <TracksGridWrapper className="grid__hide">
+        <Text>🎶 Your Playlists</Text>
+        <div style={styles.grid} ref={this.setGridElementRef}>
+          []
+        </div>
+      </TracksGridWrapper>
+      <div style={styles.placeholderWrapper}>
+        <Headline />
+        <div style={styles.gridItemPlaceholder}>{this.renderGridItemPlaceholder()}</div>
+      </div>
+    </div>
   );
 
   renderGridItemPlaceholder = () => {
@@ -72,23 +71,33 @@ class YourPlaylists extends Component {
     return result;
   };
 
+  renderPlaylist = ({ title, playlistId }, idx) => (
+    <GridItem onClick={() => this.handlePlaylistClick(playlistId)} key={title} title={title}>
+      <img
+        alt={`Playlist: ${title}`}
+        src={`${randomPicRoot}${idx}`}
+        onLoad={this.handleLoadedImg}
+      />
+    </GridItem>
+  );
+
   render() {
     const { savedPlaylists, noSavedPlaylistsError } = this.props;
-    const { loaded } = this.state;
-
-    if (isEmpty(savedPlaylists)) return <ErrorPageContainer errorMsg={noSavedPlaylistsError} />;
+    const { isLoaded } = this.state;
 
     const renderedPlaylists = map(savedPlaylists, this.renderPlaylist);
 
+    if (isEmpty(savedPlaylists)) return <ErrorPageContainer errorMsg={noSavedPlaylistsError} />;
+
     return (
       <div>
-        <TracksGridWrapper className={getClassName(loaded)}>
+        <TracksGridWrapper className={getClassName(isLoaded)}>
           <Text>🎶 Your Playlists</Text>
           <div style={styles.grid} ref={this.setGridElementRef}>
             {renderedPlaylists}
           </div>
         </TracksGridWrapper>
-        {!loaded && (
+        {!isLoaded && (
           <div style={styles.placeholderWrapper}>
             <Headline />
             <div style={styles.gridItemPlaceholder}>{this.renderGridItemPlaceholder()}</div>

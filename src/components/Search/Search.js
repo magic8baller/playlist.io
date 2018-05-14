@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Field } from 'redux-form';
+import { isEmpty } from 'ramda';
 
 import * as Style from './SearchStyles';
 import media from '../../utils/mediaTemplate';
@@ -7,12 +8,18 @@ import { HomeBackgroundPlaceholder } from '../Home/HomePlaceholder';
 import { HomePlaceholderWrapper, BackgroundImg } from '../Home/HomeStyles';
 import '../Home/styles.css';
 
-const getClassName = (loaded) => (loaded ? '' : 'wrapper__hide');
+const getClassName = (isLoaded) => (isLoaded ? '' : 'wrapper__hide');
 
 class Search extends Component {
   state = {
-    loaded: false
+    isLoaded: false
   };
+
+  componentDidMount() {
+    const { savedPlaylists, spotifyId, fetchSavedPlaylists } = this.props;
+
+    if (isEmpty(savedPlaylists)) fetchSavedPlaylists(spotifyId);
+  }
 
   handleFormSubmit = ({ query }) => {
     const { fetchPlaylist, accessToken, history, setPath } = this.props;
@@ -24,7 +31,7 @@ class Search extends Component {
   };
 
   handleLoadedImg = () => {
-    this.setState({ loaded: true });
+    this.setState({ isLoaded: true });
   };
 
   renderSearchField = ({ input }) => (
@@ -39,11 +46,11 @@ class Search extends Component {
 
   render() {
     const { handleSubmit } = this.props;
-    const { loaded } = this.state;
+    const { isLoaded } = this.state;
 
     return (
       <div>
-        <Style.Wrapper className={getClassName(loaded)}>
+        <Style.Wrapper className={getClassName(isLoaded)}>
           <BackgroundImg
             onLoad={this.handleLoadedImg}
             src="https://source.unsplash.com/wejxKZ-9IZg/1500x800"
@@ -63,7 +70,7 @@ class Search extends Component {
             </form>
           </Style.InnerWrapper>
         </Style.Wrapper>
-        {!loaded && (
+        {!isLoaded && (
           <HomePlaceholderWrapper>
             <HomeBackgroundPlaceholder />
           </HomePlaceholderWrapper>
