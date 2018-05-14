@@ -173,7 +173,7 @@ class WebPlayer extends Component {
       onMouseEnter={this.handleMouseEnter}
       onMouseLeave={this.handleMouseLeave}
       size={18}
-      style={Style.secondaryControl}
+      style={this.props.isActivated ? Style.secondaryControl : Style.notActivated}
       onClick={handleClick}
     />
   );
@@ -202,7 +202,7 @@ class WebPlayer extends Component {
             {isActivated ? this.renderActivatedMainControl() : this.renderMainControl(Icon.Play)}
             {this.renderSecondaryControl(Icon.SkipForward, this.nextTrack)}
           </Style.Controls>
-          <Style.ProgressBarArea>
+          <Style.ProgressBarArea isActivated={isActivated}>
             <div>{positionFormatted}</div>
             <Style.ProgressBarWrapper>
               <Style.ProgressBar progressPercentage={progressPercentage} />

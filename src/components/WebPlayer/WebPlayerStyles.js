@@ -62,7 +62,7 @@ export const TrackInfoWrapper = styled.div`
 
 export const ProgressBarArea = styled.div`
   margin-top: 0.5rem;
-  display: flex;
+  display: ${(props) => (props.isActivated ? 'flex' : 'none')};
   align-items: center;
   font-size: 14px;
 `;
@@ -99,4 +99,8 @@ export const secondaryControl = {
 
 export const devices = {
   color: 'rgba(99, 111, 123, 0.8)'
+};
+
+export const notActivated = {
+  display: 'none'
 };
