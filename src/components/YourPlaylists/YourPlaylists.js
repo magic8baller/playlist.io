@@ -76,7 +76,7 @@ class YourPlaylists extends Component {
     const { savedPlaylists, noSavedPlaylistsError } = this.props;
     const { loaded } = this.state;
 
-    if (!savedPlaylists) return <ErrorPageContainer errorMsg={noSavedPlaylistsError} />;
+    if (isEmpty(savedPlaylists)) return <ErrorPageContainer errorMsg={noSavedPlaylistsError} />;
 
     const renderedPlaylists = map(savedPlaylists, this.renderPlaylist);
 

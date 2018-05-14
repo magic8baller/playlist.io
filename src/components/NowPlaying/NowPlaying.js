@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import map from 'lodash/map';
+import { isEmpty } from 'ramda';
 
 import * as Style from './NowPlayingStyles';
 import * as Placeholder from './LoaderPlaceholders';
@@ -9,7 +10,7 @@ import SaveAnimationContainer from '../SaveAnimation/SaveAnimationContainer';
 import NowPlayingLoader from './NowPlayingLoader';
 import TracksGrid from '../TracksGrid/TracksGrid';
 import SavePlaylistContainer from '../SavePlaylist/SavePlaylistContainer';
-import { randomPicEndpoint, playTrackReq, playTrackEndpoint } from './helpers';
+import { randomPicEndpoint, isLoading, playTrackReq, playTrackEndpoint } from './helpers';
 
 class NowPlaying extends React.Component {
   state = {
@@ -57,10 +58,10 @@ class NowPlaying extends React.Component {
     const { currentPlaylist, searchError } = this.props;
     const { isLoaded } = this.state;
 
-    if (!isLoaded || currentPlaylist === null)
+    if (isLoading(isLoaded, currentPlaylist))
       return <NowPlayingLoader handleLoadedPic={this.handleLoadedPic} />;
 
-    if (!currentPlaylist.length) return <ErrorPageContainer errorMsg={searchError} />;
+    if (isEmpty(currentPlaylist)) return <ErrorPageContainer errorMsg={searchError} />;
 
     const currentPlaylistCopy = [...currentPlaylist]; // copy the array instead of mutating directly
     const topFiveTracks = currentPlaylistCopy.splice(0, 5);
