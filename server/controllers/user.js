@@ -10,12 +10,14 @@ const keys = require('../config/keys');
 const to = require('../utils/to');
 
 const redirectUri =
-  process.env === 'production'
+  process.env.NODE_ENV === 'production'
     ? 'https://playlist-io-backend.herokuapp.com/callback'
     : 'http://localhost:8080/callback';
 
 const frontendDomain =
-  process.env === 'production' ? 'https://playlist-io.netlify.com/?' : 'http://localhost:3000/?';
+  process.env.NODE_ENV === 'production'
+    ? 'https://playlist-io.netlify.com/?'
+    : 'http://localhost:3000/?';
 
 const stateKey = 'spotify_auth_state';
 
