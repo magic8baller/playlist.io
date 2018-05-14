@@ -1,5 +1,6 @@
 const request = require('request');
 
+const code = require('../utils/statusCodes');
 const User = require('../models/User');
 const pluck = require('ramda/src/pluck');
 
@@ -65,8 +66,7 @@ const fetch = async (req, res, next) => {
   const { playlists } = targetUser;
 
   if (!playlists.length) {
-    const errMsg = 'No playlists have been saved.';
-    next(errMsg);
+    res.send({ error: { code: code.USER_ERROR, message: 'No playlists have been saved.' } });
     return;
   }
 
