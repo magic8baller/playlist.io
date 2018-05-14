@@ -5,21 +5,9 @@ import { withRouter } from 'react-router-dom';
 
 import LandingPage from './LandingPage';
 import { signInUser } from '../../actions/auth';
+import { parseAuthParams } from './helpers';
 
 const signInUserEndpoint = 'http://localhost:8080/api/authorize';
-
-const parseAuthParams = (params) => {
-  const authParams = new URLSearchParams(params);
-
-  let parsed = {};
-
-  // Display the key/value pairs
-  for (let pair of authParams.entries()) {
-    parsed[pair[0]] = pair[1];
-  }
-
-  return parsed;
-};
 
 class LandingPageContainer extends React.Component {
   state = {
