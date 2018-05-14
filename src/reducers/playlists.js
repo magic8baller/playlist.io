@@ -36,4 +36,4 @@ export default handleActions(
 
 export const getCurrentTracks = (state) => state.playlists.current;
 
-export const getPlaylists = (state) => state.playlists.saved;
+export const getSavedPlaylists = (state) => state.playlists.saved;
