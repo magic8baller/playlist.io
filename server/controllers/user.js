@@ -20,6 +20,7 @@ const frontendDomain =
     : 'http://localhost:3000/?';
 
 const stateKey = 'spotify_auth_state';
+const clientId = '7ec1317a44804950832a0371a91b15af';
 
 /*
 ===== Helpers =======
@@ -50,7 +51,7 @@ const authorize = async (req, res, next) => {
     response_type: 'code',
     scope:
       'user-read-private user-read-email playlist-modify-public playlist-modify-private streaming user-read-birthdate user-read-email user-read-private',
-    client_id: keys.spotifyClientId,
+    client_id: clientId,
     redirect_uri: redirectUri,
     state
   };
