@@ -21,7 +21,7 @@ class LandingPageContainer extends React.Component {
     if (isEmpty(parsed)) return;
 
     signInUser(parsed);
-    history.push('https://playlist-io.netlify.com/');
+    history.push('/');
   }
 
   handleBtnClick = () => {
