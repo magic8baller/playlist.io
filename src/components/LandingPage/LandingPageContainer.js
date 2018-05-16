@@ -24,6 +24,7 @@ class LandingPageContainer extends React.Component {
   }
 
   handleBtnClick = () => {
+    console.log(SIGN_IN_USER_ENDPOINT);
     window.location = SIGN_IN_USER_ENDPOINT;
   };
 

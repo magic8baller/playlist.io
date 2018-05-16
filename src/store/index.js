@@ -1,9 +1,10 @@
-import { createStore, applyMiddleware } from 'redux';
 import reduxThunk from 'redux-thunk';
+import { createStore, applyMiddleware } from 'redux';
 import { omit, curry, pipe } from 'ramda';
 
-import { loadState, saveState } from './localStorage.js';
 import reducers from '../reducers';
+import { loadState, saveState } from './localStorage.js';
+import './session';
 
 const key = 'state';
 const stateToOmit = ['form', 'errors', 'player'];
