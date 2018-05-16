@@ -9,16 +9,6 @@ const code = require('../utils/statusCodes');
 const keys = require('../config/keys');
 const to = require('../utils/to');
 
-const redirectUri =
-  process.env.NODE_ENV === 'production'
-    ? 'https://playlist-io-backend.herokuapp.com/callback'
-    : 'http://localhost:8080/callback';
-
-const frontendDomain =
-  process.env.NODE_ENV === 'production'
-    ? 'https://playlist-io.netlify.com/?'
-    : 'http://localhost:3000/?';
-
 const clientId = '7ec1317a44804950832a0371a91b15af';
 
 /*
@@ -33,6 +23,18 @@ const redirectToHash = redirect('/#');
 const redirectToSpotifyAuth = redirect('https://accounts.spotify.com/authorize?');
 
 const isError = (error, res) => error || res.statusCode !== code.OK;
+
+const updateUser = async (spotifyId, accessToken) => {
+  const [updateErr, updatedUser] = await to(User.findOneAndUpdate({ spotifyId }, { accessToken }));
+
+  if (updateErr) console.log(updateErr);
+};
+
+const createUser = async (userData) => {
+  const [createErr, createdUser] = await to(User.create(userData));
+
+  if (createErr) console.log(createErr);
+};
 
 /*
 ===== Controllers =======
@@ -51,7 +53,7 @@ const authorize = async (req, res, next) => {
     scope:
       'user-read-private user-read-email playlist-modify-public playlist-modify-private streaming user-read-birthdate user-read-email user-read-private',
     client_id: keys.spotifyClientId,
-    redirect_uri: redirectUri,
+    redirect_uri: keys.redirectUri,
     state
   };
 
@@ -74,7 +76,7 @@ const signIn = async (req, res, next) => {
       code,
       client_id: keys.spotifyClientId,
       client_secret: keys.spotifyClientSecret,
-      redirect_uri: redirectUri,
+      redirect_uri: keys.redirectUri,
       grant_type: 'authorization_code'
     },
     json: true
@@ -118,12 +120,14 @@ const getUser = (body, res) => {
 
     // if user exists, update their access token
     // otherwise, create a new user
-    user
-      ? await User.findOneAndUpdate({ spotifyId }, { accessToken })
-      : await User.create(userData);
+    // user
+    //   ? await User.findOneAndUpdate({ spotifyId }, { accessToken })
+    //   : await User.create(userData);
+
+    user ? updateUser(spotifyId, accessToken) : createUser(userData);
 
     res.redirect(
-      frontendDomain +
+      keys.frontendDomain +
         queryString.stringify({
           accessToken,
           refreshToken,

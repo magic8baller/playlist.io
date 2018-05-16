@@ -11,12 +11,10 @@ const port = process.env.PORT || 8080;
 mongoose.Promise = global.Promise;
 
 if (process.env.NODE_ENV !== 'test') {
-  console.log(keys.mongoURI);
-
   mongoose
     .connect(keys.mongoURI)
     .then((connection) => {
-      console.log('Connected to MongoDB');
+      console.log('\n=== Connected to MongoDB ===\n');
     })
     .catch((err) => {
       console.log(err.message);

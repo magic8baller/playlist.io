@@ -4,8 +4,6 @@ module.exports = {
   )}${process.env.DEV_MONGO_URI_END}`,
   spotifyClientId: process.env.DEV_SPOTIFY_CLIENT_ID,
   spotifyClientSecret: process.env.DEV_SPOTIFY_CLIENT_SECRET,
-  spotifyRefreshToken: process.env.DEV_SPOTIFY_REFRESH_TOKEN,
-  spotifyAccessToken: process.env.DEV_SPOTIFY_ACCESS_TOKEN,
-  spotifyId: process.env.DEV_SPOTIFY_ID,
-  tokenSecret: process.env.DEV_TOKEN_SECRET
+  redirectUri: process.env.DEV_REDIRECT_URI,
+  frontendDomain: process.env.DEV_FRONTEND_DOMAIN
 };
