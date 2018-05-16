@@ -1,5 +1,7 @@
 module.exports = {
-  mongoURI: process.env.DEV_MONGO_URI,
+  mongoURI: `${process.env.DEV_MONGO_URI_ROOT}${encodeURIComponent(
+    process.env.DEV_MONGO_URI_UN_AND_PW
+  )}${process.env.DEV_MONGO_URI_END}`,
   spotifyClientId: process.env.DEV_SPOTIFY_CLIENT_ID,
   spotifyClientSecret: process.env.DEV_SPOTIFY_CLIENT_SECRET,
   spotifyRefreshToken: process.env.DEV_SPOTIFY_REFRESH_TOKEN,
