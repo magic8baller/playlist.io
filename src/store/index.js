@@ -7,7 +7,7 @@ import { loadState, saveState } from './localStorage.js';
 import './session';
 
 const key = 'state';
-const stateToOmit = ['form', 'errors', 'player'];
+const stateToOmit = ['form', 'errors', 'player', 'nav'];
 
 const persistedState = loadState(key);
 
