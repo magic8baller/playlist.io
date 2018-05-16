@@ -9,10 +9,10 @@ const code = require('../utils/statusCodes');
 const keys = require('../config/keys');
 const to = require('../utils/to');
 
-const redirectUri = 'https://playlist-io-backend.herokuapp.com/callback';
-// process.env.NODE_ENV === 'production'
-//   ? 'https://playlist-io-backend.herokuapp.com/callback'
-//   : 'http://localhost:8080/callback';
+const redirectUri =
+  process.env.NODE_ENV === 'production'
+    ? 'https://playlist-io-backend.herokuapp.com/callback'
+    : 'http://localhost:8080/callback';
 
 const frontendDomain =
   process.env.NODE_ENV === 'production'
