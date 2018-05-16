@@ -1,6 +1,5 @@
 const randomString = require('randomstring');
 const queryString = require('querystring');
-const cookieParser = require('cookie-parser');
 const request = require('request');
 const isNil = require('ramda/src/isNil');
 
@@ -131,33 +130,7 @@ const getUser = (body, res) => {
   });
 };
 
-const refreshToken = (req, res) => {
-  const { refreshToken, spotifyId } = req.body;
-  const authOptions = {
-    url: 'https://accounts.spotify.com/api/token',
-    form: {
-      grant_type: 'refresh_token',
-      refresh_token: refreshToken,
-      client_id: keys.spotifyClientId,
-      client_secret: keys.spotifyClientSecret
-    },
-    json: true
-  };
-
-  request.post(authOptions, async (error, response, body) => {
-    if (!isError(error, response)) {
-      const accessToken = body.access_token;
-
-      // test does not have spotify id so don't update db when testing
-      spotifyId ? await User.findOneAndUpdate({ spotifyId }, { accessToken }) : '';
-      res.send({ accessToken });
-      return;
-    }
-  });
-};
-
 module.exports = {
   authorize,
-  signIn,
-  refreshToken
+  signIn
 };

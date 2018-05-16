@@ -8,7 +8,6 @@ module.exports = (app) => {
   // User
   app.get('/api/authorize', UserController.authorize);
   app.get('/callback', UserController.signIn);
-  app.post('/api/refresh-token', UserController.refreshToken);
 
   // Playlist
   app.post('/api/playlist', PlaylistController.save);
