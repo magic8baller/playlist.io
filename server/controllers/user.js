@@ -9,8 +9,6 @@ const code = require('../utils/statusCodes');
 const keys = require('../config/keys');
 const to = require('../utils/to');
 
-const clientId = '7ec1317a44804950832a0371a91b15af';
-
 /*
 ===== Helpers =======
 */
@@ -39,10 +37,6 @@ const createUser = async (userData) => {
 /*
 ===== Controllers =======
 */
-
-const greeting = (req, res) => {
-  res.send({ hi: 'there' });
-};
 
 const authorize = async (req, res, next) => {
   const chars = 16;
@@ -116,15 +110,14 @@ const getUser = (body, res) => {
       refreshToken
     };
 
-    const [userErr, user] = await to(User.findOne({ spotifyId }));
+    const [userErr, userExists] = await to(User.findOne({ spotifyId }));
 
-    // if user exists, update their access token
-    // otherwise, create a new user
-    // user
-    //   ? await User.findOneAndUpdate({ spotifyId }, { accessToken })
-    //   : await User.create(userData);
+    if (userErr) {
+      console.log(userErr);
+      return;
+    }
 
-    user ? updateUser(spotifyId, accessToken) : createUser(userData);
+    userExists ? await updateUser(spotifyId, accessToken) : await createUser(userData);
 
     res.redirect(
       keys.frontendDomain +
@@ -152,7 +145,7 @@ const refreshToken = (req, res) => {
   };
 
   request.post(authOptions, async (error, response, body) => {
-    if (!error && response.statusCode === 200) {
+    if (!isError(error, response)) {
       const accessToken = body.access_token;
 
       // test does not have spotify id so don't update db when testing
@@ -163,14 +156,8 @@ const refreshToken = (req, res) => {
   });
 };
 
-const error = (req, res) => {
-  res.send({ error: req.query.error });
-};
-
 module.exports = {
-  greeting,
   authorize,
   signIn,
-  refreshToken,
-  error
+  refreshToken
 };
