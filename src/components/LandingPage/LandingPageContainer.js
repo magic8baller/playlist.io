@@ -6,8 +6,7 @@ import { withRouter } from 'react-router-dom';
 import LandingPage from './LandingPage';
 import { signInUser } from '../../actions/auth';
 import { parseAuthParams } from './helpers';
-
-const signInUserEndpoint = 'https://playlist-io-backend.herokuapp.com/api/authorize';
+import { SIGN_IN_USER_ENDPOINT } from '../../utils/endpoints';
 
 class LandingPageContainer extends React.Component {
   state = {
@@ -25,7 +24,7 @@ class LandingPageContainer extends React.Component {
   }
 
   handleBtnClick = () => {
-    window.location = signInUserEndpoint;
+    window.location = SIGN_IN_USER_ENDPOINT;
   };
 
   handleLoadedImg = () => {
