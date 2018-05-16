@@ -9,17 +9,16 @@ const code = require('../utils/statusCodes');
 const keys = require('../config/keys');
 const to = require('../utils/to');
 
-const redirectUri =
-  process.env.NODE_ENV === 'production'
-    ? 'https://playlist-io-backend.herokuapp.com/callback'
-    : 'http://localhost:8080/callback';
+const redirectUri = 'https://playlist-io-backend.herokuapp.com/callback';
+// process.env.NODE_ENV === 'production'
+//   ? 'https://playlist-io-backend.herokuapp.com/callback'
+//   : 'http://localhost:8080/callback';
 
 const frontendDomain =
   process.env.NODE_ENV === 'production'
     ? 'https://playlist-io.netlify.com/?'
     : 'http://localhost:3000/?';
 
-const stateKey = 'spotify_auth_state';
 const clientId = '7ec1317a44804950832a0371a91b15af';
 
 /*
@@ -51,7 +50,7 @@ const authorize = async (req, res, next) => {
     response_type: 'code',
     scope:
       'user-read-private user-read-email playlist-modify-public playlist-modify-private streaming user-read-birthdate user-read-email user-read-private',
-    client_id: clientId,
+    client_id: keys.spotifyClientId,
     redirect_uri: redirectUri,
     state
   };
@@ -83,6 +82,7 @@ const signIn = async (req, res, next) => {
 
   request.post(authOptions, (error, response, body) => {
     if (isError(error, response)) {
+      console.log({ body, error });
       const params = { error: body.error_description };
       redirectToHash(res, params);
       return;

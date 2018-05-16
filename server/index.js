@@ -11,7 +11,16 @@ const port = process.env.PORT || 8080;
 mongoose.Promise = global.Promise;
 
 if (process.env.NODE_ENV !== 'test') {
-  mongoose.connect(keys.mongoURI);
+  console.log('\n=== STARTING MONGODB ===\n');
+
+  mongoose
+    .connect(keys.mongoURI)
+    .then((connection) => {
+      console.log('Connected to MongoDB');
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
 }
 
 // Ensure only one server instance is running in test environment
