@@ -16,6 +16,6 @@ const renderTrack = (playTrack) => ({ album: { artists, images }, name }, idx) =
   </TrackTile>
 );
 
-const Tracks = ({ allTracks, playTrack }) => allTracks.map(renderTrack(playTrack));
+const Tracks = ({ nonTopFiveTracks, playTrack }) => nonTopFiveTracks.map(renderTrack(playTrack));
 
 export default Tracks;

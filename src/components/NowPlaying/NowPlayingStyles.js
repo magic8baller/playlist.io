@@ -6,6 +6,7 @@ export const Wrapper = styled.div`
   flex-direction: column;
   width: 950px;
   margin: 1rem auto 0;
+  height: 566px;
 `;
 
 export const ContentWrapper = styled.div`
@@ -49,6 +50,7 @@ export const TracksGridWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 3rem;
 `;
 
 export const ArtistName = styled.div`

@@ -10,15 +10,15 @@ import SaveAnimationContainer from '../SaveAnimation/SaveAnimationContainer';
 import NowPlayingLoader from './NowPlayingLoader';
 import TracksGrid from '../TracksGrid/TracksGrid';
 import SavePlaylistContainer from '../SavePlaylist/SavePlaylistContainer';
-import { randomPicEndpoint, isLoading, playTrackReq, playTrackEndpoint } from './helpers';
+import { randomPicEndpoint, pageIsLoading, playTrackReq, playTrackEndpoint } from './helpers';
 
 class NowPlaying extends React.Component {
   state = {
-    isLoaded: false
+    picIsLoaded: false
   };
 
   handleLoadedPic = () => {
-    this.setState({ isLoaded: true });
+    this.setState({ picIsLoaded: true });
   };
 
   playTrack = (idx = 0) => {
@@ -42,6 +42,12 @@ class NowPlaying extends React.Component {
     setIsActivated();
   };
 
+  mapTracks = ([...currentPlaylist]) => {
+    const topFiveTracks = currentPlaylist.splice(0, 5);
+    const mappedTracks = map(topFiveTracks, this.renderTopFiveTrack);
+    return [mappedTracks, currentPlaylist];
+  };
+
   renderTopFiveTrack = ({ album: { artists, images }, name }, idx) => (
     <Style.TrackWrapper onClick={() => this.playTrack(idx)} key={`${name}-${idx}`}>
       <div>
@@ -54,19 +60,8 @@ class NowPlaying extends React.Component {
     </Style.TrackWrapper>
   );
 
-  render() {
-    const { currentPlaylist, searchError } = this.props;
-    const { isLoaded } = this.state;
-
-    if (isLoading(isLoaded, currentPlaylist))
-      return <NowPlayingLoader handleLoadedPic={this.handleLoadedPic} />;
-
-    if (isEmpty(currentPlaylist)) return <ErrorPageContainer errorMsg={searchError} />;
-
-    const currentPlaylistCopy = [...currentPlaylist]; // copy the array instead of mutating directly
-    const topFiveTracks = currentPlaylistCopy.splice(0, 5);
-
-    const tracks = map(topFiveTracks, this.renderTopFiveTrack);
+  renderNowPlaying = () => {
+    const [mappedTracks, nonTopFiveTracks] = this.mapTracks(this.props.currentPlaylist);
 
     return (
       <div>
@@ -86,16 +81,30 @@ class NowPlaying extends React.Component {
                 </span>{' '}
                 Top 5 Songs
               </span>
-              <Style.Tracks>{tracks}</Style.Tracks>
+              <Style.Tracks>{mappedTracks}</Style.Tracks>
             </div>
           </Style.ContentWrapper>
         </Style.Wrapper>
         <Style.TracksGridWrapper>
-          <TracksGrid playTrack={this.playTrack} allTracks={currentPlaylistCopy} />
+          <TracksGrid playTrack={this.playTrack} nonTopFiveTracks={nonTopFiveTracks} />
         </Style.TracksGridWrapper>
         <WebPlayerContainer playTrack={this.playTrack} />
       </div>
     );
+  };
+
+  render() {
+    const { currentPlaylist, searchError } = this.props;
+    const { picIsLoaded } = this.state;
+
+    switch (true) {
+      case pageIsLoading(picIsLoaded, currentPlaylist):
+        return <NowPlayingLoader handleLoadedPic={this.handleLoadedPic} />;
+      case isEmpty(currentPlaylist):
+        return <ErrorPageContainer errorMsg={searchError} />;
+      default:
+        return this.renderNowPlaying();
+    }
   }
 }
 

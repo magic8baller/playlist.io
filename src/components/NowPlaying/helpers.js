@@ -16,4 +16,5 @@ export const playTrackReq = ({ uri }, accessToken) => ({
   }
 });
 
-export const isLoading = (isLoaded, currentPlaylist) => !isLoaded || isNil(currentPlaylist);
+export const pageIsLoading = (picIsLoaded, currentPlaylist) =>
+  !picIsLoaded || isNil(currentPlaylist);
