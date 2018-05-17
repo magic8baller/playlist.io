@@ -13,7 +13,7 @@ const PlaylistSchema = new Schema({
 
 const UserSchema = new Schema({
   spotifyId: {
-    type: Number
+    type: String
   },
   name: {
     type: String

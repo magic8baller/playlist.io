@@ -101,12 +101,14 @@ const getUser = (body, res) => {
   request.get(options, async (error, response, body) => {
     const spotifyId = body.id;
     const name = body.display_name;
+    const isPremium = body.product === 'premium';
 
     const userData = {
       spotifyId,
       name,
       accessToken,
-      refreshToken
+      refreshToken,
+      isPremium
     };
 
     const [userErr, userExists] = await to(User.findOne({ spotifyId }));
@@ -124,6 +126,7 @@ const getUser = (body, res) => {
           accessToken,
           refreshToken,
           spotifyId,
+          isPremium,
           name
         })
     );
