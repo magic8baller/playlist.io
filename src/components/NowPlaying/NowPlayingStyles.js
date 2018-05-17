@@ -23,14 +23,16 @@ export const Picture = styled.div`
 
 export const Tracks = styled.div`
   flex-grow: 1;
+  margin-top: 2.5rem;
 `;
 
-export const RandomPic = styled.img`
+export const TopTrackWrapper = styled.div`
   margin-top: 2.2rem;
+  width: 420px;
 `;
 
 export const TrackWrapper = styled.div`
-  margin: 2rem 0;
+  margin: 2.6rem 0;
   display: flex;
   align-items: center;
   font-size: 14px;

@@ -5,8 +5,6 @@ import * as Placeholder from './LoaderPlaceholders';
 import SavePlaylistContainer from '../SavePlaylist/SavePlaylistContainer';
 import { style } from './NowPlayingStyles';
 
-const randomPicEndpoint = 'https://source.unsplash.com/user/tentides/452x452/?wallpaper';
-
 const renderTopFiveTrackPlaceholder = () => {
   let result = [];
 
@@ -17,7 +15,7 @@ const renderTopFiveTrackPlaceholder = () => {
   return result;
 };
 
-const NowPlayingLoader = ({ handleLoadedPic }) => {
+const NowPlayingLoader = () => {
   const tracks = renderTopFiveTrackPlaceholder();
 
   return (
@@ -27,12 +25,7 @@ const NowPlayingLoader = ({ handleLoadedPic }) => {
           <Style.Picture>
             <Placeholder.Headline />
             <Placeholder.RandomPic />
-            <Style.RandomPic
-              alt="Random Pic"
-              src={randomPicEndpoint}
-              onLoad={handleLoadedPic}
-              style={style.dummyRandomPic}
-            />
+            <Style.TopTrackWrapper />
           </Style.Picture>
           <div>
             <div>

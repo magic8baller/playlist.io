@@ -4,5 +4,4 @@ export const randomPicEndpoint = 'https://source.unsplash.com/user/tentides/452x
 
 export const getUri = ({ uri }) => uri;
 
-export const pageIsLoading = (picIsLoaded, currentPlaylist) =>
-  !picIsLoaded || isNil(currentPlaylist);
+export const pageIsLoading = (currentPlaylist) => isNil(currentPlaylist);
