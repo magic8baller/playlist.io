@@ -10,10 +10,7 @@ const getClassName = (isLoaded) => (isLoaded ? '' : 'wrapper__hide');
 export default ({ isLoaded, handleBtnClick, handleLoadedImg }) => (
   <div>
     <Style.Wrapper className={getClassName(isLoaded)}>
-      <BackgroundImg
-        onLoad={handleLoadedImg}
-        src="https://source.unsplash.com/cZWZjymwI9o/1600x900"
-      />
+      <BackgroundImg onLoad={handleLoadedImg} src={require('./landing-page.jpg')} />
       <Style.InnerWrapper>
         <Style.CompanyName>Playlist.io</Style.CompanyName>
         <Style.Description>

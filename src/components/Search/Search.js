@@ -53,7 +53,7 @@ class Search extends Component {
     return (
       <div>
         <Style.Wrapper className={getClassName(isLoaded)}>
-          <BackgroundImg onLoad={this.handleLoadedImg} />
+          <BackgroundImg onLoad={this.handleLoadedImg} src={require('./search.jpg')} />
           <Style.InnerWrapper>
             <Style.Title>
               Enter a keyword and our robots will search Spotify playlists for popular songs related
