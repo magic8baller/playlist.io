@@ -11,13 +11,14 @@ import {
   getCurrentIdx
 } from '../../reducers/player';
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state, { playTrack }) => ({
   accessToken: getAccessToken(state),
   isActivated: getIsActivated(state),
   isPlaying: getIsPlaying(state),
   currentTrack: getCurrentTrack(state),
   currentIdx: getCurrentIdx(state),
-  isPremium: getIsPremium(state)
+  isPremium: getIsPremium(state),
+  playTrack
 });
 
 export default connect(mapStateToProps, {

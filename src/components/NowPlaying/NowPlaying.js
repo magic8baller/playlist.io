@@ -10,7 +10,7 @@ import SaveAnimationContainer from '../SaveAnimation/SaveAnimationContainer';
 import NowPlayingLoader from './NowPlayingLoader';
 import TracksGrid from '../TracksGrid/TracksGrid';
 import SavePlaylistContainer from '../SavePlaylist/SavePlaylistContainer';
-import { randomPicEndpoint, pageIsLoading, playTrackReq, playTrackEndpoint } from './helpers';
+import { randomPicEndpoint, pageIsLoading } from './helpers';
 
 class NowPlaying extends React.Component {
   state = {
@@ -21,27 +21,6 @@ class NowPlaying extends React.Component {
     this.setState({ picIsLoaded: true });
   };
 
-  playTrack = (idx = 0) => {
-    const {
-      deviceId,
-      accessToken,
-      currentPlaylist,
-      setIsPlaying,
-      setIsActivated,
-      setCurrentTrack,
-      setCurrentIdx
-    } = this.props;
-
-    const currentTrack = currentPlaylist[idx];
-
-    fetch(playTrackEndpoint(deviceId), playTrackReq(currentTrack, accessToken));
-
-    setCurrentIdx(idx);
-    setCurrentTrack(currentTrack);
-    setIsPlaying();
-    setIsActivated();
-  };
-
   mapTracks = ([...currentPlaylist]) => {
     const topFiveTracks = currentPlaylist.splice(0, 5);
     const mappedTracks = map(topFiveTracks, this.renderTopFiveTrack);
@@ -49,7 +28,7 @@ class NowPlaying extends React.Component {
   };
 
   renderTopFiveTrack = ({ album: { artists, images }, name }, idx) => (
-    <Style.TrackWrapper onClick={() => this.playTrack(idx)} key={`${name}-${idx}`}>
+    <Style.TrackWrapper onClick={() => this.props.playTrack(idx)} key={`${name}-${idx}`}>
       <div>
         <img alt="Album" src={images[2].url} />
       </div>
@@ -86,7 +65,7 @@ class NowPlaying extends React.Component {
           </Style.ContentWrapper>
         </Style.Wrapper>
         <Style.TracksGridWrapper>
-          <TracksGrid playTrack={this.playTrack} nonTopFiveTracks={nonTopFiveTracks} />
+          <TracksGrid playTrack={this.props.playTrack} nonTopFiveTracks={nonTopFiveTracks} />
         </Style.TracksGridWrapper>
       </div>
     );

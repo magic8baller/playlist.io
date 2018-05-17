@@ -59,4 +59,4 @@ export default connect(mapStateToProps, {
   setIsActivated,
   setCurrentTrack,
   setCurrentIdx
-})(App);
+})(AppContainer);

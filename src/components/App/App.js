@@ -16,8 +16,8 @@ export default ({ playTrack, currentPlaylist }) => (
         <NavContainer />
         <Switch>
           <Route exact path="/" component={HomeContainer} />
-          <Route path="/playing" component={NowPlayingContainer} />
           <Route path="/playlists" component={YourPlaylistsContainer} />
+          <Route path="/playing" render={() => <NowPlayingContainer playTrack={playTrack} />} />
         </Switch>
         {currentPlaylist && <WebPlayerContainer playTrack={playTrack} />}
       </Wrapper>
