@@ -88,6 +88,12 @@ export const ArtistName = styled.div`
   color: rgba(99, 111, 123, 0.8);
 `;
 
+export const NonPremiumWrapper = styled.div`
+  text-align: center;
+  font-size: 14px;
+  width: 100%;
+`;
+
 export const play = {
   margin: '0 2rem',
   fill: 'rgb(66,66,65)'

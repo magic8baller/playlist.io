@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import WebPlayer from './WebPlayer';
 import { signOutUser } from '../../actions/auth';
 import { setDeviceId, toggleIsPlaying, setIsActivated } from '../../actions/player';
-import { getAccessToken } from '../../reducers/auth';
+import { getAccessToken, getIsPremium } from '../../reducers/auth';
 import {
   getIsPlaying,
   getIsActivated,
@@ -16,7 +16,8 @@ const mapStateToProps = (state) => ({
   isActivated: getIsActivated(state),
   isPlaying: getIsPlaying(state),
   currentTrack: getCurrentTrack(state),
-  currentIdx: getCurrentIdx(state)
+  currentIdx: getCurrentIdx(state),
+  isPremium: getIsPremium(state)
 });
 
 export default connect(mapStateToProps, {

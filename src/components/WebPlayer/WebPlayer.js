@@ -148,6 +148,47 @@ class WebPlayer extends Component {
     playTrack(nextIdx);
   };
 
+  renderPremiumPlayer = () => {
+    const { isPlaying, isHovered, isActivated, currentTrack } = this.props;
+    const { positionFormatted, durationFormatted, progressPercentage } = this.state;
+
+    return (
+      <Style.Wrapper>
+        {isActivated ? this.renderTrackInfoArea(currentTrack) : this.renderPlaceholder()}
+        <Style.ControlsWrapper>
+          <Style.Controls>
+            {this.renderSecondaryControl(Icon.SkipBack, this.prevTrack)}
+            {isActivated ? this.renderActivatedMainControl() : this.renderMainControl(Icon.Play)}
+            {this.renderSecondaryControl(Icon.SkipForward, this.nextTrack)}
+          </Style.Controls>
+          <Style.ProgressBarArea isActivated={isActivated}>
+            <div>{positionFormatted}</div>
+            <Style.ProgressBarWrapper>
+              <Style.ProgressBar progressPercentage={progressPercentage} />
+            </Style.ProgressBarWrapper>
+            <div>{durationFormatted}</div>
+          </Style.ProgressBarArea>
+        </Style.ControlsWrapper>
+        <Style.DeviceWrapper>
+          <Style.DeviceText>Playlist.io Web Player</Style.DeviceText>
+          <div>
+            <Devices style={Style.devices} size={26} />
+          </div>
+        </Style.DeviceWrapper>
+      </Style.Wrapper>
+    );
+  };
+
+  renderNonPremiumPlayer = () => {
+    return (
+      <Style.Wrapper>
+        <Style.NonPremiumWrapper>
+          You must have Spotify Premium to use the Web Player.
+        </Style.NonPremiumWrapper>
+      </Style.Wrapper>
+    );
+  };
+
   renderTrackInfoArea = ({ album: { artists, images }, name }) => (
     <Style.TrackWrapper>
       <img src={images[2].url} />
@@ -190,34 +231,9 @@ class WebPlayer extends Component {
   );
 
   render() {
-    const { isPlaying, isHovered, isActivated, currentTrack } = this.props;
-    const { positionFormatted, durationFormatted, progressPercentage } = this.state;
+    const { isPremium } = this.props;
 
-    return (
-      <Style.Wrapper>
-        {isActivated ? this.renderTrackInfoArea(currentTrack) : this.renderPlaceholder()}
-        <Style.ControlsWrapper>
-          <Style.Controls>
-            {this.renderSecondaryControl(Icon.SkipBack, this.prevTrack)}
-            {isActivated ? this.renderActivatedMainControl() : this.renderMainControl(Icon.Play)}
-            {this.renderSecondaryControl(Icon.SkipForward, this.nextTrack)}
-          </Style.Controls>
-          <Style.ProgressBarArea isActivated={isActivated}>
-            <div>{positionFormatted}</div>
-            <Style.ProgressBarWrapper>
-              <Style.ProgressBar progressPercentage={progressPercentage} />
-            </Style.ProgressBarWrapper>
-            <div>{durationFormatted}</div>
-          </Style.ProgressBarArea>
-        </Style.ControlsWrapper>
-        <Style.DeviceWrapper>
-          <Style.DeviceText>Playlist.io Web Player</Style.DeviceText>
-          <div>
-            <Devices style={Style.devices} size={26} />
-          </div>
-        </Style.DeviceWrapper>
-      </Style.Wrapper>
-    );
+    return isPremium ? this.renderPremiumPlayer() : this.renderNonPremiumPlayer();
   }
 }
 

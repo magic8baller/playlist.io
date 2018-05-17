@@ -9,7 +9,8 @@ export default handleActions(
     SIGN_IN_USER: (state, action) => ({
       ...state,
       ...action.payload,
-      isAuthenticated: true
+      isAuthenticated: true,
+      isPremium: Boolean(action.payload.isPremium === 'true')
     })
   },
   initialState
@@ -22,3 +23,5 @@ export const getSpotifyId = (state) => state.auth.spotifyId;
 export const getAccessToken = (state) => state.auth.accessToken;
 
 export const getIsAuthenticated = (state) => state.auth.isAuthenticated;
+
+export const getIsPremium = (state) => state.auth.isPremium;

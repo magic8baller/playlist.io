@@ -23,10 +23,9 @@ class Search extends Component {
 
   handleFormSubmit = ({ query }) => {
     const { fetchPlaylist, accessToken, history, setPath } = this.props;
+    const newPath = '/playing';
 
     fetchPlaylist(accessToken, query);
-
-    const newPath = '/playing';
     setPath(history, newPath);
   };
 
@@ -57,8 +56,8 @@ class Search extends Component {
           />
           <Style.InnerWrapper>
             <Style.Title>
-              Enter a keyword and our robots will find popular songs in Spotify playlists titled
-              with that word.
+              Enter a keyword and our robots will search Spotify playlists for popular songs related
+              to that word.
             </Style.Title>
             <form onSubmit={handleSubmit(this.handleFormSubmit)}>
               <Field
