@@ -9,6 +9,7 @@ export const Wrapper = styled.div`
   border-bottom: 1px solid #ecf0f1;
   font-size: 14px;
   padding: 0 1rem;
+  max-height: 36px;
 
   ${media.phone`margin: 1.5rem 0`};
 `;
@@ -65,7 +66,12 @@ export const Settings = styled.div`
   align-items: center;
   padding-bottom: 16px;
   color: rgba(99, 111, 123, 0.8);
-  cursor: pointer;
+`;
+
+export const Name = styled.div`
+  &:hover {
+    color: rgb(66, 66, 65);
+  }
 `;
 
 export const nameStyle = { marginRight: '5px' };

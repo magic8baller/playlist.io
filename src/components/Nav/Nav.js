@@ -5,6 +5,7 @@ import { values, map, curry } from 'ramda';
 import forEach from 'lodash/forEach';
 
 import * as Style from './NavStyles.js';
+import SettingsDropdown from './SettingsDropdown/SettingsDropdown';
 import navOptions from './data';
 
 class Nav extends Component {
@@ -25,6 +26,10 @@ class Nav extends Component {
   setIsSelected = curry((path, navOption) => {
     navOption.isSelected = path === navOption.path;
   });
+
+  toggleSettingsDropdown = () => {
+    this.setState({ isOpen: !this.state.isOpen });
+  };
 
   renderNav = () => {
     const { auth, path } = this.props;
@@ -55,11 +60,9 @@ class Nav extends Component {
         {this.renderNavOptions(navOptions)}
       </Style.TabsWrapper>
       <div>
-        <Style.Settings onClick={this.handleSignOutClick}>
-          <div>{name}</div>
-          <Style.AngleWrapper>
-            <AngleDown size={18} />
-          </Style.AngleWrapper>
+        <Style.Settings>
+          <Style.Name>{name}</Style.Name>
+          <SettingsDropdown handleSignOutClick={this.handleSignOutClick} />
         </Style.Settings>
       </div>
     </Style.Wrapper>
