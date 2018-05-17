@@ -12,11 +12,14 @@ const getClassName = (isLoaded) => (isLoaded ? '' : 'wrapper__hide');
 
 class Search extends Component {
   state = {
-    isLoaded: false
+    isLoaded: true
   };
 
   componentDidMount() {
-    const { savedPlaylists, spotifyId, fetchSavedPlaylists } = this.props;
+    const { savedPlaylists, spotifyId, fetchSavedPlaylists, setPath, history } = this.props;
+    const currPath = '/';
+
+    setPath(history, currPath);
 
     if (isEmpty(savedPlaylists)) fetchSavedPlaylists(spotifyId);
   }
@@ -50,10 +53,7 @@ class Search extends Component {
     return (
       <div>
         <Style.Wrapper className={getClassName(isLoaded)}>
-          <BackgroundImg
-            onLoad={this.handleLoadedImg}
-            src="https://source.unsplash.com/wejxKZ-9IZg/1500x800"
-          />
+          <BackgroundImg onLoad={this.handleLoadedImg} />
           <Style.InnerWrapper>
             <Style.Title>
               Enter a keyword and our robots will search Spotify playlists for popular songs related

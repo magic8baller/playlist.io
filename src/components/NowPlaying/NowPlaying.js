@@ -88,7 +88,6 @@ class NowPlaying extends React.Component {
         <Style.TracksGridWrapper>
           <TracksGrid playTrack={this.playTrack} nonTopFiveTracks={nonTopFiveTracks} />
         </Style.TracksGridWrapper>
-        <WebPlayerContainer playTrack={this.playTrack} />
       </div>
     );
   };
