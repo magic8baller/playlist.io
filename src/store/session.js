@@ -1,8 +1,8 @@
 import store from './';
 
 const clearSession = () => {
-  const fiftyFiveMinutes = 1000 * 60 * 55;
-  window.setTimeout(clear, fiftyFiveMinutes); // === 2 seconds
+  const fiftyFiveMinutes = 1000 * 10;
+  window.setTimeout(clear, fiftyFiveMinutes);
 };
 
 const clear = () => {
