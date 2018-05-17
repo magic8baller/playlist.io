@@ -1,8 +1,8 @@
 const request = require('request');
-
-const code = require('../utils/statusCodes');
-const User = require('../models/User');
 const pluck = require('ramda/src/pluck');
+
+const code = require('../../utils/statusCodes');
+const User = require('../../models/User');
 
 const getPlaylistId = (user) => user.playlists[user.playlists.length - 1]._id;
 
@@ -49,31 +49,7 @@ const saveToSpotify = (req) => {
   });
 };
 
-const save = (req, res) => {
+module.exports = (req, res) => {
   saveToDb(req, res);
   saveToSpotify(req);
-};
-
-const fetch = async (req, res, next) => {
-  const targetUser = await User.findOne({ spotifyId: req.body.spotifyId });
-
-  if (!targetUser) {
-    const errMsg = 'Invalid Spotify ID';
-    next(errMsg);
-    return;
-  }
-
-  const { playlists } = targetUser;
-
-  if (!playlists.length) {
-    res.send({ error: { code: code.USER_ERROR, message: 'No playlists have been saved.' } });
-    return;
-  }
-
-  res.send({ success: true, playlists });
-};
-
-module.exports = {
-  save,
-  fetch
 };

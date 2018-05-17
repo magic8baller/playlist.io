@@ -60,7 +60,7 @@ describe('POST /api/playlists', () => {
       .post(fetchPlaylistsRoute)
       .send(userData);
 
-    expect(res).to.have.status(code.STATUS_OK);
+    expect(res).to.have.status(code.OK);
     expect(res.body.error.code).to.equal(code.USER_ERROR);
     expect(res.body.error.message).to.equal('No playlists have been saved.');
   });
