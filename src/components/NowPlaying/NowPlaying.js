@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import map from 'lodash/map';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ArrowDownward from 'material-ui/svg-icons/navigation/arrow-downward';
+import ScrollableAnchor from 'react-scrollable-anchor';
+
 import { isEmpty } from 'ramda';
 
 import * as Style from './NowPlayingStyles';
@@ -42,15 +46,15 @@ class NowPlaying extends React.Component {
         <Style.Wrapper>
           <Style.ContentWrapper>
             <SaveAnimationContainer />
-            <div>
+            <Style.PictureWrapper>
               <Style.Picture>
                 <SavePlaylistContainer />
                 <Style.TopTrackWrapper>
                   <TopTrackCard playTrack={playTrack} topTrack={topTrack} />
                 </Style.TopTrackWrapper>
               </Style.Picture>
-            </div>
-            <div>
+            </Style.PictureWrapper>
+            <Style.TracksWrapper>
               <span>
                 <span role="img" aria-label="Hallelujah">
                   🙌
@@ -58,12 +62,21 @@ class NowPlaying extends React.Component {
                 Featured Tracks
               </span>
               <Style.Tracks>{mappedFeaturedTracks}</Style.Tracks>
-            </div>
+            </Style.TracksWrapper>
+            <Style.FloatingBtnWrapper>
+              <a href="#honorable-mentions">
+                <FloatingActionButton backgroundColor={'#1db954'}>
+                  <ArrowDownward />
+                </FloatingActionButton>
+              </a>
+            </Style.FloatingBtnWrapper>
           </Style.ContentWrapper>
         </Style.Wrapper>
-        <Style.TracksGridWrapper>
-          <TracksGrid playTrack={this.props.playTrack} nonFeaturedTracks={nonFeaturedTracks} />
-        </Style.TracksGridWrapper>
+        <ScrollableAnchor id={'honorable-mentions'}>
+          <Style.TracksGridWrapper>
+            <TracksGrid playTrack={this.props.playTrack} nonFeaturedTracks={nonFeaturedTracks} />
+          </Style.TracksGridWrapper>
+        </ScrollableAnchor>
       </div>
     );
   };

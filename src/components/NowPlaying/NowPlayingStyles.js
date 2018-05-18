@@ -4,7 +4,7 @@ export const Wrapper = styled.div`
   font-size: 14px;
   display: flex;
   flex-direction: column;
-  width: 950px;
+  width: 1200px;
   margin: 1rem auto 0;
   height: 566px;
 `;
@@ -12,6 +12,7 @@ export const Wrapper = styled.div`
 export const ContentWrapper = styled.div`
   display: flex;
   margin-top: 1rem;
+  justify-content: center;
 `;
 
 export const Picture = styled.div`
@@ -23,7 +24,7 @@ export const Picture = styled.div`
 
 export const Tracks = styled.div`
   flex-grow: 1;
-  margin-top: 2.5rem;
+  margin-top: 2.3rem;
 `;
 
 export const TopTrackWrapper = styled.div`
@@ -57,6 +58,18 @@ export const TracksGridWrapper = styled.div`
 
 export const ArtistName = styled.div`
   opacity: 0.6;
+`;
+
+export const PictureWrapper = styled.div`
+  margin-left: 9rem;
+`;
+
+export const TracksWrapper = styled.div`
+  flex: 1;
+`;
+
+export const FloatingBtnWrapper = styled.div`
+  margin-top: 31.5rem;
 `;
 
 export const search = {
