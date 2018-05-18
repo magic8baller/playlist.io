@@ -3,6 +3,7 @@ const passport = require('passport');
 
 const UserController = require('../controllers/user');
 const PlaylistController = require('../controllers/playlist');
+const FavoritesController = require('../controllers/favorites');
 
 module.exports = (app) => {
   // User
@@ -13,4 +14,7 @@ module.exports = (app) => {
   // Playlist
   app.post('/api/playlist', PlaylistController.save);
   app.post('/api/playlists', PlaylistController.fetch);
+
+  // Favorites
+  app.post('/api/favorite', FavoritesController.add);
 };
