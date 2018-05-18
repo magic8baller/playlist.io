@@ -32,32 +32,11 @@ export const TopTrackWrapper = styled.div`
   width: 420px;
 `;
 
-export const TrackWrapper = styled.div`
-  margin: 2.6rem 0;
-  display: flex;
-  align-items: center;
-  font-size: 14px;
-  &:hover {
-    cursor: pointer;
-  }
-`;
-
-export const Data = styled.div`
-  margin-left: 16px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-`;
-
 export const TracksGridWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   margin-top: 3rem;
-`;
-
-export const ArtistName = styled.div`
-  opacity: 0.6;
 `;
 
 export const PictureWrapper = styled.div`

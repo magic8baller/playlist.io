@@ -3,7 +3,6 @@ import map from 'lodash/map';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ArrowDownward from 'material-ui/svg-icons/navigation/arrow-downward';
 import ScrollableAnchor from 'react-scrollable-anchor';
-
 import { isEmpty } from 'ramda';
 
 import * as Style from './NowPlayingStyles';
@@ -13,6 +12,7 @@ import ErrorPageContainer from '../ErrorPage/ErrorPageContainer';
 import WebPlayerContainer from '../WebPlayer/WebPlayerContainer';
 import SaveAnimationContainer from '../SaveAnimation/SaveAnimationContainer';
 import NowPlayingLoader from './NowPlayingLoader';
+import FeaturedTrack from './FeaturedTrack/FeaturedTrack';
 import TracksGrid from '../TracksGrid/TracksGrid';
 import SavePlaylistContainer from '../SavePlaylist/SavePlaylistContainer';
 import { randomPicEndpoint, pageIsLoading } from './helpers';
@@ -24,16 +24,8 @@ class NowPlaying extends React.Component {
     return [mappedFeaturedTracks, rest];
   };
 
-  renderFeaturedTrack = ({ album: { artists, images }, name }, idx) => (
-    <Style.TrackWrapper onClick={() => this.props.playTrack(idx)} key={`${name}-${idx}`}>
-      <div>
-        <img alt="Album" src={images[2].url} />
-      </div>
-      <Style.Data>
-        <div>{name}</div>
-        <Style.ArtistName>{artists[0].name}</Style.ArtistName>
-      </Style.Data>
-    </Style.TrackWrapper>
+  renderFeaturedTrack = (...args) => (
+    <FeaturedTrack key={args[1]} args={args} playTrack={this.props.playTrack} />
   );
 
   renderNowPlaying = () => {
