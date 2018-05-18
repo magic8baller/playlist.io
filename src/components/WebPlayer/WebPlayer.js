@@ -80,6 +80,7 @@ class WebPlayer extends Component {
     this.player = new window.Spotify.Player({
       name: 'Playlist.io',
       getOAuthToken: (cb) => {
+        console.log({ accessToken });
         cb(accessToken);
       }
     });
@@ -107,7 +108,7 @@ class WebPlayer extends Component {
   };
 
   createErrorHandlers = () => {
-    const { signOutUser } = this.props;
+    const { signOutUser, history, setPath } = this.props;
     const errorNames = ['initialization_error', 'account_error', 'playback_error'];
 
     forEach(this.errorHandler, errorNames);
@@ -115,6 +116,7 @@ class WebPlayer extends Component {
     this.player.on('authentication_error', (e) => {
       console.error(e);
       signOutUser();
+      setPath(history, '/');
     });
   };
 

@@ -1,8 +1,10 @@
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import WebPlayer from './WebPlayer';
 import { signOutUser } from '../../actions/auth';
 import { setDeviceId, toggleIsPlaying, setIsActivated } from '../../actions/player';
+import { setPath } from '../../actions/nav';
 import { getAccessToken, getIsPremium } from '../../reducers/auth';
 import {
   getIsPlaying,
@@ -25,5 +27,6 @@ export default connect(mapStateToProps, {
   signOutUser,
   setDeviceId,
   toggleIsPlaying,
-  setIsActivated
-})(WebPlayer);
+  setIsActivated,
+  setPath
+})(withRouter(WebPlayer));

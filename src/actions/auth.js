@@ -14,12 +14,10 @@ const refreshAccessTokenSuccess = ({ access_token }) => ({
   accessToken: access_token
 });
 
-const handleRefreshAccessTokenApiResponse = curry(
-  (dispatch, response) =>
-    isSuccess(response) ? dispatch(refreshAccessTokenSuccess) : console.log(response.statusText)
-);
+export const refreshAccessToken = (refreshToken) => async (dispatch) => {
+  const response = await api.refreshAccessTokenSent(refreshToken);
 
-const refreshAccessTokenApiCall = (refreshToken) => api.refreshAccessTokenSent(refreshToken);
-
-export const refreshAccessToken = (refreshToken) => (dispatch) =>
-  pipeP(refreshAccessTokenApiCall, handleRefreshAccessTokenApiResponse(dispatch))(refreshToken);
+  isSuccess(response)
+    ? dispatch(refreshAccessTokenSuccess(response.data))
+    : console.log(response.statusText);
+};
