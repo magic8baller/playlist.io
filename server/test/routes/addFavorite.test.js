@@ -67,7 +67,7 @@ describe('POST /api/favorite', () => {
     expect(res.body.error.message).to.equal('Invalid Spotify ID.');
   });
 
-  it.only('should return an error if the track is a duplicate', async () => {
+  it('should return an error if the track is a duplicate', async () => {
     const route = '/api/favorite';
     const data = {
       spotifyId: 123,
