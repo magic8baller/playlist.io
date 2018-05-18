@@ -62,8 +62,40 @@ describe('POST /api/favorite', () => {
       .post(route)
       .send(data);
 
-    expect(res).to.have.status(code.OK);
+    expect(res).to.have.status(code.USER_ERROR);
     expect(res.body.error.code).to.equal(code.USER_ERROR);
     expect(res.body.error.message).to.equal('Invalid Spotify ID.');
+  });
+
+  it.only('should return an error if the track is a duplicate', async () => {
+    const route = '/api/favorite';
+    const data = {
+      spotifyId: 123,
+      spotifyData: {
+        id: '231432',
+        name: 'Awesome New Song',
+        album: { name: 'Awesome Album' },
+        artists: [{ name: 'Kesha' }]
+      }
+    };
+
+    let user = new User({ spotifyId: 123, favorites: [] });
+    await user.save();
+
+    await chai
+      .request(app)
+      .post(route)
+      .send(data);
+
+    const res = await chai
+      .request(app)
+      .post(route)
+      .send(data);
+
+    expect(res).to.have.status(code.USER_ERROR);
+    expect(res.body.error.code).to.equal(code.USER_ERROR);
+    expect(res.body.error.message).to.equal(
+      'You have already favorited this track. You must really like it!'
+    );
   });
 });

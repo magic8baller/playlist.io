@@ -1,5 +1,6 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
+const mongoose = require('mongoose');
 
 const User = require('../../models/User');
 const initTestSetup = require('../testSetup');
@@ -11,7 +12,14 @@ chai.use(chaiHttp);
 const expect = chai.expect;
 
 describe('DELETE /api/favorite', () => {
-  it.only('should delete favorited track from DB', async () => {
+  before((done) => {
+    users = mongoose.connection.collections.users;
+    users.drop(() => {
+      done();
+    });
+  });
+
+  it('should delete favorited track from DB', async () => {
     const route = '/api/favorite';
     const addFavoriteData = {
       spotifyId: 123,
