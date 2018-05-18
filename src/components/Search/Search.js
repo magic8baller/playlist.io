@@ -16,13 +16,29 @@ class Search extends Component {
   };
 
   componentDidMount() {
-    const { savedPlaylists, spotifyId, fetchSavedPlaylists, setPath, history } = this.props;
+    this.handleRefreshAccessToken();
+    this.handleSetPath();
+    this.maybeFetchSavedPlaylists();
+  }
+
+  handleRefreshAccessToken = async () => {
+    const { refreshToken, initRefreshAccessToken } = this.props;
+
+    initRefreshAccessToken(refreshToken);
+  };
+
+  handleSetPath = () => {
+    const { setPath, history } = this.props;
     const currPath = '/';
 
     setPath(history, currPath);
+  };
+
+  maybeFetchSavedPlaylists = () => {
+    const { savedPlaylists, spotifyId, fetchSavedPlaylists } = this.props;
 
     if (isEmpty(savedPlaylists)) fetchSavedPlaylists(spotifyId);
-  }
+  };
 
   handleFormSubmit = ({ query }) => {
     const { fetchPlaylist, accessToken, history, setPath } = this.props;

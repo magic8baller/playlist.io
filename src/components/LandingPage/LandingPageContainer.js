@@ -15,11 +15,11 @@ class LandingPageContainer extends React.Component {
 
   componentDidMount() {
     const { signInUser, history } = this.props;
-    const parsed = parseAuthParams(window.location.search);
+    const parsedAuthParams = parseAuthParams(window.location.search);
 
-    if (isEmpty(parsed)) return;
+    if (isEmpty(parsedAuthParams)) return;
 
-    signInUser(parsed);
+    signInUser(parsedAuthParams);
     history.push('/');
   }
 
