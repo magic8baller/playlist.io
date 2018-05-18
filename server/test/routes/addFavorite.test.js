@@ -11,7 +11,7 @@ chai.use(chaiHttp);
 const expect = chai.expect;
 
 describe('POST /api/favorite', () => {
-  it.only('should add favorited track to DB', async () => {
+  it('should add favorited track to DB', async () => {
     const route = '/api/favorite';
     const data = {
       spotifyId: 123,
@@ -40,5 +40,30 @@ describe('POST /api/favorite', () => {
     expect(res).to.have.status(code.OK);
     expect(res.body.success).to.be.true;
     expect(newFavoritesCount).to.equal(oldFavoritesCount + 1);
+  });
+
+  it.only('should return an error when given an incorrect ID', async () => {
+    const route = '/api/favorite';
+    const data = {
+      spotifyId: 0,
+      spotifyData: {
+        id: '231432',
+        name: 'Awesome New Song',
+        album: { name: 'Awesome Album' },
+        artists: [{ name: 'Kesha' }]
+      }
+    };
+
+    let user = new User({ spotifyId: 123, favorites: [] });
+    await user.save();
+
+    const res = await chai
+      .request(app)
+      .post(route)
+      .send(data);
+
+    expect(res).to.have.status(code.OK);
+    expect(res.body.error.code).to.equal(code.USER_ERROR);
+    expect(res.body.error.message).to.equal('Invalid Spotify ID.');
   });
 });

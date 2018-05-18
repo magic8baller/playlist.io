@@ -3,7 +3,7 @@ const randomString = require('randomstring');
 const keys = require('../../config/keys');
 const { redirectToSpotifyAuth } = require('./helpers');
 
-module.exports = async (req, res, next) => {
+module.exports = async (req, res) => {
   const chars = 16;
   const state = randomString.generate(chars);
 

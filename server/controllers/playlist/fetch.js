@@ -13,7 +13,8 @@ module.exports = async (req, res, next) => {
   const { playlists } = targetUser;
 
   if (!playlists.length) {
-    res.send({ error: { code: code.USER_ERROR, message: 'No playlists have been saved.' } });
+    const errMsg = 'No playlists have been saved.';
+    next(errMsg);
     return;
   }
 
