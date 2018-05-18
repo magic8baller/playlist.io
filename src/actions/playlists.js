@@ -1,41 +1,37 @@
 import axios from 'axios';
 import { createAction } from 'redux-actions';
 
+import api from '../api';
 import delayedAnimation from '../utils/delayedAnimation';
-import { SAVE_PLAYLIST_ENDPOINT, FETCH_SAVED_PLAYLISTS_ENDPOINT } from '../utils/endpoints';
+import { isError } from '../utils/helpers';
+import * as h from '../utils/dispatchHelpers';
+import { FETCH_SAVED_PLAYLISTS_ENDPOINT } from '../utils/endpoints';
 
-export const savePlaylist = (data) => (dispatch) => {
+export const savePlaylist = (playlistData) => async (dispatch) => {
   delayedAnimation(dispatch);
 
-  axios
-    .post(SAVE_PLAYLIST_ENDPOINT, { ...data })
-    .then((res) => {
-      const { playlistId } = res.data;
-      const { title, tracks } = data;
+  const response = await api.savePlaylistSent(playlistData);
 
-      dispatch({ type: 'SAVE_PLAYLIST', payload: { playlistId, title, tracks } });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  if (isError(response)) {
+    console.error(response.statusText);
+    return;
+  }
+
+  const { playlistId } = response.data;
+
+  dispatch(h.savePlaylistSuccess(playlistId, playlistData));
+};
+
+export const fetchSavedPlaylists = (spotifyId) => async (dispatch) => {
+  const response = await api.fetchSavedPlaylistsSent(spotifyId);
+  const { data } = response;
+
+  data.error
+    ? dispatch(h.fetchSavedPlaylistsError(data))
+    : dispatch(h.fetchSavedPlaylistsSuccess(data));
 };
 
 export const setCurrentPlaylist = (playlistId, callback) => (dispatch) => {
-  dispatch({ type: 'SET_CURRENT_PLAYLIST', playlistId });
+  dispatch(h.setCurrentPlaylistSuccess(playlistId));
   callback();
-};
-
-export const fetchSavedPlaylists = (spotifyId) => (dispatch) => {
-  axios
-    .post(FETCH_SAVED_PLAYLISTS_ENDPOINT, { spotifyId })
-    .then((res) => {
-      const { data } = res;
-
-      data.error
-        ? dispatch({ type: 'NO_SAVED_PLAYLISTS_ERROR', payload: data.error })
-        : dispatch({ type: 'FETCH_SAVED_PLAYLISTS', payload: data.playlists });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
 };

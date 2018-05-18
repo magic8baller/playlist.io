@@ -4,4 +4,8 @@ export const setHeaders = (token) => ({
   Authorization: `Bearer ${token}`
 });
 
+const not = (fn) => (...args) => !fn(...args);
+
 export const isSuccess = (response) => response.status === 200;
+
+export const isError = not(isSuccess);

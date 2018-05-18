@@ -1,4 +1,6 @@
+import { setPathSuccess } from '../utils/dispatchHelpers';
+
 export const setPath = (history, path) => (dispatch) => {
-  dispatch({ type: 'SET_PATH', path });
+  dispatch(setPathSuccess(path));
   history.push(path);
 };

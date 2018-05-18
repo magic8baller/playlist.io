@@ -7,7 +7,7 @@ export default handleActions(
   {
     ADD_PLAYLIST: (state, action) => ({
       ...state,
-      current: [...action.payload]
+      current: [...action.playlist]
     }),
     SAVE_PLAYLIST: (state, action) => ({
       ...state,
@@ -32,7 +32,7 @@ export default handleActions(
     }),
     FETCH_SAVED_PLAYLISTS: (state, action) => ({
       ...state,
-      saved: action.payload
+      saved: action.playlists
     })
   },
   initialState

@@ -1,7 +1,9 @@
 import auth from './auth';
+import playlists from './playlists';
+import search from './search';
 
-const api = {
-  ...auth
+export default {
+  ...auth,
+  ...playlists,
+  ...search
 };
-
-export default api;

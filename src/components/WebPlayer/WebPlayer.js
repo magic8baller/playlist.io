@@ -80,7 +80,6 @@ class WebPlayer extends Component {
     this.player = new window.Spotify.Player({
       name: 'Playlist.io',
       getOAuthToken: (cb) => {
-        console.log({ accessToken });
         cb(accessToken);
       }
     });
