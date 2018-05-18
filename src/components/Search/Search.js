@@ -22,9 +22,9 @@ class Search extends Component {
   }
 
   handleRefreshAccessToken = async () => {
-    const { refreshToken, initRefreshAccessToken } = this.props;
+    const { refreshToken, refreshAccessToken } = this.props;
 
-    initRefreshAccessToken(refreshToken);
+    refreshAccessToken(refreshToken);
   };
 
   handleSetPath = () => {

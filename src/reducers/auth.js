@@ -14,7 +14,7 @@ export default handleActions(
     }),
     REFRESH_ACCESS_TOKEN: (state, action) => ({
       ...state,
-      accessToken: action.payload
+      accessToken: action.accessToken
     })
   },
   initialState

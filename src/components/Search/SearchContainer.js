@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import Search from './Search';
-import { initRefreshAccessToken } from '../../actions/auth';
+import { refreshAccessToken } from '../../actions/auth';
 import { fetchPlaylist } from '../../actions/search';
 import { setPath } from '../../actions/nav';
 import { getAccessToken, getRefreshToken } from '../../reducers/auth';
@@ -21,7 +21,7 @@ const mapStateToProps = (state) => ({
 export default reduxForm({
   form: 'search'
 })(
-  connect(mapStateToProps, { fetchPlaylist, fetchSavedPlaylists, setPath, initRefreshAccessToken })(
+  connect(mapStateToProps, { fetchPlaylist, fetchSavedPlaylists, setPath, refreshAccessToken })(
     withRouter(Search)
   )
 );
