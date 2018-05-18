@@ -17,4 +17,5 @@ module.exports = (app) => {
 
   // Favorites
   app.post('/api/favorite', FavoritesController.add);
+  app.delete('/api/favorite', FavoritesController.delete);
 };
