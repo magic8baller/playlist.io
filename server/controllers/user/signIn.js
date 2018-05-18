@@ -5,7 +5,7 @@ const getUser = require('./getUser');
 const keys = require('../../config/keys');
 const { redirectToHash, isError } = require('./helpers');
 
-module.exports = async (req, res, next) => {
+module.exports = async (req, res) => {
   const code = req.query.code || null;
   const state = req.query.state || null;
 

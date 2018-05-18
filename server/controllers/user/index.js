@@ -1,4 +1,5 @@
 module.exports = {
   authorize: require('./authorize'),
-  signIn: require('./signIn')
+  signIn: require('./signIn'),
+  refreshAccessToken: require('./refreshAccessToken')
 };

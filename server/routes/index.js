@@ -7,6 +7,7 @@ const PlaylistController = require('../controllers/playlist');
 module.exports = (app) => {
   // User
   app.get('/api/authorize', UserController.authorize);
+  app.post('/api/refresh', UserController.refreshAccessToken);
   app.get('/callback', UserController.signIn);
 
   // Playlist
