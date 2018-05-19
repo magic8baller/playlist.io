@@ -45,7 +45,7 @@ const saveToSpotify = (req) => {
     };
 
     request.post(addTracksOptns, (err, response, body) => {
-      isNotTestEnv() ? console.log(body) : null;
+      isTestEnv() ? null : console.log(body);
     });
   });
 };

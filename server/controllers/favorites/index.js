@@ -1,4 +1,4 @@
 module.exports = {
-  add: require('./add'),
-  delete: require('./delete')
+  addFavorite: require('./add'),
+  deleteFavorite: require('./delete')
 };

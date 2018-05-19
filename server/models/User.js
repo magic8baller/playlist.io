@@ -2,16 +2,22 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
-const PlaylistSchema = new Schema({
-  title: { type: String },
-  tracks: { type: Array }
-});
-
-const FavoriteSchema = new Schema({
+const TrackSchema = new Schema({
   id: { type: String },
   name: { type: String },
   album: { type: Object },
-  artists: { type: Array }
+  artists: { type: Array },
+  isFavorite: { type: Boolean, default: false }
+});
+
+const PlaylistSchema = new Schema({
+  title: { type: String },
+  tracks: [TrackSchema]
+});
+
+const CacheSchema = new Schema({
+  query: { type: String },
+  tracks: [TrackSchema]
 });
 
 const UserSchema = new Schema({
@@ -20,7 +26,8 @@ const UserSchema = new Schema({
   accessToken: { type: String },
   refreshToken: { type: String },
   playlists: [PlaylistSchema],
-  favorites: [FavoriteSchema]
+  favorites: [TrackSchema],
+  cache: [CacheSchema]
 });
 
 module.exports = mongoose.model('User', UserSchema);

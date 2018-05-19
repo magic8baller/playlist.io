@@ -45,7 +45,8 @@ describe('POST /api/playlists', () => {
 
     expect(res).to.have.status(code.OK);
     expect(res.body.playlists[0].title).to.equal(playlistData.title);
-    expect(res.body.playlists[0].tracks).to.eql(playlistData.tracks);
+    expect(res.body.playlists[0].tracks[0].name).to.equal(playlistData.tracks[0].name);
+    expect(res.body.playlists[0].tracks[1].name).to.equal(playlistData.tracks[1].name);
   });
 
   it('should return an error message when no playlists have been saved', async () => {

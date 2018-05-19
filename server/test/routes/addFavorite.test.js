@@ -1,5 +1,6 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
+const mongoose = require('mongoose');
 
 const User = require('../../models/User');
 const initTestSetup = require('../testSetup');
@@ -11,7 +12,7 @@ chai.use(chaiHttp);
 const expect = chai.expect;
 
 describe('POST /api/favorite', () => {
-  it('should add favorited track to DB', async () => {
+  it('should add favorited track to favorites array in DB', async () => {
     const route = '/api/favorite';
     const data = {
       spotifyId: 123,
@@ -40,6 +41,39 @@ describe('POST /api/favorite', () => {
     expect(res).to.have.status(code.OK);
     expect(res.body.success).to.be.true;
     expect(newFavoritesCount).to.equal(oldFavoritesCount + 1);
+  });
+
+  it('should add favorited track to cache object in DB', async () => {
+    const route = '/api/favorite';
+    const data = {
+      query: 'programming',
+      spotifyId: 123,
+      spotifyData: {
+        id: '38932',
+        name: 'Awesome New Song',
+        album: { name: 'Awesome Album' },
+        artists: [{ name: 'Kesha' }],
+        isFavorited: false
+      }
+    };
+
+    let user = new User({ spotifyId: 123 });
+    await user.save();
+
+    user = await User.findOne({ spotifyId: 123 });
+    const oldCacheCount = user.cache.length;
+
+    const res = await chai
+      .request(app)
+      .post(route)
+      .send(data);
+
+    user = await User.findOne({ spotifyId: 123 });
+    const newCacheCount = user.cache.length;
+
+    expect(res).to.have.status(code.OK);
+    expect(res.body.success).to.be.true;
+    expect(newCacheCount).to.equal(oldCacheCount + 1);
   });
 
   it('should return an error when given an incorrect ID', async () => {

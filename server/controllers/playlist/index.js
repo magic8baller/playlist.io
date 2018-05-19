@@ -1,4 +1,4 @@
 module.exports = {
-  fetch: require('./fetch'),
-  save: require('./save')
+  fetchPlaylist: require('./fetch'),
+  savePlaylist: require('./save')
 };
