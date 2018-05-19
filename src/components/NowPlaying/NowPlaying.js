@@ -12,7 +12,7 @@ import ErrorPageContainer from '../ErrorPage/ErrorPageContainer';
 import WebPlayerContainer from '../WebPlayer/WebPlayerContainer';
 import SaveAnimationContainer from '../SaveAnimation/SaveAnimationContainer';
 import NowPlayingLoader from './NowPlayingLoader';
-import FeaturedTrack from './FeaturedTrack/FeaturedTrack';
+import FeaturedTrackContainer from './FeaturedTrack/FeaturedTrackContainer';
 import TracksGrid from '../TracksGrid/TracksGrid';
 import SavePlaylistContainer from '../SavePlaylist/SavePlaylistContainer';
 import { randomPicEndpoint, pageIsLoading } from './helpers';
@@ -25,7 +25,7 @@ class NowPlaying extends React.Component {
   };
 
   renderFeaturedTrack = (...args) => (
-    <FeaturedTrack key={args[1]} args={args} playTrack={this.props.playTrack} />
+    <FeaturedTrackContainer key={args[1]} args={args} playTrack={this.props.playTrack} />
   );
 
   renderNowPlaying = () => {

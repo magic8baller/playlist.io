@@ -21,3 +21,11 @@ export const FETCH_SAVED_PLAYLISTS_ENDPOINT = isProdEnv()
 export const REFRESH_ACCESS_TOKEN_ENDPOINT = isProdEnv()
   ? process.env.REACT_APP_PROD_REFRESH_ACCESS_TOKEN
   : `${DEV_BASE_API}/refresh`;
+
+export const ADD_FAVORITE_ENDPOINT = isProdEnv()
+  ? process.env.REACT_APP_PROD_ADD_FAVORITE
+  : `${DEV_BASE_API}/favorite`;
+
+export const DELETE_FAVORITE_ENDPOINT = isProdEnv()
+  ? process.env.REACT_APP_PROD_DELETE_FAVORITE
+  : `${DEV_BASE_API}/favorite`;

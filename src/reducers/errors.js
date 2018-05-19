@@ -6,7 +6,7 @@ export default handleActions(
   {
     NO_SAVED_PLAYLISTS_ERROR: (state, action) => ({
       ...state,
-      noPlaylists: action.payload.message
+      noPlaylists: action.message
     })
   },
   initialState

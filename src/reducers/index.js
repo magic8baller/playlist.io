@@ -7,6 +7,7 @@ import navReducer from './nav';
 import errorsReducer from './errors';
 import eventsReducer from './events';
 import playerReducer from './player';
+import favoritesReducer from './favorites';
 
 const appReducer = combineReducers({
   form: formReducer,
@@ -15,7 +16,8 @@ const appReducer = combineReducers({
   nav: navReducer,
   errors: errorsReducer,
   events: eventsReducer,
-  player: playerReducer
+  player: playerReducer,
+  favorites: favoritesReducer
 });
 
 // clear state on sign out

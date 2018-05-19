@@ -15,7 +15,7 @@ export const setCurrentPlaylistSuccess = (playlistId) => ({
 
 export const fetchSavedPlaylistsError = ({ error }) => ({
   type: 'NO_SAVED_PLAYLISTS_ERROR',
-  error
+  message: error.message
 });
 
 export const fetchSavedPlaylistsSuccess = ({ playlists }) => ({
@@ -34,4 +34,9 @@ export const fetchPlaylistSuccess = (playlist) => ({
 
 export const deleteCurrentPlaylist = () => ({
   type: 'DELETE_CURRENT_PLAYLIST'
+});
+
+export const addFavoriteSuccess = (spotifyData) => ({
+  type: 'ADD_FAVORITE_TRACK',
+  track: spotifyData
 });
