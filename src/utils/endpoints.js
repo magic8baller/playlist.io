@@ -12,7 +12,7 @@ export const SIGN_IN_USER_ENDPOINT = isProdEnv()
 
 export const SAVE_PLAYLIST_ENDPOINT = isProdEnv()
   ? process.env.REACT_APP_PROD_SAVE_PLAYLIST
-  : `${DEV_BASE_API}/playlist`;
+  : `${DEV_BASE_API}/playlist/save`;
 
 export const FETCH_SAVED_PLAYLISTS_ENDPOINT = isProdEnv()
   ? process.env.REACT_APP_PROD_FETCH_PLAYLISTS
