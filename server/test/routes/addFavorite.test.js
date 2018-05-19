@@ -47,7 +47,7 @@ describe('POST /api/favorite', () => {
     expect(newFavoritesCount).to.equal(oldFavoritesCount + 1);
   });
 
-  it.only('should update cache with favorited track', async () => {
+  it('should update cache with favorited track', async () => {
     const cachePlaylistRoute = '/api/playlist/cache';
     const addFavoriteRoute = '/api/favorite';
 

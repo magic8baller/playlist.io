@@ -17,7 +17,7 @@ describe('POST /api/playlist/cache', () => {
     });
   });
 
-  it.only('should cache a playlist', async () => {
+  it('should cache a playlist', async () => {
     const route = '/api/playlist/cache';
     const playlistData = {
       query: 'programming',
