@@ -1,25 +1,62 @@
 const request = require('request');
 const isNil = require('ramda/src/isNil');
 const curry = require('ramda/src/curry');
+const map = require('ramda/src/map');
 
 const code = require('../../utils/statusCodes');
 const User = require('../../models/User');
 
-const isEqualTo = curry((spotifyData, targetUser) => spotifyData.id === targetUser.id);
+/*
+=========== Update cache ===========
+*/
 
-const isDuplicate = (targetUser, spotifyData) => targetUser.favorites.some(isEqualTo(spotifyData));
+const updateTargetTrackFavoriteProp = (favoritedTrack) => ({
+  ...favoritedTrack,
+  isFavorited: true
+});
 
-const saveToCache = (targetUser, query, spotifyData) => {
-  const newCachedPlaylist = { query, tracks: { ...spotifyData, isFavorite: true } };
-  targetUser.cache.push({ ...newCachedPlaylist });
+const isTargetTrack = (favoritedTrack, currTrack) => favoritedTrack.id === currTrack.id;
+
+const getTargetTrack = (favoritedTrack) => (currTrack) =>
+  isTargetTrack(favoritedTrack, currTrack)
+    ? updateTargetTrackFavoriteProp(favoritedTrack)
+    : currTrack;
+
+const updateTargetTrack = (cachedPlaylist, trackData) => {
+  const updatedTracks = map(getTargetTrack(trackData), cachedPlaylist.tracks);
+  cachedPlaylist.tracks = updatedTracks;
+  return cachedPlaylist;
 };
 
-const saveToFavorites = (targetUser, spotifyData) => {
-  targetUser.favorites.push({ ...spotifyData, isFavorite: true });
+const isTargetPlaylist = (cachedPlaylist, query) => cachedPlaylist.query === query;
+
+const updateTargetPlaylist = (query) => (trackData) => (cachedPlaylist) =>
+  isTargetPlaylist(cachedPlaylist, query)
+    ? updateTargetTrack(cachedPlaylist, trackData)
+    : cachedPlaylist;
+
+const updateCache = (targetUser, query, trackData) => {
+  map(updateTargetPlaylist(query)(trackData), targetUser.cache);
 };
+
+/*
+=========== Add to favorites ===========
+*/
+
+const isEqualTo = curry((trackData, targetUser) => trackData.id === targetUser.id);
+
+const isDuplicate = (targetUser, trackData) => targetUser.favorites.some(isEqualTo(trackData));
+
+const addToFavorites = (targetUser, trackData) => {
+  targetUser.favorites.push({ ...trackData, isFavorite: true });
+};
+
+/*
+=========== Controller ===========
+*/
 
 module.exports = async (req, res, next) => {
-  const { spotifyId, spotifyData, query } = req.body;
+  const { spotifyId, trackData, query } = req.body;
 
   let targetUser = await User.findOne({ spotifyId });
 
@@ -29,16 +66,16 @@ module.exports = async (req, res, next) => {
     return;
   }
 
-  saveToCache(targetUser, query, spotifyData);
+  updateCache(targetUser, query, trackData);
 
-  if (isDuplicate(targetUser, spotifyData)) {
+  if (isDuplicate(targetUser, trackData)) {
     await targetUser.save();
     const errMsg = 'You have already favorited this track. You must really like it!';
     next(errMsg);
     return;
   }
 
-  saveToFavorites(targetUser, spotifyData);
+  addToFavorites(targetUser, trackData);
 
   await targetUser.save();
 

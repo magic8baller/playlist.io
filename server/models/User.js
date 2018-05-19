@@ -7,7 +7,7 @@ const TrackSchema = new Schema({
   name: { type: String },
   album: { type: Object },
   artists: { type: Array },
-  isFavorite: { type: Boolean, default: false }
+  isFavorited: { type: Boolean, default: false }
 });
 
 const PlaylistSchema = new Schema({
