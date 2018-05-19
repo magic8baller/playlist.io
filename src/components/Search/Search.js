@@ -14,13 +14,15 @@ const isCached = (cache, query) => cache[query];
 
 class Search extends Component {
   state = {
-    isLoaded: false
+    isLoaded: true
   };
 
   componentDidMount() {
     this.handleRefreshAccessToken();
     this.handleSetCurrPath();
-    this.maybeFetchSavedPlaylists();
+    this.maybeFetchSavedPlaylists(() => {
+      this.maybeSetInitialRender();
+    });
   }
 
   handleRefreshAccessToken = async () => {
@@ -36,10 +38,17 @@ class Search extends Component {
     setPath(history, currPath);
   };
 
-  maybeFetchSavedPlaylists = () => {
-    const { savedPlaylists, spotifyId, fetchSavedPlaylists } = this.props;
+  maybeSetInitialRender = () => {
+    const { isInitialRender, setIsInitialRender } = this.props;
 
-    if (isEmpty(savedPlaylists)) fetchSavedPlaylists(spotifyId);
+    isInitialRender && setIsInitialRender();
+  };
+
+  maybeFetchSavedPlaylists = (cb) => {
+    const { savedPlaylists, spotifyId, fetchSavedPlaylists, isInitialRender } = this.props;
+
+    isInitialRender && fetchSavedPlaylists(spotifyId);
+    cb();
   };
 
   handleFormSubmit = ({ query }) => {

@@ -10,13 +10,16 @@ import { getAccessToken, getRefreshToken } from '../../reducers/auth';
 import { getSpotifyId } from '../../reducers/auth';
 import { getSavedPlaylists, getCache } from '../../reducers/playlists';
 import { fetchSavedPlaylists } from '../../actions/playlists';
+import { getIsInitialRender } from '../../reducers/events';
+import { setIsInitialRender } from '../../actions/events';
 
 const mapStateToProps = (state) => ({
   accessToken: getAccessToken(state),
   refreshToken: getRefreshToken(state),
   spotifyId: getSpotifyId(state),
   savedPlaylists: getSavedPlaylists(state),
-  cache: getCache(state)
+  cache: getCache(state),
+  isInitialRender: getIsInitialRender(state)
 });
 
 export default reduxForm({
@@ -27,6 +30,7 @@ export default reduxForm({
     fetchSavedPlaylists,
     setPath,
     refreshAccessToken,
-    returnCachedPlaylist
+    returnCachedPlaylist,
+    setIsInitialRender
   })(withRouter(Search))
 );
