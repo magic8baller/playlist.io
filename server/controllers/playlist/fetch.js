@@ -1,6 +1,8 @@
 const code = require('../../utils/statusCodes');
 const User = require('../../models/User');
 
+const isEmpty = (playlists) => !playlists.length;
+
 module.exports = async (req, res, next) => {
   const targetUser = await User.findOne({ spotifyId: req.body.spotifyId });
 
@@ -12,7 +14,7 @@ module.exports = async (req, res, next) => {
 
   const { playlists } = targetUser;
 
-  if (!playlists.length) {
+  if (isEmpty(playlists)) {
     const errMsg = 'No playlists have been saved.';
     next(errMsg);
     return;

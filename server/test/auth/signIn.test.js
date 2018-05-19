@@ -12,7 +12,7 @@ chai.use(chaiHttp);
 const expect = chai.expect;
 
 describe('GET /api/authorize', () => {
-  it('should allow a user to authorize access to their Spotify account', async () => {
+  xit('should allow a user to authorize access to their Spotify account', async () => {
     const route = '/api/authorize';
     const res = await chai.request(app).get(route);
 
