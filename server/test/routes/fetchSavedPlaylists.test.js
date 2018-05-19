@@ -20,7 +20,7 @@ describe('POST /api/playlists', () => {
   });
 
   it('should fetch all saved playlists', async () => {
-    const savePlaylistRoute = '/api/playlist';
+    const savePlaylistRoute = '/api/playlist/save';
     const playlistData = {
       spotifyId: 123,
       title: 'My Awesome Playlist',

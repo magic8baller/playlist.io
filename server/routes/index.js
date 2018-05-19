@@ -12,8 +12,9 @@ module.exports = (app) => {
   app.get('/callback', UserController.signIn);
 
   // Playlist
-  app.post('/api/playlist', PlaylistController.savePlaylist);
-  app.post('/api/playlists', PlaylistController.fetchPlaylist);
+  app.post('/api/playlist/cache', PlaylistController.cachePlaylist);
+  app.post('/api/playlists', PlaylistController.fetchPlaylists);
+  app.post('/api/playlist/save', PlaylistController.savePlaylist);
 
   // Favorites
   app.post('/api/favorite', FavoritesController.addFavorite);

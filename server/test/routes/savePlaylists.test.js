@@ -12,7 +12,7 @@ const expect = chai.expect;
 
 describe('POST /api/playlist', () => {
   it('should save a playlist', async () => {
-    const route = '/api/playlist';
+    const route = '/api/playlist/save';
     const data = {
       spotifyId: 123,
       title: 'My Awesome Playlist',
