@@ -4,24 +4,29 @@ import { withRouter } from 'react-router-dom';
 
 import Search from './Search';
 import { refreshAccessToken } from '../../actions/auth';
-import { fetchPlaylist } from '../../actions/search';
+import { fetchPlaylist, returnCachedPlaylist } from '../../actions/search';
 import { setPath } from '../../actions/nav';
 import { getAccessToken, getRefreshToken } from '../../reducers/auth';
 import { getSpotifyId } from '../../reducers/auth';
-import { getSavedPlaylists } from '../../reducers/playlists';
+import { getSavedPlaylists, getCache } from '../../reducers/playlists';
 import { fetchSavedPlaylists } from '../../actions/playlists';
 
 const mapStateToProps = (state) => ({
   accessToken: getAccessToken(state),
   refreshToken: getRefreshToken(state),
   spotifyId: getSpotifyId(state),
-  savedPlaylists: getSavedPlaylists(state)
+  savedPlaylists: getSavedPlaylists(state),
+  cache: getCache(state)
 });
 
 export default reduxForm({
   form: 'search'
 })(
-  connect(mapStateToProps, { fetchPlaylist, fetchSavedPlaylists, setPath, refreshAccessToken })(
-    withRouter(Search)
-  )
+  connect(mapStateToProps, {
+    fetchPlaylist,
+    fetchSavedPlaylists,
+    setPath,
+    refreshAccessToken,
+    returnCachedPlaylist
+  })(withRouter(Search))
 );

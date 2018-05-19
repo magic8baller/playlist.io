@@ -1,6 +1,9 @@
 import { handleActions } from 'redux-actions';
 
-const initialState = { search: 'Invalid search. Please try again.' };
+const initialState = {
+  search: 'Invalid search. Please try again.',
+  noPlaylists: 'No playlists have been saved.'
+};
 
 export default handleActions(
   {

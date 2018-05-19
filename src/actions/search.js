@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { createAction } from 'redux-actions';
 import { isEmpty } from 'ramda';
 
 import api from '../api';
@@ -6,6 +7,8 @@ import createPlaylist from '../utils/createPlaylist';
 import { setHeaders } from '../utils/helpers';
 import * as h from '../utils/dispatchHelpers';
 import { isError } from '../utils/helpers';
+
+export const returnCachedPlaylist = createAction('RETURN_CACHED_PLAYLIST');
 
 export const fetchPlaylist = (token, query) => async (dispatch) => {
   dispatch(h.deleteCurrentPlaylist());
@@ -29,5 +32,5 @@ export const fetchPlaylist = (token, query) => async (dispatch) => {
   }
 
   const playlist = await createPlaylist(playlists, config);
-  dispatch(h.fetchPlaylistSuccess(playlist));
+  dispatch(h.fetchPlaylistSuccess(playlist, query));
 };

@@ -5,14 +5,21 @@ const initialState = { saved: [], current: null };
 
 export default handleActions(
   {
-    ADD_PLAYLIST: (state, action) => ({
-      ...state,
-      current: [...action.playlist]
-    }),
-    SAVE_PLAYLIST: (state, action) => ({
-      ...state,
-      saved: [...state.saved, action.payload]
-    }),
+    ADD_PLAYLIST: (state, action) => {
+      const normalizedQuery = action.query.toLowerCase();
+      const newCachedPlaylist = {
+        [normalizedQuery]: [...action.playlist]
+      };
+
+      return {
+        ...state,
+        current: [...action.playlist],
+        cache: {
+          ...state.cache,
+          ...newCachedPlaylist
+        }
+      };
+    },
     SET_CURRENT_PLAYLIST: (state, action) => {
       const { playlistId } = action;
       const newCurrentPlaylist = find(propEq('playlistId', playlistId), state.saved);
@@ -22,6 +29,14 @@ export default handleActions(
         current: newCurrentPlaylist.tracks
       };
     },
+    RETURN_CACHED_PLAYLIST: (state, action) => ({
+      ...state,
+      current: [...action.payload]
+    }),
+    SAVE_PLAYLIST: (state, action) => ({
+      ...state,
+      saved: [...state.saved, action.payload]
+    }),
     DELETE_CURRENT_PLAYLIST: (state) => ({
       ...state,
       current: null
@@ -41,3 +56,5 @@ export default handleActions(
 export const getCurrentTracks = (state) => state.playlists.current;
 
 export const getSavedPlaylists = (state) => state.playlists.saved;
+
+export const getCache = (state) => state.playlists.cache;

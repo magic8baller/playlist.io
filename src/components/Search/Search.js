@@ -10,24 +10,26 @@ import '../Home/styles.css';
 
 const getClassName = (isLoaded) => (isLoaded ? '' : 'wrapper__hide');
 
+const isCached = (cache, query) => cache[query];
+
 class Search extends Component {
   state = {
-    isLoaded: true
+    isLoaded: false
   };
 
   componentDidMount() {
     this.handleRefreshAccessToken();
-    this.handleSetPath();
+    this.handleSetCurrPath();
     this.maybeFetchSavedPlaylists();
   }
 
   handleRefreshAccessToken = async () => {
     const { refreshToken, refreshAccessToken } = this.props;
-
+    // TODO: come up with better names to differentiate these two
     refreshAccessToken(refreshToken);
   };
 
-  handleSetPath = () => {
+  handleSetCurrPath = () => {
     const { setPath, history } = this.props;
     const currPath = '/';
 
@@ -41,11 +43,34 @@ class Search extends Component {
   };
 
   handleFormSubmit = ({ query }) => {
-    const { fetchPlaylist, accessToken, history, setPath } = this.props;
-    const newPath = '/playing';
+    const { cache } = this.props;
+    const normalizedQuery = query.toLowerCase();
+
+    isCached(cache, normalizedQuery)
+      ? this.handleCachedQuery(query, cache)
+      : this.handleNonCachedQuery(query);
+
+    this.setNextPath();
+  };
+
+  handleCachedQuery = (query, cache) => {
+    const { returnCachedPlaylist } = this.props;
+    const playlist = cache[query];
+
+    returnCachedPlaylist(playlist);
+  };
+
+  handleNonCachedQuery = (query) => {
+    const { fetchPlaylist, accessToken } = this.props;
 
     fetchPlaylist(accessToken, query);
-    setPath(history, newPath);
+  };
+
+  setNextPath = () => {
+    const { history, setPath } = this.props;
+    const nextPath = '/playing';
+
+    setPath(history, nextPath);
   };
 
   handleLoadedImg = () => {

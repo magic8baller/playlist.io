@@ -27,9 +27,10 @@ export const resolveCurrentPlaylist = () => ({
   type: 'RESOLVE_CURRENT_PLAYLIST'
 });
 
-export const fetchPlaylistSuccess = (playlist) => ({
+export const fetchPlaylistSuccess = (playlist, query) => ({
   type: 'ADD_PLAYLIST',
-  playlist
+  playlist,
+  query
 });
 
 export const deleteCurrentPlaylist = () => ({
