@@ -14,7 +14,7 @@ const isCached = (cache, query) => cache[query];
 
 class Search extends Component {
   state = {
-    isLoaded: true
+    isLoaded: false
   };
 
   componentDidMount() {

@@ -1,7 +1,7 @@
 import { handleActions } from 'redux-actions';
 import { find, propEq } from 'ramda';
 
-const initialState = { saved: [], current: null };
+const initialState = { saved: [], current: null, cache: {} };
 
 export default handleActions(
   {
