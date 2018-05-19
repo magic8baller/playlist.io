@@ -10,6 +10,7 @@ import './styles.css';
 class WebPlayer extends Component {
   state = {
     isHovered: false,
+    isReady: false,
     timerIsActivated: false,
     positionInMs: null,
     positionFormatted: null,
@@ -103,6 +104,7 @@ class WebPlayer extends Component {
       const deviceId = data.device_id;
 
       setDeviceId(deviceId);
+      this.setState({ isReady: true });
     });
   };
 
@@ -222,7 +224,7 @@ class WebPlayer extends Component {
 
   renderMainControl = (Control) => (
     <Control
-      className="hover-active"
+      className={'hover-active ' + (!this.state.isReady && 'inactive')}
       onMouseEnter={this.handleMouseEnter}
       onMouseLeave={this.handleMouseLeave}
       onClick={this.handleMainControlClick}
