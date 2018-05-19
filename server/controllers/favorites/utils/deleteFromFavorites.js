@@ -12,5 +12,7 @@ const filterOutTargetTrack = curry((targetId, { favorites }) =>
   filter(isTargetId(targetId), favorites)
 );
 
-module.exports = (targetId, targetUser) =>
+const deleteFromFavorites = (targetId, targetUser) =>
   pipe(filterOutTargetTrack(targetId), updateFavorites(targetUser))(targetUser);
+
+module.exports = deleteFromFavorites;

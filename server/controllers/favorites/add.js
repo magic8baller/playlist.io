@@ -4,7 +4,7 @@ const curry = require('ramda/src/curry');
 
 const code = require('../../utils/statusCodes');
 const User = require('../../models/User');
-const updateCache = require('./utils/updateCache');
+const updateCacheAdd = require('./utils/updateCacheAdd');
 const addToFavorites = require('./utils/addToFavorites');
 
 const isEqualTo = curry((trackData, targetUser) => trackData.id === targetUser.id);
@@ -22,7 +22,7 @@ module.exports = async (req, res, next) => {
     return;
   }
 
-  updateCache(targetUser, query, trackData);
+  updateCacheAdd(targetUser, query, trackData);
 
   if (isDuplicate(targetUser, trackData)) {
     await targetUser.save();

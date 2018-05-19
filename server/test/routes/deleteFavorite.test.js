@@ -17,7 +17,7 @@ describe('DELETE /api/favorite', () => {
     });
   });
 
-  it.only('should delete favorited track from favorites array', async () => {
+  it('should delete favorited track from favorites array', async () => {
     const route = '/api/favorite';
     const addFavoriteData = {
       spotifyId: 123,
@@ -29,7 +29,14 @@ describe('DELETE /api/favorite', () => {
       }
     };
 
-    const deleteFavoriteData = { spotifyId: 123, targetId: '1' };
+    const deleteFavoriteData = {
+      query: 'programming',
+      spotifyId: 123,
+      trackData: {
+        id: '1',
+        name: 'Awesome New Song'
+      }
+    };
 
     let user = new User({ spotifyId: 123 });
     await user.save();
@@ -49,7 +56,7 @@ describe('DELETE /api/favorite', () => {
     expect(newFavoritesCount).to.equal(oldFavoritesCount - 1);
   });
 
-  it(`should update track's cached favorite prop`, async () => {
+  it.only(`should update track's cached favorite prop`, async () => {
     const cachePlaylistRoute = '/api/playlist/cache';
     const favoriteRoute = '/api/favorite';
 
@@ -65,16 +72,7 @@ describe('DELETE /api/favorite', () => {
       tracks: [{ id: '3', name: 'Hey There' }, { id: '4', name: 'My Name Is...' }]
     };
 
-    const addFavoriteData = {
-      query: 'programming',
-      spotifyId: 123,
-      trackData: {
-        id: '1',
-        name: 'Awesome New Song'
-      }
-    };
-
-    const deleteFavoriteData = {
+    const favoriteData = {
       query: 'programming',
       spotifyId: 123,
       trackData: {
@@ -90,18 +88,18 @@ describe('DELETE /api/favorite', () => {
 
     await postReq(cachePlaylistRoute, playlistDataTwo);
 
-    await postReq(favoriteRoute, addFavoriteData);
+    await postReq(favoriteRoute, favoriteData);
 
     const oldUser = await User.findOne({ spotifyId: 123 });
     const oldFavoriteState = oldUser.cache[0].tracks[0].isFavorited;
 
-    const res = await deleteReq(favoriteRoute, deleteFavoriteData);
+    const res = await deleteReq(favoriteRoute, favoriteData);
 
     const newUser = await User.findOne({ spotifyId: 123 });
     const newFavoriteState = newUser.cache[0].tracks[0].isFavorited;
 
     expect(res).to.have.status(code.OK);
-    expect(res.body.success).to.be.false;
+    expect(res.body.success).to.be.true;
     expect(oldFavoriteState).to.not.equal(newFavoriteState);
     expect(newFavoriteState).to.be.false;
   });
