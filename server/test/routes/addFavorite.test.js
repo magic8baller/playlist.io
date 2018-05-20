@@ -19,13 +19,13 @@ describe('POST /api/favorite', () => {
     });
   });
 
-  it('should add favorited track to favorites array in DB', async () => {
+  it.only('should add favorited track to favorites array in DB', async () => {
     const route = '/api/favorite';
-    const trackData = {
+    const reqPayload = {
       data: {
         spotifyId: 123,
         trackData: {
-          id: '231432',
+          id: '1',
           name: 'Awesome New Song',
           album: { name: 'Awesome Album' },
           artists: [{ name: 'Kesha' }]
@@ -39,7 +39,7 @@ describe('POST /api/favorite', () => {
     user = await User.findOne({ spotifyId: 123 });
     const oldFavoritesCount = user.favorites.length;
 
-    const res = await postReq(route, trackData);
+    const res = await postReq(route, reqPayload);
 
     user = await User.findOne({ spotifyId: 123 });
     const newFavoritesCount = user.favorites.length;
@@ -47,6 +47,8 @@ describe('POST /api/favorite', () => {
 
     expect(res).to.have.status(code.OK);
     expect(res.body.success).to.be.true;
+    expect(res.body.favorites.length).to.equal(1);
+    expect(res.body.favorites[0].album).to.include(reqPayload.data.trackData.album);
     expect(newFavoritesCount).to.equal(oldFavoritesCount + 1);
     expect(newFavoritesState).to.be.true;
   });

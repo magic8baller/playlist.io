@@ -35,5 +35,5 @@ module.exports = async (req, res, next) => {
 
   await targetUser.save();
 
-  res.send({ success: true });
+  res.send({ success: true, favorites: targetUser.favorites });
 };
