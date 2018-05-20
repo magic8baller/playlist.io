@@ -54,7 +54,7 @@ describe('POST /api/favorite', () => {
     expect(newFavoritesState).to.be.true;
   });
 
-  it.only('should update cache with favorited track', async () => {
+  it('should update cache with favorited track', async () => {
     const cachePlaylistRoute = '/api/playlist/cache';
     const addFavoriteRoute = '/api/favorite';
     const targetQuery = 'programming';
@@ -101,6 +101,53 @@ describe('POST /api/favorite', () => {
     expect(user.cache[0].tracks[1].isFavorited).to.be.false;
     expect(user.cache[1].tracks[0].isFavorited).to.be.false;
     expect(user.cache[1].tracks[1].isFavorited).to.be.false;
+  });
+
+  it.only('should return the currently selected tracks', async () => {
+    const cachePlaylistRoute = '/api/playlist/cache';
+    const addFavoriteRoute = '/api/favorite';
+    const targetQuery = 'programming';
+
+    const playlistDataOne = {
+      query: targetQuery,
+      spotifyId: 123,
+      playlist: [{ id: '1', name: 'Awesome Song' }, { id: '2', name: 'Ayo' }]
+    };
+
+    const playlistDataTwo = {
+      query: 'workout',
+      spotifyId: 123,
+      playlist: [{ id: '3', name: 'Hey There' }, { id: '4', name: 'My Name Is...' }]
+    };
+
+    const reqPayload = {
+      data: {
+        query: targetQuery,
+        spotifyId: 123,
+        trackData: {
+          id: '1',
+          name: 'Awesome Song'
+        }
+      }
+    };
+
+    let user = new User({ spotifyId: 123 });
+    await user.save();
+
+    await postReq(cachePlaylistRoute, playlistDataOne);
+
+    await postReq(cachePlaylistRoute, playlistDataTwo);
+
+    const res = await postReq(addFavoriteRoute, reqPayload);
+
+    user = await User.findOne({ spotifyId: 123 });
+
+    expect(res).to.have.status(code.OK);
+    expect(res.body.success).to.be.true;
+    expect(res.body.current.length).to.equal(2);
+    expect(res.body.current[0]).to.include(playlistDataOne.playlist[0]);
+    expect(res.body.current[1]).to.include(playlistDataOne.playlist[1]);
+    expect(res.body.current[0].isFavorited).to.be.true;
   });
 
   it('should return an error when given an incorrect ID', async () => {
