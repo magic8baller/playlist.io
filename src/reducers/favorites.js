@@ -9,7 +9,7 @@ export default handleActions(
   {
     ADD_FAVORITE_TRACK: (state, action) => ({
       ...state,
-      all: [...state.all, action.trackData]
+      all: action.favorites
     }),
     DELETE_FAVORITE_TRACK: (state, action) => {
       const updatedFavorites = filter(deleteFavorite(action.targetTrackId), state.all);

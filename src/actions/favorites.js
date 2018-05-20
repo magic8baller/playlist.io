@@ -14,7 +14,7 @@ const favoriteAction = (apiReq, successHelper) => (spotifyId, query, trackData) 
     return;
   }
 
-  dispatch(successHelper(trackData));
+  dispatch(successHelper(response));
 };
 
 export const addFavorite = favoriteAction(api.addFavoriteSent, addFavoriteSuccess);
