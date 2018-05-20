@@ -29,6 +29,10 @@ export default handleActions(
         current: newCurrentPlaylist.tracks
       };
     },
+    UPDATE_CURRENT_PLAYLIST: (state, action) => ({
+      ...state,
+      current: action.current
+    }),
     RETURN_CACHED_PLAYLIST: (state, action) => ({
       ...state,
       current: [...action.payload]

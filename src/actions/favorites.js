@@ -2,7 +2,7 @@ import { isError } from '../utils/helpers';
 
 import api from '../api';
 import { isUserError } from '../utils/helpers';
-import { updateFavorites, updateCache } from '../utils/dispatchHelpers';
+import { updateFavorites, updateCache, updateCurrentPlaylist } from '../utils/dispatchHelpers';
 
 const favoriteAction = (apiReq) => (spotifyId, query, trackData) => async (dispatch) => {
   const response = await apiReq(spotifyId, query, trackData);
@@ -14,6 +14,7 @@ const favoriteAction = (apiReq) => (spotifyId, query, trackData) => async (dispa
 
   dispatch(updateFavorites(response));
   dispatch(updateCache(response));
+  dispatch(updateCurrentPlaylist(response));
 };
 
 export const addFavorite = favoriteAction(api.addFavoriteSent);

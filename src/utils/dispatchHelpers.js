@@ -46,3 +46,8 @@ export const updateCache = ({ data }) => ({
   type: 'UPDATE_CACHE',
   cache: data.cache
 });
+
+export const updateCurrentPlaylist = ({ data }) => ({
+  type: 'UPDATE_CURRENT_PLAYLIST',
+  current: data.current
+});

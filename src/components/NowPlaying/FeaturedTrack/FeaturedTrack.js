@@ -4,7 +4,15 @@ import * as Style from './FeaturedTrackStyles';
 
 class FeaturedTrack extends Component {
   state = {
-    isFavorited: false
+    shouldBeColored: null
+  };
+
+  colorIcon = () => {
+    this.setState({ shouldBeColored: true });
+  };
+
+  uncolorIcon = () => {
+    this.setState({ shouldBeColored: false });
   };
 
   handleTrackClick = () => {
@@ -16,18 +24,24 @@ class FeaturedTrack extends Component {
 
   handleFavoriteClick = () => {
     const trackData = this.props.args[0];
-    const { spotifyId, addFavorite, deleteFavorite, query } = this.props;
+    const { spotifyId, query, addFavorite, deleteFavorite } = this.props;
 
-    this.setState({ isFavorited: !this.state.isFavorited }, () => {
-      this.state.isFavorited
-        ? addFavorite(spotifyId, query, trackData)
-        : deleteFavorite(spotifyId, query, trackData);
-    });
+    // Higher order functions to reduce duplication
+    const handleIsFavorited = this.handleFavorited(deleteFavorite, this.uncolorIcon);
+    const handleIsNotFavorited = this.handleFavorited(addFavorite, this.colorIcon);
+
+    trackData.isFavorited
+      ? handleIsFavorited(spotifyId, query, trackData)
+      : handleIsNotFavorited(spotifyId, query, trackData);
+  };
+
+  handleFavorited = (favoriteAction, colorAction) => (...queryData) => {
+    colorAction();
+    favoriteAction(...queryData);
   };
 
   render() {
-    const [{ album: { artists, images }, name }, idx] = this.props.args;
-    const { isFavorited } = this.state;
+    const [{ album: { artists, images }, name, isFavorited }, idx] = this.props.args;
 
     return (
       <Style.TrackWrapper key={`${name}-${idx}`}>
@@ -37,7 +51,12 @@ class FeaturedTrack extends Component {
         <Style.Data>
           <div onClick={this.handleTrackClick}>{name}</div>
           <Style.ArtistName onClick={this.handleTrackClick}>{artists[0].name}</Style.ArtistName>
-          <Style.HeartIcon onClick={this.handleFavoriteClick} {...this.state} size={16} />
+          <Style.HeartIcon
+            {...this.state}
+            onClick={this.handleFavoriteClick}
+            isFavorited={isFavorited}
+            size={16}
+          />
         </Style.Data>
       </Style.TrackWrapper>
     );
