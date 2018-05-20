@@ -37,12 +37,12 @@ export const deleteCurrentPlaylist = () => ({
   type: 'DELETE_CURRENT_PLAYLIST'
 });
 
-export const addFavoriteSuccess = ({ data }) => ({
-  type: 'ADD_FAVORITE_TRACK',
+export const updateFavorites = ({ data }) => ({
+  type: 'UPDATE_FAVORITES',
   favorites: data.favorites
 });
 
-export const deleteFavoriteSuccess = ({ data }) => ({
-  type: 'DELETE_FAVORITE_TRACK',
-  favorites: data.favorites
+export const updateCache = ({ data }) => ({
+  type: 'UPDATE_CACHE',
+  cache: data.cache
 });

@@ -7,18 +7,10 @@ const deleteFavorite = curry((targetTrackId, track) => targetTrackId === track.i
 
 export default handleActions(
   {
-    ADD_FAVORITE_TRACK: (state, action) => ({
+    UPDATE_FAVORITES: (state, action) => ({
       ...state,
       all: action.favorites
-    }),
-    DELETE_FAVORITE_TRACK: (state, action) => {
-      const updatedFavorites = filter(deleteFavorite(action.targetTrackId), state.all);
-
-      return {
-        ...state,
-        all: updatedFavorites
-      };
-    }
+    })
   },
   initialState
 );

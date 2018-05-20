@@ -33,6 +33,10 @@ export default handleActions(
       ...state,
       current: [...action.payload]
     }),
+    UPDATE_CACHE: (state, action) => ({
+      ...state,
+      cache: action.cache
+    }),
     SAVE_PLAYLIST: (state, action) => ({
       ...state,
       saved: [...state.saved, action.payload]
