@@ -3,7 +3,7 @@ const pluck = require('ramda/src/pluck');
 
 const code = require('../../utils/statusCodes');
 const User = require('../../models/User');
-const isNotTestEnv = require('../../utils/helpers');
+const { isTestEnv } = require('../../utils/helpers');
 
 const getPlaylistId = (user) => user.playlists[user.playlists.length - 1]._id;
 
