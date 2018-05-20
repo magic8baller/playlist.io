@@ -12,11 +12,13 @@ module.exports = (app) => {
   app.get('/callback', UserController.signIn);
 
   // Playlist
-  app.post('/api/playlist/cache', PlaylistController.cachePlaylist);
-  app.post('/api/playlists', PlaylistController.fetchPlaylists);
-  app.post('/api/playlist/save', PlaylistController.savePlaylist);
+  app.get('/api/playlists/cached/:spotifyId', PlaylistController.fetchCachedPlaylists);
+  app.get('/api/playlists/saved/:spotifyId', PlaylistController.fetchSavedPlaylists);
+  app.get('/api/playlists/all/:spotifyId', PlaylistController.fetchAllPlaylists);
+  app.post('/api/playlist/cache/:spotifyId', PlaylistController.cachePlaylist);
+  app.post('/api/playlist/save/:spotifyId', PlaylistController.savePlaylist);
 
   // Favorites
-  app.post('/api/favorite', FavoritesController.addFavorite);
-  app.delete('/api/favorite', FavoritesController.deleteFavorite);
+  app.post('/api/favorite/:spotifyId', FavoritesController.addFavorite);
+  app.delete('/api/favorite/:spotifyId', FavoritesController.deleteFavorite);
 };

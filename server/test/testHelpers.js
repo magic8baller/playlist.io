@@ -6,10 +6,10 @@ const app = require('../app');
 chai.use(chaiHttp);
 const expect = chai.expect;
 
-const testReqUtil = (method) => (route, data) =>
+const testReqUtil = (method) => (route, id, data = {}) =>
   chai
     .request(app)
-    [method](route)
+    [method](`${route}/${id}`)
     .send(data);
 
 const postReq = testReqUtil('post');

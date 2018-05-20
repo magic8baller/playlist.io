@@ -22,7 +22,8 @@ const saveToCache = async (targetUser, query, playlist) =>
   pipe(formatPlaylist(query), pushToCache(targetUser), save)(playlist);
 
 module.exports = async (req, res, next) => {
-  const { spotifyId, playlist, query } = req.body;
+  const { spotifyId } = req.params;
+  const { playlist, query } = req.body;
 
   const targetUser = await User.findOne({ spotifyId });
 

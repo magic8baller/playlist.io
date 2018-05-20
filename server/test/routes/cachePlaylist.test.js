@@ -9,7 +9,7 @@ const { postReq } = require('../testHelpers');
 
 const expect = chai.expect;
 
-describe('POST /api/playlist/cache', () => {
+describe('POST /api/playlist/cached/:spotifyId', () => {
   before((done) => {
     const users = mongoose.connection.collections.users;
     users.drop(() => {
@@ -17,11 +17,11 @@ describe('POST /api/playlist/cache', () => {
     });
   });
 
-  it.only('should cache a playlist', async () => {
+  it('should cache a playlist', async () => {
     const route = '/api/playlist/cache';
+    const spotifyData = 123;
     const playlistData = {
       query: 'programming',
-      spotifyId: 123,
       playlist: [{ name: 'Heller' }, { name: 'Ayo' }]
     };
 
@@ -31,7 +31,7 @@ describe('POST /api/playlist/cache', () => {
     user = await User.findOne({ spotifyId: 123 });
     const oldPlaylistCount = user.cache.length;
 
-    const res = await postReq(route, playlistData);
+    const res = await postReq(route, spotifyData, playlistData);
 
     user = await User.findOne({ spotifyId: 123 });
     const newPlaylistCount = user.cache.length;
