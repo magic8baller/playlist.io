@@ -19,7 +19,7 @@ describe('POST /api/favorite', () => {
     });
   });
 
-  it.only('should add favorited track to favorites array in DB', async () => {
+  it('should add favorited track to favorites array in DB', async () => {
     const route = '/api/favorite';
     const trackData = {
       spotifyId: 123,
@@ -49,7 +49,7 @@ describe('POST /api/favorite', () => {
     expect(newFavoritesState).to.be.true;
   });
 
-  it('should update cache with favorited track', async () => {
+  it.only('should update cache with favorited track', async () => {
     const cachePlaylistRoute = '/api/playlist/cache';
     const addFavoriteRoute = '/api/favorite';
 

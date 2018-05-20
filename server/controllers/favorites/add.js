@@ -22,18 +22,18 @@ module.exports = async (req, res, next) => {
     return;
   }
 
-  updateCacheAdd(targetUser, query, trackData);
+  const updatedUser = updateCacheAdd(targetUser, query, trackData);
 
   if (isDuplicate(targetUser, trackData)) {
-    await targetUser.save();
+    await updatedUser.save();
     const errMsg = 'You have already favorited this track. You must really like it!';
     next(errMsg);
     return;
   }
 
-  addToFavorites(targetUser, trackData);
+  addToFavorites(updatedUser, trackData);
 
-  await targetUser.save();
+  await updatedUser.save();
 
   res.send({ success: true });
 };
