@@ -17,7 +17,7 @@ describe('POST /api/playlist/cache', () => {
     });
   });
 
-  it('should cache a playlist', async () => {
+  it.only('should cache a playlist', async () => {
     const route = '/api/playlist/cache';
     const playlistData = {
       query: 'programming',
@@ -38,6 +38,9 @@ describe('POST /api/playlist/cache', () => {
 
     expect(res).to.have.status(code.OK);
     expect(res.body.success).to.be.true;
+    expect(res.body.cache).to.have.length(1);
+    expect(res.body.cache[0].query).to.equal(playlistData.query);
+    expect(res.body.cache[0].tracks[0]).to.include(playlistData.playlist[0]);
     expect(user.cache[0].tracks[0].isFavorited).to.be.false;
     expect(user.cache[0].tracks[0].name).to.equal('Heller');
     expect(user.cache[0].tracks[1].name).to.equal('Ayo');

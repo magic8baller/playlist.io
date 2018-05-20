@@ -28,5 +28,5 @@ module.exports = async (req, res, next) => {
 
   await saveToCache(targetUser, query, playlist);
 
-  res.send({ success: true });
+  res.send({ success: true, cache: targetUser.cache });
 };
