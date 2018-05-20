@@ -6,14 +6,14 @@ const deleteFromFavorites = require('./utils/deleteFromFavorites');
 const updateCacheDelete = require('./utils/updateCacheDelete');
 
 module.exports = async (req, res, next) => {
-  const { spotifyId, query, trackData } = req.body;
-  const targetId = trackData.id;
+  const { spotifyId, query, trackData } = req.query;
+  const parsedTrackData = JSON.parse(trackData);
 
   const targetUser = await User.findOne({ spotifyId });
 
-  deleteFromFavorites(targetId, targetUser);
+  deleteFromFavorites(parsedTrackData, targetUser);
 
-  updateCacheDelete(targetUser, query, trackData);
+  updateCacheDelete(targetUser, query, parsedTrackData);
 
   await targetUser.save();
 

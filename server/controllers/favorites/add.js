@@ -12,9 +12,9 @@ const isEqualTo = curry((trackData, targetUser) => trackData.id === targetUser.i
 const isDuplicate = (targetUser, trackData) => targetUser.favorites.some(isEqualTo(trackData));
 
 module.exports = async (req, res, next) => {
-  const { spotifyId, trackData, query } = req.body;
+  const { spotifyId, trackData, query } = req.body.data;
 
-  let targetUser = await User.findOne({ spotifyId });
+  const targetUser = await User.findOne({ spotifyId });
 
   if (isNil(targetUser)) {
     const errMsg = 'Invalid Spotify ID.';
@@ -22,18 +22,18 @@ module.exports = async (req, res, next) => {
     return;
   }
 
-  const updatedUser = updateCacheAdd(targetUser, query, trackData);
+  updateCacheAdd(targetUser, query, trackData);
 
   if (isDuplicate(targetUser, trackData)) {
-    await updatedUser.save();
+    await targetUser.save();
     const errMsg = 'You have already favorited this track. You must really like it!';
     next(errMsg);
     return;
   }
 
-  addToFavorites(updatedUser, trackData);
+  addToFavorites(targetUser, trackData);
 
-  await updatedUser.save();
+  await targetUser.save();
 
   res.send({ success: true });
 };

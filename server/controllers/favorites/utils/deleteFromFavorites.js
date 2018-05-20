@@ -6,13 +6,13 @@ const updateFavorites = curry((targetUser, updatedFavorites) => {
   targetUser.favorites = updatedFavorites;
 });
 
-const isTargetId = curry((targetId, { id }) => id !== targetId);
+const isTargetId = curry((trackData, { id }) => id !== trackData.id);
 
-const filterOutTargetTrack = curry((targetId, { favorites }) =>
-  filter(isTargetId(targetId), favorites)
+const filterOutTargetTrack = curry((trackData, { favorites }) =>
+  filter(isTargetId(trackData), favorites)
 );
 
-const deleteFromFavorites = (targetId, targetUser) =>
-  pipe(filterOutTargetTrack(targetId), updateFavorites(targetUser))(targetUser);
+const deleteFromFavorites = (trackData, targetUser) =>
+  pipe(filterOutTargetTrack(trackData), updateFavorites(targetUser))(targetUser);
 
 module.exports = deleteFromFavorites;

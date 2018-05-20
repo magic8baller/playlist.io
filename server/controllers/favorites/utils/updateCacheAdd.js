@@ -26,9 +26,7 @@ const updateTargetPlaylist = (query) => (trackData) => (cachedPlaylist) =>
     : cachedPlaylist;
 
 const updateCacheAdd = (targetUser, query, trackData) => {
-  const updatedCache = map(updateTargetPlaylist(query)(trackData), targetUser.cache);
-  targetUser.cache = updatedCache;
-  return targetUser;
+  map(updateTargetPlaylist(query)(trackData), targetUser.cache);
 };
 
 // TODO: better names
