@@ -12,8 +12,6 @@ export const returnCachedPlaylist = createAction('RETURN_CACHED_PLAYLIST');
 
 export const setCurrentQuery = createAction('SET_CURRENT_QUERY');
 
-const testPlaylistData = [{ id: '1', name: 'Awesome Song' }, { id: '2', name: 'Ayo' }];
-
 export const fetchPlaylist = (spotifyId, token, query) => async (dispatch) => {
   dispatch(h.deleteCurrentPlaylist());
 
@@ -39,5 +37,5 @@ export const fetchPlaylist = (spotifyId, token, query) => async (dispatch) => {
 
   dispatch(h.fetchPlaylistSuccess(playlist, query));
 
-  await api.cachePlaylistInDb(spotifyId, query, testPlaylistData);
+  await api.cachePlaylistInDb(spotifyId, query, playlist);
 };

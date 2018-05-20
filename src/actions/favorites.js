@@ -2,24 +2,21 @@ import { isError } from '../utils/helpers';
 
 import api from '../api';
 import { isUserError } from '../utils/helpers';
-import { addFavoriteSuccess } from '../utils/dispatchHelpers';
+import { addFavoriteSuccess, deleteFavoriteSuccess } from '../utils/dispatchHelpers';
 
-const testTrackData = {
-  id: '1',
-  name: 'Awesome Song'
-};
-
-export const addFavorite = (spotifyId, query, trackData) => async (dispatch) => {
-  const response = await api.addFavoriteSent(spotifyId, query, testTrackData);
+const favoriteAction = (apiReq, successHelper) => (spotifyId, query, trackData) => async (
+  dispatch
+) => {
+  const response = await apiReq(spotifyId, query, trackData);
 
   if (isError(response)) {
     console.log(response.data.error.message);
     return;
   }
 
-  dispatch(addFavoriteSuccess(trackData));
+  dispatch(successHelper(trackData));
 };
 
-export const deleteFavorite = (spotifyId, trackData) => async (dispatch) => {
-  console.log('Delete favorite action');
-};
+export const addFavorite = favoriteAction(api.addFavoriteSent, addFavoriteSuccess);
+
+export const deleteFavorite = favoriteAction(api.deleteFavoriteSent, deleteFavoriteSuccess);

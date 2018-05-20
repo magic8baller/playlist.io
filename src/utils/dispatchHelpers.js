@@ -41,3 +41,8 @@ export const addFavoriteSuccess = (trackData) => ({
   type: 'ADD_FAVORITE_TRACK',
   trackData: { ...trackData, isFavorited: true }
 });
+
+export const deleteFavoriteSuccess = (trackData) => ({
+  type: 'ADD_FAVORITE_TRACK',
+  targetTrackId: trackData.id
+});

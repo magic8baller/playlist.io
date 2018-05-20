@@ -1,8 +1,11 @@
 import axios from 'axios';
 
-import { ADD_FAVORITE_ENDPOINT, DELETE_FAVORITE_ENDPOINT } from '../utils/endpoints';
+import { FAVORITE_ENDPOINT } from '../utils/endpoints';
+
+const favoriteApiReq = (method, reqType) => (spotifyId, query, trackData) =>
+  axios[method](FAVORITE_ENDPOINT, { [reqType]: { spotifyId, query, trackData } });
 
 export default {
-  addFavoriteSent: (spotifyId, query, trackData) =>
-    axios.post(ADD_FAVORITE_ENDPOINT, { spotifyId, query, trackData })
+  addFavoriteSent: favoriteApiReq('post', 'data'),
+  deleteFavoriteSent: favoriteApiReq('delete', 'params')
 };
