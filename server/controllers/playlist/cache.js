@@ -4,9 +4,9 @@ const pipe = require('ramda/src/pipe');
 const code = require('../../utils/statusCodes');
 const User = require('../../models/User');
 
-const formatPlaylist = curry((query, tracks) => ({
+const formatPlaylist = curry((query, playlist) => ({
   query,
-  tracks: [...tracks]
+  tracks: [...playlist]
 }));
 
 const pushToCache = curry((targetUser, formattedPlaylist) => {
@@ -18,15 +18,15 @@ const save = async (targetUser) => {
   await targetUser.save();
 };
 
-const saveToCache = async (targetUser, query, tracks) =>
-  pipe(formatPlaylist(query), pushToCache(targetUser), save)(tracks);
+const saveToCache = async (targetUser, query, playlist) =>
+  pipe(formatPlaylist(query), pushToCache(targetUser), save)(playlist);
 
 module.exports = async (req, res, next) => {
-  const { spotifyId, tracks, query } = req.body;
+  const { spotifyId, playlist, query } = req.body;
 
   const targetUser = await User.findOne({ spotifyId });
 
-  await saveToCache(targetUser, query, tracks);
+  await saveToCache(targetUser, query, playlist);
 
   res.send({ success: true });
 };
