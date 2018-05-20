@@ -10,15 +10,16 @@ const { postReq, deleteReq } = require('../testHelpers');
 const expect = chai.expect;
 
 // TODO: figure out how to test req.query
+// TODO: clean up tests by putting all data in shared scope
 describe('DELETE /api/favorite', () => {
-  beforeEach((done) => {
+  before((done) => {
     users = mongoose.connection.collections.users;
     users.drop(() => {
       done();
     });
   });
 
-  xit('should delete favorited track from favorites array', async () => {
+  it('should delete favorited track from favorites array', async () => {
     const route = '/api/favorite';
     const trackData = {
       id: '1',
@@ -38,7 +39,7 @@ describe('DELETE /api/favorite', () => {
     };
 
     const deleteFavoriteData = {
-      query: {
+      data: {
         query: 'programming',
         spotifyId: 123,
         trackData: JSON.stringify(trackData)
@@ -60,12 +61,17 @@ describe('DELETE /api/favorite', () => {
 
     expect(res).to.have.status(code.OK);
     expect(res.body.success).to.be.true;
+    expect(res.body.favorites.length).to.equal(0);
     expect(newFavoritesCount).to.equal(oldFavoritesCount - 1);
   });
 
-  xit(`should update track's cached favorite prop`, async () => {
+  it(`should update track's cached favorite prop`, async () => {
     const cachePlaylistRoute = '/api/playlist/cache';
     const favoriteRoute = '/api/favorite';
+    const trackData = {
+      id: '1',
+      name: 'Awesome Song'
+    };
 
     const playlistDataOne = {
       query: 'programming',
@@ -79,12 +85,19 @@ describe('DELETE /api/favorite', () => {
       playlist: [{ id: '3', name: 'Hey There' }, { id: '4', name: 'My Name Is...' }]
     };
 
-    const favoriteData = {
-      query: 'programming',
-      spotifyId: 123,
-      trackData: {
-        id: '1',
-        name: 'Awesome New Song'
+    const addFavoriteData = {
+      data: {
+        query: 'programming',
+        spotifyId: 123,
+        trackData
+      }
+    };
+
+    const deleteFavoriteData = {
+      data: {
+        query: 'programming',
+        spotifyId: 123,
+        trackData: JSON.stringify(trackData)
       }
     };
 
@@ -95,18 +108,23 @@ describe('DELETE /api/favorite', () => {
 
     await postReq(cachePlaylistRoute, playlistDataTwo);
 
-    await postReq(favoriteRoute, favoriteData);
+    await postReq(favoriteRoute, addFavoriteData);
 
     const oldUser = await User.findOne({ spotifyId: 123 });
     const oldFavoriteState = oldUser.cache[0].tracks[0].isFavorited;
 
-    const res = await deleteReq(favoriteRoute, favoriteData);
+    const res = await deleteReq(favoriteRoute, deleteFavoriteData);
 
     const newUser = await User.findOne({ spotifyId: 123 });
     const newFavoriteState = newUser.cache[0].tracks[0].isFavorited;
 
     expect(res).to.have.status(code.OK);
     expect(res.body.success).to.be.true;
+    expect(res.body.cache[0].tracks[0].isFavorited).to.be.false;
+    expect(res.body.cache).to.have.length(2);
+    expect(res.body.cache[0].tracks).to.have.length(2);
+    expect(res.body.current).to.have.length(2);
+    expect(res.body.current[0]).to.include(playlistDataOne.playlist[0]);
     expect(oldFavoriteState).to.not.equal(newFavoriteState);
     expect(newFavoriteState).to.be.false;
   });

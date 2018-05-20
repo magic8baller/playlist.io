@@ -103,7 +103,7 @@ describe('POST /api/favorite', () => {
     expect(user.cache[1].tracks[1].isFavorited).to.be.false;
   });
 
-  it.only('should return the currently selected tracks', async () => {
+  it('should return the currently selected tracks', async () => {
     const cachePlaylistRoute = '/api/playlist/cache';
     const addFavoriteRoute = '/api/favorite';
     const targetQuery = 'programming';

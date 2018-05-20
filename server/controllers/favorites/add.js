@@ -1,19 +1,16 @@
 const request = require('request');
 const isNil = require('ramda/src/isNil');
 const curry = require('ramda/src/curry');
-const find = require('ramda/src/find');
-const propEq = require('ramda/src/propEq');
 
 const code = require('../../utils/statusCodes');
 const User = require('../../models/User');
 const updateCacheAdd = require('./utils/updateCacheAdd');
 const addToFavorites = require('./utils/addToFavorites');
+const getCurrentTracks = require('./utils/getCurrentTracks');
 
 const isEqualTo = curry((trackData, targetUser) => trackData.id === targetUser.id);
 
 const isDuplicate = (targetUser, trackData) => targetUser.favorites.some(isEqualTo(trackData));
-
-const getCurrentTracks = (cache, query) => find(propEq('query', query), cache);
 
 module.exports = async (req, res, next) => {
   const { spotifyId, trackData, query } = req.body.data;
@@ -42,5 +39,6 @@ module.exports = async (req, res, next) => {
   const { favorites, cache } = targetUser;
   const current = getCurrentTracks(cache, query);
 
-  res.send({ success: true, favorites, cache, current: current.tracks });
+  // if current playlist is empty, return an empty object -- useful for testing
+  res.send({ success: true, favorites, cache, current: current ? current.tracks : {} });
 };
