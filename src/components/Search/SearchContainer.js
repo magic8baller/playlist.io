@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 
 import Search from './Search';
 import { refreshAccessToken } from '../../actions/auth';
-import { fetchPlaylist, returnCachedPlaylist } from '../../actions/search';
+import { fetchPlaylist, returnCachedPlaylist, setCurrentQuery } from '../../actions/search';
 import { setPath } from '../../actions/nav';
 import { getAccessToken, getRefreshToken } from '../../reducers/auth';
 import { getSpotifyId } from '../../reducers/auth';
@@ -31,6 +31,7 @@ export default reduxForm({
     setPath,
     refreshAccessToken,
     returnCachedPlaylist,
-    setIsInitialRender
+    setIsInitialRender,
+    setCurrentQuery
   })(withRouter(Search))
 );

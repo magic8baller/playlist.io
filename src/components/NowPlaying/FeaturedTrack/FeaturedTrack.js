@@ -16,12 +16,12 @@ class FeaturedTrack extends Component {
 
   handleFavoriteClick = () => {
     const trackData = this.props.args[0];
-    const { spotifyId, addFavorite, deleteFavorite } = this.props;
+    const { spotifyId, addFavorite, deleteFavorite, query } = this.props;
 
     this.setState({ isFavorited: !this.state.isFavorited }, () => {
       this.state.isFavorited
-        ? addFavorite(spotifyId, trackData)
-        : deleteFavorite(spotifyId, trackData);
+        ? addFavorite(spotifyId, query, trackData)
+        : deleteFavorite(spotifyId, query, trackData);
     });
   };
 

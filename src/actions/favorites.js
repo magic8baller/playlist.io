@@ -4,8 +4,13 @@ import api from '../api';
 import { isUserError } from '../utils/helpers';
 import { addFavoriteSuccess } from '../utils/dispatchHelpers';
 
-export const addFavorite = (spotifyId, trackData) => async (dispatch) => {
-  const response = await api.addFavoriteSent(spotifyId, trackData);
+const testTrackData = {
+  id: '1',
+  name: 'Awesome Song'
+};
+
+export const addFavorite = (spotifyId, query, trackData) => async (dispatch) => {
+  const response = await api.addFavoriteSent(spotifyId, query, testTrackData);
 
   if (isError(response)) {
     console.log(response.data.error.message);
