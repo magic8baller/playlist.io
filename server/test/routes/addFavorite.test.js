@@ -19,7 +19,7 @@ describe('POST /api/favorite', () => {
     });
   });
 
-  it('should add favorited track to favorites array in DB', async () => {
+  it.only('should add favorited track to favorites array in DB', async () => {
     const route = '/api/favorite';
     const trackData = {
       spotifyId: 123,
@@ -41,10 +41,12 @@ describe('POST /api/favorite', () => {
 
     user = await User.findOne({ spotifyId: 123 });
     const newFavoritesCount = user.favorites.length;
+    const newFavoritesState = user.favorites[0].isFavorited;
 
     expect(res).to.have.status(code.OK);
     expect(res.body.success).to.be.true;
     expect(newFavoritesCount).to.equal(oldFavoritesCount + 1);
+    expect(newFavoritesState).to.be.true;
   });
 
   it('should update cache with favorited track', async () => {
@@ -54,13 +56,13 @@ describe('POST /api/favorite', () => {
     const playlistDataOne = {
       query: 'programming',
       spotifyId: 123,
-      tracks: [{ id: '1', name: 'Awesome Song' }, { id: '2', name: 'Ayo' }]
+      playlist: [{ id: '1', name: 'Awesome Song' }, { id: '2', name: 'Ayo' }]
     };
 
     const playlistDataTwo = {
       query: 'workout',
       spotifyId: 123,
-      tracks: [{ id: '3', name: 'Hey There' }, { id: '4', name: 'My Name Is...' }]
+      playlist: [{ id: '3', name: 'Hey There' }, { id: '4', name: 'My Name Is...' }]
     };
 
     const trackData = {

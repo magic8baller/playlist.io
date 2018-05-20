@@ -56,20 +56,20 @@ describe('DELETE /api/favorite', () => {
     expect(newFavoritesCount).to.equal(oldFavoritesCount - 1);
   });
 
-  it.only(`should update track's cached favorite prop`, async () => {
+  it(`should update track's cached favorite prop`, async () => {
     const cachePlaylistRoute = '/api/playlist/cache';
     const favoriteRoute = '/api/favorite';
 
     const playlistDataOne = {
       query: 'programming',
       spotifyId: 123,
-      tracks: [{ id: '1', name: 'Awesome Song' }, { id: '2', name: 'Ayo' }]
+      playlist: [{ id: '1', name: 'Awesome Song' }, { id: '2', name: 'Ayo' }]
     };
 
     const playlistDataTwo = {
       query: 'workout',
       spotifyId: 123,
-      tracks: [{ id: '3', name: 'Hey There' }, { id: '4', name: 'My Name Is...' }]
+      playlist: [{ id: '3', name: 'Hey There' }, { id: '4', name: 'My Name Is...' }]
     };
 
     const favoriteData = {

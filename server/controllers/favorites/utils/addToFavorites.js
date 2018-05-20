@@ -1,5 +1,5 @@
 const addToFavorites = (targetUser, trackData) => {
-  targetUser.favorites.push({ ...trackData, isFavorite: true });
+  targetUser.favorites.push({ ...trackData, isFavorited: true });
 };
 
 module.exports = addToFavorites;

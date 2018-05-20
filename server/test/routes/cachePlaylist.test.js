@@ -22,7 +22,7 @@ describe('POST /api/playlist/cache', () => {
     const playlistData = {
       query: 'programming',
       spotifyId: 123,
-      tracks: [{ name: 'Heller' }, { name: 'Ayo' }]
+      playlist: [{ name: 'Heller' }, { name: 'Ayo' }]
     };
 
     let user = new User({ spotifyId: 123, cache: [] });
