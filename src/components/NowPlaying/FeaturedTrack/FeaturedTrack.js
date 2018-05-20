@@ -21,7 +21,7 @@ class FeaturedTrack extends Component {
     this.setState({ isFavorited: !this.state.isFavorited }, () => {
       this.state.isFavorited
         ? addFavorite(spotifyId, trackData)
-        : deleteFavorite(spotifyId, trackData.id);
+        : deleteFavorite(spotifyId, trackData);
     });
   };
 

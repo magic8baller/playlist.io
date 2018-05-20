@@ -70,9 +70,9 @@ class Search extends Component {
   };
 
   handleNonCachedQuery = (query) => {
-    const { fetchPlaylist, accessToken } = this.props;
+    const { fetchPlaylist, spotifyId, accessToken } = this.props;
 
-    fetchPlaylist(accessToken, query);
+    fetchPlaylist(spotifyId, accessToken, query);
   };
 
   setNextPath = () => {

@@ -5,13 +5,10 @@ const initialState = { all: [] };
 
 export default handleActions(
   {
-    ADD_FAVORITE_TRACK: (state, action) => {
-      console.log(state.all);
-      console.log(action.track);
-      return {
-        ...state
-      };
-    }
+    ADD_FAVORITE_TRACK: (state, action) => ({
+      ...state,
+      all: [...state.all, action.trackData]
+    })
   },
   initialState
 );

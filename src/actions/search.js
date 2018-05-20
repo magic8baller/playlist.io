@@ -10,7 +10,7 @@ import { isError } from '../utils/helpers';
 
 export const returnCachedPlaylist = createAction('RETURN_CACHED_PLAYLIST');
 
-export const fetchPlaylist = (token, query) => async (dispatch) => {
+export const fetchPlaylist = (spotifyId, token, query) => async (dispatch) => {
   dispatch(h.deleteCurrentPlaylist());
 
   const config = {
@@ -32,5 +32,8 @@ export const fetchPlaylist = (token, query) => async (dispatch) => {
   }
 
   const playlist = await createPlaylist(playlists, config);
+
   dispatch(h.fetchPlaylistSuccess(playlist, query));
+
+  await api.cachePlaylistInDb(spotifyId, query, playlist);
 };

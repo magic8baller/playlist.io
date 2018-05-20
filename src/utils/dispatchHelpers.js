@@ -37,7 +37,7 @@ export const deleteCurrentPlaylist = () => ({
   type: 'DELETE_CURRENT_PLAYLIST'
 });
 
-export const addFavoriteSuccess = (spotifyData) => ({
+export const addFavoriteSuccess = (trackData) => ({
   type: 'ADD_FAVORITE_TRACK',
-  track: spotifyData
+  trackData: { ...trackData, isFavorited: true }
 });

@@ -29,3 +29,7 @@ export const ADD_FAVORITE_ENDPOINT = isProdEnv()
 export const DELETE_FAVORITE_ENDPOINT = isProdEnv()
   ? process.env.REACT_APP_PROD_DELETE_FAVORITE
   : `${DEV_BASE_API}/favorite`;
+
+export const CACHE_PLAYLIST_ENDPOINT = isProdEnv()
+  ? process.env.REACT_APP_PROD_CACHE_PLAYLIST
+  : `${DEV_BASE_API}/playlist/cache`;
