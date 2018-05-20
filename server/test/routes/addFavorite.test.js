@@ -22,12 +22,14 @@ describe('POST /api/favorite', () => {
   it('should add favorited track to favorites array in DB', async () => {
     const route = '/api/favorite';
     const trackData = {
-      spotifyId: 123,
-      trackData: {
-        id: '231432',
-        name: 'Awesome New Song',
-        album: { name: 'Awesome Album' },
-        artists: [{ name: 'Kesha' }]
+      data: {
+        spotifyId: 123,
+        trackData: {
+          id: '231432',
+          name: 'Awesome New Song',
+          album: { name: 'Awesome Album' },
+          artists: [{ name: 'Kesha' }]
+        }
       }
     };
 
@@ -49,7 +51,7 @@ describe('POST /api/favorite', () => {
     expect(newFavoritesState).to.be.true;
   });
 
-  it.only('should update cache with favorited track', async () => {
+  it('should update cache with favorited track', async () => {
     const cachePlaylistRoute = '/api/playlist/cache';
     const addFavoriteRoute = '/api/favorite';
 
@@ -66,11 +68,13 @@ describe('POST /api/favorite', () => {
     };
 
     const trackData = {
-      query: 'programming',
-      spotifyId: 123,
-      trackData: {
-        id: '1',
-        name: 'Awesome New Song'
+      data: {
+        query: 'programming',
+        spotifyId: 123,
+        trackData: {
+          id: '1',
+          name: 'Awesome New Song'
+        }
       }
     };
 
@@ -96,12 +100,14 @@ describe('POST /api/favorite', () => {
   it('should return an error when given an incorrect ID', async () => {
     const route = '/api/favorite';
     const data = {
-      spotifyId: 0,
-      trackData: {
-        id: '231432',
-        name: 'Awesome New Song',
-        album: { name: 'Awesome Album' },
-        artists: [{ name: 'Kesha' }]
+      data: {
+        spotifyId: 0,
+        trackData: {
+          id: '231432',
+          name: 'Awesome New Song',
+          album: { name: 'Awesome Album' },
+          artists: [{ name: 'Kesha' }]
+        }
       }
     };
 
@@ -118,12 +124,14 @@ describe('POST /api/favorite', () => {
   it('should return an error if the track is a duplicate', async () => {
     const route = '/api/favorite';
     const data = {
-      spotifyId: 123,
-      trackData: {
-        id: '231432',
-        name: 'Awesome New Song',
-        album: { name: 'Awesome Album' },
-        artists: [{ name: 'Kesha' }]
+      data: {
+        spotifyId: 123,
+        trackData: {
+          id: '231432',
+          name: 'Awesome New Song',
+          album: { name: 'Awesome Album' },
+          artists: [{ name: 'Kesha' }]
+        }
       }
     };
 

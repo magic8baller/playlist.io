@@ -7,6 +7,7 @@ const updateCacheDelete = require('./utils/updateCacheDelete');
 
 module.exports = async (req, res, next) => {
   const { spotifyId, query, trackData } = req.query;
+
   const parsedTrackData = JSON.parse(trackData);
 
   const targetUser = await User.findOne({ spotifyId });
