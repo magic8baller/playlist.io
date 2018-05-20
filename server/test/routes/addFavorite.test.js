@@ -19,7 +19,7 @@ describe('POST /api/favorite', () => {
     });
   });
 
-  it.only('should add favorited track to favorites array in DB', async () => {
+  it('should add favorited track to favorites array in DB', async () => {
     const route = '/api/favorite';
     const reqPayload = {
       data: {
@@ -49,16 +49,18 @@ describe('POST /api/favorite', () => {
     expect(res.body.success).to.be.true;
     expect(res.body.favorites.length).to.equal(1);
     expect(res.body.favorites[0].album).to.include(reqPayload.data.trackData.album);
+    expect(res.body.favorites[0].isFavorited).to.be.true;
     expect(newFavoritesCount).to.equal(oldFavoritesCount + 1);
     expect(newFavoritesState).to.be.true;
   });
 
-  it('should update cache with favorited track', async () => {
+  it.only('should update cache with favorited track', async () => {
     const cachePlaylistRoute = '/api/playlist/cache';
     const addFavoriteRoute = '/api/favorite';
+    const targetQuery = 'programming';
 
     const playlistDataOne = {
-      query: 'programming',
+      query: targetQuery,
       spotifyId: 123,
       playlist: [{ id: '1', name: 'Awesome Song' }, { id: '2', name: 'Ayo' }]
     };
@@ -69,9 +71,9 @@ describe('POST /api/favorite', () => {
       playlist: [{ id: '3', name: 'Hey There' }, { id: '4', name: 'My Name Is...' }]
     };
 
-    const trackData = {
+    const reqPayload = {
       data: {
-        query: 'programming',
+        query: targetQuery,
         spotifyId: 123,
         trackData: {
           id: '1',
@@ -87,12 +89,14 @@ describe('POST /api/favorite', () => {
 
     await postReq(cachePlaylistRoute, playlistDataTwo);
 
-    const res = await postReq(addFavoriteRoute, trackData);
+    const res = await postReq(addFavoriteRoute, reqPayload);
 
     user = await User.findOne({ spotifyId: 123 });
 
     expect(res).to.have.status(code.OK);
     expect(res.body.success).to.be.true;
+    expect(res.body.cache[0].tracks[0]).to.include(reqPayload.data.trackData);
+    expect(res.body.cache[0].tracks[0].isFavorited).to.be.true;
     expect(user.cache[0].tracks[0].isFavorited).to.be.true;
     expect(user.cache[0].tracks[1].isFavorited).to.be.false;
     expect(user.cache[1].tracks[0].isFavorited).to.be.false;
