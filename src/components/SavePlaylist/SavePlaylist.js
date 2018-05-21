@@ -34,7 +34,7 @@ class SavePlaylist extends Component {
 
     const playlistData = { spotifyId, title, tracks, accessToken };
 
-    savePlaylist(playlistData);
+    savePlaylist(playlistData, spotifyId);
     this.handleClose();
   };
 

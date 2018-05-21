@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Field } from 'redux-form';
-import { isEmpty } from 'ramda';
+import { isEmpty, any, curry, find, propEq, pipe } from 'ramda';
 
 import * as Style from './SearchStyles';
 import media from '../../utils/mediaTemplate';
@@ -10,7 +10,17 @@ import '../Home/styles.css';
 
 const getClassName = (isLoaded) => (isLoaded ? '' : 'wrapper__hide');
 
-const isCached = (cache, query) => cache[query];
+const isCurrentQuery = curry(
+  (currentQuery, cachedPlaylist) => currentQuery === cachedPlaylist.query
+);
+
+const isCached = (cache, currentQuery) => any(isCurrentQuery(currentQuery), cache);
+
+const getPlaylist = (entry) => entry.tracks;
+
+const getEntry = curry((query, cache) => find(propEq('query', query), cache));
+
+const getCachedPlaylist = (query, cache) => pipe(getEntry(query), getPlaylist)(cache);
 
 class Search extends Component {
   state = {
@@ -20,8 +30,8 @@ class Search extends Component {
   componentDidMount() {
     this.handleRefreshAccessToken();
     this.handleSetCurrPath();
-    this.maybeFetchSavedPlaylists(() => {
-      this.maybeSetInitialRender();
+    this.maybeFetchDbData(() => {
+      this.props.setIsInitialRender();
     });
   }
 
@@ -38,16 +48,12 @@ class Search extends Component {
     setPath(history, currPath);
   };
 
-  maybeSetInitialRender = () => {
-    const { isInitialRender, setIsInitialRender } = this.props;
+  maybeFetchDbData = (cb) => {
+    const { spotifyId, fetchSavedPlaylists, isInitialRender } = this.props;
 
-    isInitialRender && setIsInitialRender();
-  };
+    if (!isInitialRender) return;
 
-  maybeFetchSavedPlaylists = (cb) => {
-    const { savedPlaylists, spotifyId, fetchSavedPlaylists, isInitialRender } = this.props;
-
-    isInitialRender && fetchSavedPlaylists(spotifyId);
+    fetchSavedPlaylists(spotifyId);
     cb();
   };
 
@@ -66,7 +72,7 @@ class Search extends Component {
 
   handleCachedQuery = (query, cache) => {
     const { returnCachedPlaylist } = this.props;
-    const playlist = cache[query];
+    const playlist = getCachedPlaylist(query, cache);
 
     returnCachedPlaylist(playlist);
   };

@@ -19,14 +19,14 @@ export const fetchPlaylist = (spotifyId, token, query) => async (dispatch) => {
     headers: setHeaders(token)
   };
 
-  const response = await api.fetchPlaylistSent(token, query, config);
+  const playlistResponse = await api.fetchPlaylistSent(token, query, config);
 
-  if (isError(response)) {
-    console.error(response.statusText);
+  if (isError(playlistResponse)) {
+    console.error(playlistResponse.statusText);
     return;
   }
 
-  const playlists = response.data.playlists.items;
+  const playlists = playlistResponse.data.playlists.items;
 
   if (isEmpty(playlists)) {
     dispatch(h.resolveCurrentPlaylist());
@@ -34,8 +34,8 @@ export const fetchPlaylist = (spotifyId, token, query) => async (dispatch) => {
   }
 
   const playlist = await createPlaylist(playlists, config);
+  dispatch(h.fetchPlaylistSuccess(playlist));
 
-  dispatch(h.fetchPlaylistSuccess(playlist, query));
-
-  await api.cachePlaylistInDb(spotifyId, query, playlist);
+  const cacheResponse = await api.cachePlaylistInDb(spotifyId, query, playlist);
+  dispatch(h.updateCache(cacheResponse));
 };

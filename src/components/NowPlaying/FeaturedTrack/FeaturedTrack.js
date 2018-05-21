@@ -4,15 +4,17 @@ import * as Style from './FeaturedTrackStyles';
 
 class FeaturedTrack extends Component {
   state = {
-    shouldBeColored: null
+    isColored: this.props.args[0].isFavorited || false // use cached color state on initial render
   };
 
+  // makes coloring/uncoloring the icon faster b/c each click
+  // emits an AJAX request
   colorIcon = () => {
-    this.setState({ shouldBeColored: true });
+    this.setState({ isColored: true });
   };
 
   uncolorIcon = () => {
-    this.setState({ shouldBeColored: false });
+    this.setState({ isColored: false });
   };
 
   handleTrackClick = () => {
@@ -51,12 +53,7 @@ class FeaturedTrack extends Component {
         <Style.Data>
           <div onClick={this.handleTrackClick}>{name}</div>
           <Style.ArtistName onClick={this.handleTrackClick}>{artists[0].name}</Style.ArtistName>
-          <Style.HeartIcon
-            {...this.state}
-            onClick={this.handleFavoriteClick}
-            isFavorited={isFavorited}
-            size={16}
-          />
+          <Style.HeartIcon {...this.state} onClick={this.handleFavoriteClick} size={16} />
         </Style.Data>
       </Style.TrackWrapper>
     );

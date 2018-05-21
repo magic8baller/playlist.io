@@ -1,7 +1,8 @@
 import { handleActions } from 'redux-actions';
 
 const initialState = {
-  isSaved: false
+  isSaved: false,
+  isInitialRender: true
 };
 
 export default handleActions(

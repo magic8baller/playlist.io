@@ -7,10 +7,10 @@ import { isError } from '../utils/helpers';
 import * as h from '../utils/dispatchHelpers';
 import { FETCH_SAVED_PLAYLISTS_ENDPOINT } from '../utils/endpoints';
 
-export const savePlaylist = (playlistData) => async (dispatch) => {
+export const savePlaylist = (playlistData, spotifyId) => async (dispatch) => {
   delayedAnimation(dispatch);
 
-  const response = await api.savePlaylistSent(playlistData);
+  const response = await api.savePlaylistSent(playlistData, spotifyId);
 
   if (isError(response)) {
     console.error(response.statusText);
@@ -26,7 +26,7 @@ export const fetchSavedPlaylists = (spotifyId) => async (dispatch) => {
   const response = await api.fetchSavedPlaylistsSent(spotifyId);
   const { data } = response;
 
-  data.error
+  isError(response)
     ? dispatch(h.fetchSavedPlaylistsError(data))
     : dispatch(h.fetchSavedPlaylistsSuccess(data));
 };

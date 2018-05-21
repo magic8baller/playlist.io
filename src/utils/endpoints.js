@@ -16,7 +16,7 @@ export const SAVE_PLAYLIST_ENDPOINT = isProdEnv()
 
 export const FETCH_SAVED_PLAYLISTS_ENDPOINT = isProdEnv()
   ? process.env.REACT_APP_PROD_FETCH_PLAYLISTS
-  : `${DEV_BASE_API}/playlists`;
+  : `${DEV_BASE_API}/playlists/saved`;
 
 export const REFRESH_ACCESS_TOKEN_ENDPOINT = isProdEnv()
   ? process.env.REACT_APP_PROD_REFRESH_ACCESS_TOKEN

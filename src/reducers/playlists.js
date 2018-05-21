@@ -1,25 +1,10 @@
 import { handleActions } from 'redux-actions';
 import { find, propEq } from 'ramda';
 
-const initialState = { saved: [], current: null, cache: {} };
+const initialState = { saved: [], current: null, cache: [] };
 
 export default handleActions(
   {
-    ADD_PLAYLIST: (state, action) => {
-      const normalizedQuery = action.query.toLowerCase();
-      const newCachedPlaylist = {
-        [normalizedQuery]: [...action.playlist]
-      };
-
-      return {
-        ...state,
-        current: [...action.playlist],
-        cache: {
-          ...state.cache,
-          ...newCachedPlaylist
-        }
-      };
-    },
     SET_CURRENT_PLAYLIST: (state, action) => {
       const { playlistId } = action;
       const newCurrentPlaylist = find(propEq('playlistId', playlistId), state.saved);
@@ -29,13 +14,18 @@ export default handleActions(
         current: newCurrentPlaylist.tracks
       };
     },
+    ADD_PLAYLIST: (state, action) => ({
+      ...state,
+      current: [...action.playlist],
+      cache: [...state.cache, ...action.playlist]
+    }),
     UPDATE_CURRENT_PLAYLIST: (state, action) => ({
       ...state,
       current: action.current
     }),
     RETURN_CACHED_PLAYLIST: (state, action) => ({
       ...state,
-      current: [...action.payload]
+      current: action.payload
     }),
     UPDATE_CACHE: (state, action) => ({
       ...state,

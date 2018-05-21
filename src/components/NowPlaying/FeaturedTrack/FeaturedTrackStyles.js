@@ -25,7 +25,7 @@ export const TrackWrapper = styled.div`
 export const HeartIcon = styled(Heart)`
   margin-top: 4px;
   color: #1db954;
-  fill: ${(props) => (props.isFavorited || props.shouldBeColored ? '#1db954' : '#fff')};
+  fill: ${(props) => (props.isColored ? '#1db954' : '#fff')};
 `;
 
 export const heart = {
