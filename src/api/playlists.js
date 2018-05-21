@@ -6,5 +6,5 @@ export default {
   savePlaylistSent: (playlistData, spotifyId) =>
     axios.post(`${SAVE_PLAYLIST_ENDPOINT}/${spotifyId}`, { ...playlistData }),
   fetchSavedPlaylistsSent: (spotifyId) =>
-    axios.post(`${FETCH_SAVED_PLAYLISTS_ENDPOINT}/${spotifyId}`, { spotifyId })
+    axios.get(`${FETCH_SAVED_PLAYLISTS_ENDPOINT}/${spotifyId}`, { spotifyId })
 };
