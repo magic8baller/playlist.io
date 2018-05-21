@@ -9,7 +9,7 @@ const { postReq, getReq } = require('../testHelpers');
 
 const expect = chai.expect;
 
-describe('GET /api/playlists/saved/:spotifyId', () => {
+describe('GET /api/playlists/all/:spotifyId', () => {
   beforeEach((done) => {
     const users = mongoose.connection.collections.users;
     users.drop(() => {
@@ -17,10 +17,10 @@ describe('GET /api/playlists/saved/:spotifyId', () => {
     });
   });
 
-  it('should fetch all saved playlists', async () => {
+  it('should fetch all saved and cached playlists', async () => {
     const savePlaylistRoute = '/api/playlist/save';
     const cachePlaylistRoute = '/api/playlist/cache';
-    const fetchSavedPlaylistsRoute = '/api/playlists/saved';
+    const fetchPlaylistsRoute = '/api/playlists/all';
 
     const spotifyId = 123;
 
@@ -37,38 +37,41 @@ describe('GET /api/playlists/saved/:spotifyId', () => {
     const user = new User({ spotifyId });
     await user.save();
 
-    await postReq(savePlaylistRoute, spotifyId, savePlaylistData);
+    await Promise.all([
+      postReq(savePlaylistRoute, spotifyId, savePlaylistData),
+      postReq(cachePlaylistRoute, spotifyId, cachePlaylistData)
+    ]);
 
-    const res = await getReq(fetchSavedPlaylistsRoute, spotifyId);
+    const res = await getReq(fetchPlaylistsRoute, spotifyId);
 
     expect(res).to.have.status(code.OK);
     expect(res.body.playlists[0].title).to.equal(savePlaylistData.title);
     expect(res.body.playlists[0].tracks[0].name).to.equal(savePlaylistData.tracks[0].name);
     expect(res.body.playlists[0].tracks[1].name).to.equal(savePlaylistData.tracks[1].name);
+    expect(res.body.cache).to.have.length(1);
+    expect(res.body.cache[0].tracks[0].name).to.equal(cachePlaylistData.playlist[0].name);
   });
 
-  it('should return an error message when no playlists have been saved', async () => {
+  it('should return an error message when no playlists have been saved but still return cached playlists', async () => {
     const spotifyId = 123;
-    const fetchPlaylistsRoute = '/api/playlists/saved';
+
+    const fetchPlaylistsRoute = '/api/playlists/all';
+    const cachePlaylistRoute = '/api/playlist/cache';
+
+    const cachePlaylistData = {
+      query: 'programming',
+      playlist: [{ name: 'Yeehaw' }, { name: 'Howdy' }]
+    };
 
     const user = new User({ spotifyId });
     await user.save();
 
-    const res = await getReq(fetchPlaylistsRoute, spotifyId);
-
-    expect(res).to.have.status(code.USER_ERROR);
-    expect(res.body.error.code).to.equal(code.USER_ERROR);
-    expect(res.body.error.message).to.equal('No playlists have been saved.');
-  });
-
-  it('should return an error message when given an invalid spotifyId', async () => {
-    const spotifyId = 123;
-    const fetchPlaylistsRoute = '/api/playlists/saved';
+    await postReq(cachePlaylistRoute, spotifyId, cachePlaylistData);
 
     const res = await getReq(fetchPlaylistsRoute, spotifyId);
 
-    expect(res).to.have.status(code.USER_ERROR);
-    expect(res.body.error.code).to.equal(code.USER_ERROR);
-    expect(res.body.error.message).to.equal('Invalid Spotify ID');
+    expect(res).to.have.status(code.OK);
+    expect(res.body.playlists.error.message).to.equal('No playlists have been saved.');
+    expect(res.body.cache).to.have.length(1);
   });
 });

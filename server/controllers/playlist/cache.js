@@ -23,6 +23,7 @@ const saveToCache = async (targetUser, query, playlist) =>
 
 module.exports = async (req, res, next) => {
   const { spotifyId } = req.params;
+
   const { playlist, query } = req.body;
 
   const targetUser = await User.findOne({ spotifyId });

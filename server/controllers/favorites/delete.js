@@ -9,7 +9,8 @@ const { isTestEnv } = require('../../utils/helpers');
 
 module.exports = async (req, res, next) => {
   // TODO: Figure out how to send req using query param in test env
-  const { spotifyId, query, trackData } = isTestEnv() ? req.body.data : req.query;
+  const { spotifyId } = req.params;
+  const { query, trackData } = isTestEnv() ? req.body.data : req.query;
 
   const parsedTrackData = JSON.parse(trackData);
 

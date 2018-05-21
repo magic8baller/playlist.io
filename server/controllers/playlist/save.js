@@ -8,9 +8,7 @@ const { isTestEnv } = require('../../utils/helpers');
 const getPlaylistId = (user) => user.playlists[user.playlists.length - 1]._id;
 
 const saveToDb = async (req, res) => {
-  const { spotifyId } = req.body;
-
-  const targetUser = await User.findOne({ spotifyId });
+  const targetUser = await User.findOne({ spotifyId: req.params.spotifyId });
 
   targetUser.playlists.push(req.body);
   await targetUser.save();

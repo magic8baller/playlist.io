@@ -11,7 +11,7 @@ const { postReq } = require('../testHelpers');
 chai.use(chaiHttp);
 const expect = chai.expect;
 
-describe('POST /api/favorite', () => {
+describe('POST /api/favorite/:spotifyId', () => {
   beforeEach((done) => {
     const users = mongoose.connection.collections.users;
     users.drop(() => {
@@ -21,9 +21,9 @@ describe('POST /api/favorite', () => {
 
   it('should add favorited track to favorites array in DB', async () => {
     const route = '/api/favorite';
+    const spotifyId = 123;
     const reqPayload = {
       data: {
-        spotifyId: 123,
         trackData: {
           id: '1',
           name: 'Awesome New Song',
@@ -33,15 +33,15 @@ describe('POST /api/favorite', () => {
       }
     };
 
-    let user = new User({ spotifyId: 123, favorites: [] });
+    let user = new User({ spotifyId });
     await user.save();
 
-    user = await User.findOne({ spotifyId: 123 });
+    user = await User.findOne({ spotifyId });
     const oldFavoritesCount = user.favorites.length;
 
-    const res = await postReq(route, reqPayload);
+    const res = await postReq(route, spotifyId, reqPayload);
 
-    user = await User.findOne({ spotifyId: 123 });
+    user = await User.findOne({ spotifyId });
     const newFavoritesCount = user.favorites.length;
     const newFavoritesState = user.favorites[0].isFavorited;
 
@@ -58,23 +58,21 @@ describe('POST /api/favorite', () => {
     const cachePlaylistRoute = '/api/playlist/cache';
     const addFavoriteRoute = '/api/favorite';
     const targetQuery = 'programming';
+    const spotifyId = 123;
 
     const playlistDataOne = {
       query: targetQuery,
-      spotifyId: 123,
       playlist: [{ id: '1', name: 'Awesome Song' }, { id: '2', name: 'Ayo' }]
     };
 
     const playlistDataTwo = {
       query: 'workout',
-      spotifyId: 123,
       playlist: [{ id: '3', name: 'Hey There' }, { id: '4', name: 'My Name Is...' }]
     };
 
     const reqPayload = {
       data: {
         query: targetQuery,
-        spotifyId: 123,
         trackData: {
           id: '1',
           name: 'Awesome New Song'
@@ -82,16 +80,17 @@ describe('POST /api/favorite', () => {
       }
     };
 
-    let user = new User({ spotifyId: 123 });
+    let user = new User({ spotifyId });
     await user.save();
 
-    await postReq(cachePlaylistRoute, playlistDataOne);
+    await Promise.all([
+      postReq(cachePlaylistRoute, spotifyId, playlistDataOne),
+      postReq(cachePlaylistRoute, spotifyId, playlistDataTwo)
+    ]);
 
-    await postReq(cachePlaylistRoute, playlistDataTwo);
+    const res = await postReq(addFavoriteRoute, spotifyId, reqPayload);
 
-    const res = await postReq(addFavoriteRoute, reqPayload);
-
-    user = await User.findOne({ spotifyId: 123 });
+    user = await User.findOne({ spotifyId });
 
     expect(res).to.have.status(code.OK);
     expect(res.body.success).to.be.true;
@@ -107,23 +106,21 @@ describe('POST /api/favorite', () => {
     const cachePlaylistRoute = '/api/playlist/cache';
     const addFavoriteRoute = '/api/favorite';
     const targetQuery = 'programming';
+    const spotifyId = 123;
 
     const playlistDataOne = {
       query: targetQuery,
-      spotifyId: 123,
       playlist: [{ id: '1', name: 'Awesome Song' }, { id: '2', name: 'Ayo' }]
     };
 
     const playlistDataTwo = {
       query: 'workout',
-      spotifyId: 123,
       playlist: [{ id: '3', name: 'Hey There' }, { id: '4', name: 'My Name Is...' }]
     };
 
     const reqPayload = {
       data: {
         query: targetQuery,
-        spotifyId: 123,
         trackData: {
           id: '1',
           name: 'Awesome Song'
@@ -131,16 +128,17 @@ describe('POST /api/favorite', () => {
       }
     };
 
-    let user = new User({ spotifyId: 123 });
+    let user = new User({ spotifyId });
     await user.save();
 
-    await postReq(cachePlaylistRoute, playlistDataOne);
+    await Promise.all([
+      postReq(cachePlaylistRoute, spotifyId, playlistDataOne),
+      postReq(cachePlaylistRoute, spotifyId, playlistDataTwo)
+    ]);
 
-    await postReq(cachePlaylistRoute, playlistDataTwo);
+    const res = await postReq(addFavoriteRoute, spotifyId, reqPayload);
 
-    const res = await postReq(addFavoriteRoute, reqPayload);
-
-    user = await User.findOne({ spotifyId: 123 });
+    user = await User.findOne({ spotifyId });
 
     expect(res).to.have.status(code.OK);
     expect(res.body.success).to.be.true;
@@ -152,9 +150,10 @@ describe('POST /api/favorite', () => {
 
   it('should return an error when given an incorrect ID', async () => {
     const route = '/api/favorite';
+    const spotifyId = 0;
+
     const data = {
       data: {
-        spotifyId: 0,
         trackData: {
           id: '231432',
           name: 'Awesome New Song',
@@ -164,10 +163,10 @@ describe('POST /api/favorite', () => {
       }
     };
 
-    let user = new User({ spotifyId: 123, favorites: [] });
+    let user = new User({ spotifyId: 123 });
     await user.save();
 
-    const res = await postReq(route, data);
+    const res = await postReq(route, spotifyId, data);
 
     expect(res).to.have.status(code.USER_ERROR);
     expect(res.body.error.code).to.equal(code.USER_ERROR);
@@ -176,9 +175,10 @@ describe('POST /api/favorite', () => {
 
   it('should return an error if the track is a duplicate', async () => {
     const route = '/api/favorite';
+    const spotifyId = 123;
+
     const data = {
       data: {
-        spotifyId: 123,
         trackData: {
           id: '231432',
           name: 'Awesome New Song',
@@ -188,12 +188,12 @@ describe('POST /api/favorite', () => {
       }
     };
 
-    let user = new User({ spotifyId: 123, favorites: [] });
+    let user = new User({ spotifyId });
     await user.save();
 
-    await postReq(route, data);
+    await postReq(route, spotifyId, data);
 
-    const res = await postReq(route, data);
+    const res = await postReq(route, spotifyId, data);
 
     expect(res).to.have.status(code.USER_ERROR);
     expect(res.body.error.code).to.equal(code.USER_ERROR);
