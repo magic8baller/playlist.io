@@ -20,7 +20,8 @@ describe.only('GET /api/favorite/:spotifyId', () => {
   });
 
   it('should return all favorites', async () => {
-    const route = '/api/favorite';
+    const addFavoriteRoute = '/api/favorite';
+    const fetchFavoritesRoute = '/api/favorites';
     const spotifyId = 123;
     const reqPayload = {
       data: {
@@ -36,9 +37,9 @@ describe.only('GET /api/favorite/:spotifyId', () => {
     let user = new User({ spotifyId });
     await user.save();
 
-    await postReq(route, spotifyId, reqPayload);
+    await postReq(addFavoriteRoute, spotifyId, reqPayload);
 
-    const res = await getReq(route, spotifyId);
+    const res = await getReq(fetchFavoritesRoute, spotifyId);
 
     expect(res).to.have.status(code.OK);
     expect(res.body.success).to.be.true;
@@ -47,7 +48,7 @@ describe.only('GET /api/favorite/:spotifyId', () => {
   });
 
   it('should return an error message when no playlists have been saved', async () => {
-    const route = '/api/favorite';
+    const route = '/api/favorites';
     const spotifyId = 123;
 
     let user = new User({ spotifyId });

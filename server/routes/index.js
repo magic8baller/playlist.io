@@ -19,7 +19,7 @@ module.exports = (app) => {
   app.post('/api/playlist/save/:spotifyId', PlaylistController.savePlaylist);
 
   // Favorites
-  app.get('/api/favorite/:spotifyId', FavoritesController.fetchAllFavorites);
+  app.get('/api/favorites/:spotifyId', FavoritesController.fetchAllFavorites);
   app.post('/api/favorite/:spotifyId', FavoritesController.addFavorite);
   app.delete('/api/favorite/:spotifyId', FavoritesController.deleteFavorite);
 };
