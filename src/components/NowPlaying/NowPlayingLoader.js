@@ -2,7 +2,6 @@ import React from 'react';
 
 import * as Style from './NowPlayingStyles';
 import * as Placeholder from './LoaderPlaceholders';
-import SavePlaylistContainer from '../SavePlaylist/SavePlaylistContainer';
 import { style } from './NowPlayingStyles';
 
 const renderTopFiveTrackPlaceholder = () => {

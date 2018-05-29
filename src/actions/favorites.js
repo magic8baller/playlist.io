@@ -1,7 +1,6 @@
 import { isError } from '../utils/helpers';
 
 import api from '../api';
-import { isUserError } from '../utils/helpers';
 import { updateFavorites, updateCache, updateCurrentPlaylist } from '../utils/dispatchHelpers';
 
 const favoriteAction = (apiReq) => (spotifyId, query, trackData) => async (dispatch) => {

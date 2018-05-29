@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { map, curry, flatten, sortBy, path, uniqBy, pipeP, pluck } from 'ramda';
 
 import api from '../api';

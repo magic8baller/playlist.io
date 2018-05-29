@@ -43,7 +43,7 @@ class FeaturedTrack extends Component {
   };
 
   render() {
-    const [{ album: { artists, images }, name, isFavorited }, idx] = this.props.args;
+    const [{ album: { artists, images }, name }, idx] = this.props.args;
 
     return (
       <Style.TrackWrapper key={`${name}-${idx}`}>

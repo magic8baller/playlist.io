@@ -152,7 +152,7 @@ class WebPlayer extends Component {
   };
 
   renderPremiumPlayer = () => {
-    const { isPlaying, isHovered, isActivated, currentTrack } = this.props;
+    const { isActivated, currentTrack } = this.props;
     const { positionFormatted, durationFormatted, progressPercentage } = this.state;
 
     return (
@@ -194,7 +194,7 @@ class WebPlayer extends Component {
 
   renderTrackInfoArea = ({ album: { artists, images }, name }) => (
     <Style.TrackWrapper>
-      <img src={images[2].url} />
+      <img alt={name} src={images[2].url} />
       <Style.TrackInfoWrapper>
         <Style.TrackName>{name}</Style.TrackName>
         <Style.ArtistName>{artists[0].name}</Style.ArtistName>{' '}

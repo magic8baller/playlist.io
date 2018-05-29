@@ -7,7 +7,7 @@ import WebPlayerContainer from '../WebPlayer/WebPlayerContainer';
 import NavContainer from '../Nav/NavContainer';
 import NowPlayingContainer from '../NowPlaying/NowPlayingContainer';
 import YourPlaylistsContainer from '../YourPlaylists/YourPlaylistsContainer';
-import { Wrapper, AppStyles } from './AppStyles';
+import { Wrapper } from './AppStyles';
 
 export default ({ playTrack, currentPlaylist }) => (
   <MuiThemeProvider>

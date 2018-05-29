@@ -1,10 +1,6 @@
 import React from 'react';
-import map from 'lodash/map';
-import { curry, addIndex } from 'ramda';
 
 import { TrackTile } from './TrackStyle';
-
-const mapIndexed = addIndex(map);
 
 const renderTrack = (playTrack) => ({ album: { artists, images }, name }, idx) => (
   <TrackTile

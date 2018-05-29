@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { Field } from 'redux-form';
-import { isEmpty, any, curry, find, propEq, pipe } from 'ramda';
+import { any, curry, find, propEq, pipe } from 'ramda';
 
 import * as Style from './SearchStyles';
-import media from '../../utils/mediaTemplate';
 import { HomeBackgroundPlaceholder } from '../Home/HomePlaceholder';
 import { HomePlaceholderWrapper, BackgroundImg } from '../Home/HomeStyles';
 import '../Home/styles.css';

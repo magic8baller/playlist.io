@@ -1,34 +1,20 @@
-import React, { Component } from 'react';
+import React from 'react';
 import map from 'lodash/map';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ArrowDownward from 'material-ui/svg-icons/navigation/arrow-downward';
 import ScrollableAnchor from 'react-scrollable-anchor';
-import { isEmpty, isNil } from 'ramda';
 
 import * as Style from './NowPlayingStyles';
-import * as Placeholder from './LoaderPlaceholders';
 import TopTrackCard from '../TopTrackCard/TopTrackCard';
 import ErrorPageContainer from '../ErrorPage/ErrorPageContainer';
-import WebPlayerContainer from '../WebPlayer/WebPlayerContainer';
 import SaveAnimationContainer from '../SaveAnimation/SaveAnimationContainer';
 import NowPlayingLoader from './NowPlayingLoader';
 import FeaturedTrackContainer from './FeaturedTrack/FeaturedTrackContainer';
 import TracksGrid from '../TracksGrid/TracksGrid';
 import SavePlaylistContainer from '../SavePlaylist/SavePlaylistContainer';
-import { randomPicEndpoint, pageIsLoading } from './helpers';
-
-const isError = (currentPlaylist) =>
-  typeof currentPlaylist === 'string' && currentPlaylist.length === 0;
+import { pageIsLoading, isError } from './helpers';
 
 class NowPlaying extends React.Component {
-  componentDidMount() {
-    const { currentPlaylist, noCurrentPlaylistError } = this.props;
-
-    if (isNil(currentPlaylist)) {
-      noCurrentPlaylistError();
-    }
-  }
-
   mapFeaturedTracks = ([topTrack, ...rest]) => {
     const featuredTracks = rest.splice(0, 5);
     const mappedFeaturedTracks = map(featuredTracks, this.renderFeaturedTrack);
@@ -85,7 +71,7 @@ class NowPlaying extends React.Component {
   };
 
   render() {
-    const { currentPlaylist, searchError, noCurrentPlaylist } = this.props;
+    const { currentPlaylist, searchError } = this.props;
 
     switch (true) {
       case isError(currentPlaylist):

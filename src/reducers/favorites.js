@@ -1,9 +1,6 @@
 import { handleActions } from 'redux-actions';
-import { filter, curry } from 'ramda';
 
 const initialState = { all: [] };
-
-const deleteFavorite = curry((targetTrackId, track) => targetTrackId === track.id);
 
 export default handleActions(
   {

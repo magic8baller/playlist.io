@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import MusicIcon from 'react-icons/lib/fa/music';
-import AngleDown from 'react-icons/lib/fa/angle-down';
 import { values, map, curry } from 'ramda';
 import forEach from 'lodash/forEach';
 

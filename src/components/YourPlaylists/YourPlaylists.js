@@ -4,7 +4,7 @@ import { pipe, isEmpty } from 'ramda';
 
 import ErrorPageContainer from '../ErrorPage/ErrorPageContainer';
 import { GridItem, styles } from './YourPlaylistsStyles';
-import { Grid, TracksGridWrapper, Text } from '../TracksGrid/TracksGridStyles';
+import { TracksGridWrapper, Text } from '../TracksGrid/TracksGridStyles';
 import { Headline, GridItemPlaceholder } from './YourPlaylistsPlaceholders';
 import './styles.css';
 
@@ -49,7 +49,12 @@ class YourPlaylists extends Component {
   renderPlaceholder = (isLoaded) => (
     <div>
       <TracksGridWrapper className="grid__hide">
-        <Text>🎶 Your Playlists</Text>
+        <Text>
+          <span role="img" aria-label="Music Notes">
+            🎶
+          </span>{' '}
+          Your Playlists
+        </Text>
         <div style={styles.grid} ref={this.setGridElementRef}>
           []
         </div>
@@ -92,7 +97,12 @@ class YourPlaylists extends Component {
     return (
       <div>
         <TracksGridWrapper className={getClassName(isLoaded)}>
-          <Text>🎶 Your Playlists</Text>
+          <Text>
+            <span role="img" aria-label="Music Notes">
+              🎶
+            </span>{' '}
+            Your Playlists
+          </Text>
           <div style={styles.grid} ref={this.setGridElementRef}>
             {renderedPlaylists}
           </div>

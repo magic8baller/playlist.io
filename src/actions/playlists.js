@@ -1,11 +1,9 @@
-import axios from 'axios';
 import { createAction } from 'redux-actions';
 
 import api from '../api';
 import delayedAnimation from '../utils/delayedAnimation';
 import { isError } from '../utils/helpers';
 import * as h from '../utils/dispatchHelpers';
-import { FETCH_SAVED_PLAYLISTS_ENDPOINT } from '../utils/endpoints';
 
 const noSavedPlaylists = (data) => data.playlists.error;
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Dialog from 'material-ui/Dialog';
 import ReactTimeout from 'react-timeout';
 
-import { Wrapper, SpotifyIcon, Text, CheckCircleStyled, dialogStyle } from './SaveAnimationStyles';
+import { Wrapper, SpotifyIcon, Text, dialogStyle } from './SaveAnimationStyles';
 
 class SaveAnimation extends Component {
   state = {

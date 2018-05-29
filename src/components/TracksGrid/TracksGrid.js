@@ -5,7 +5,12 @@ import { Grid, TracksGridWrapper, Text } from './TracksGridStyles';
 
 const TracksGrid = (props) => (
   <TracksGridWrapper>
-    <Text>🏅 Honorable Mentions</Text>
+    <Text>
+      <span role="img" aria-label="Medal">
+        🏅
+      </span>{' '}
+      Honorable Mentions
+    </Text>
     <Grid>
       <Tracks {...props} />
     </Grid>

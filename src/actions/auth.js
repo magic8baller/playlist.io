@@ -1,6 +1,4 @@
-import axios from 'axios';
 import { createAction } from 'redux-actions';
-import { curry, pipeP } from 'ramda';
 
 import api from '../api';
 import { isSuccess } from '../utils/helpers';
