@@ -12,6 +12,4 @@ export default handleActions(
   initialState
 );
 
-export const getFavorites = (state) => state.playlists.current;
-
-export const getSavedPlaylists = (state) => state.playlists.saved;
+export const getFavorites = (state) => state.favorites.all;

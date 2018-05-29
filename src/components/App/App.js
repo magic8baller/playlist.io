@@ -7,6 +7,7 @@ import WebPlayerContainer from '../WebPlayer/WebPlayerContainer';
 import NavContainer from '../Nav/NavContainer';
 import NowPlayingContainer from '../NowPlaying/NowPlayingContainer';
 import YourPlaylistsContainer from '../YourPlaylists/YourPlaylistsContainer';
+import FavoritesContainer from '../Favorites/FavoritesContainer';
 import { Wrapper } from './AppStyles';
 
 export default ({ playTrack, currentPlaylist }) => (
@@ -18,6 +19,7 @@ export default ({ playTrack, currentPlaylist }) => (
           <Route exact path="/" component={HomeContainer} />
           <Route path="/playlists" component={YourPlaylistsContainer} />
           <Route path="/playing" render={() => <NowPlayingContainer playTrack={playTrack} />} />
+          <Route path="/favorites" component={FavoritesContainer} />
         </Switch>
         {currentPlaylist && <WebPlayerContainer playTrack={playTrack} />}
       </Wrapper>
