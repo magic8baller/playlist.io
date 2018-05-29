@@ -13,7 +13,6 @@ export const Grid = styled.div`
   ${media.tablet`grid-template-columns: repeat(3, 1fr);`};
   ${media.tablet`grid-auto-rows: minmax(100px, 250px);`};
 
-  ${media.phone`grid-gap: 40px;`};
   ${media.phone`grid-template-columns: 300px;`};
   ${media.phone`grid-auto-rows: minmax(100px, 250px);`};
 `;

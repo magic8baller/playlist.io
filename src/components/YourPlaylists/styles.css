@@ -5,3 +5,36 @@
 .grid__hide {
   display: none;
 }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 30px;
+  grid-auto-rows: minmax(100px, 250px);
+  justify-content: center;
+}
+
+.grid-item-placeholder {
+  margin-top: -12rem;
+  border: 2px solid red;
+}
+
+.placeholder-wrapper {
+  width: 90vw;
+  margin: 2.2rem auto;
+}
+
+@media (max-width: 1200px) {
+  .grid {
+    grid-gap: 40px;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: minmax(100px, 250px);
+  }
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 300px;
+    grid-auto-rows: minmax(100px, 250px);
+  }
+}

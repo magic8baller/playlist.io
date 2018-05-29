@@ -3,7 +3,7 @@ import map from 'lodash/map';
 import { pipe, isEmpty } from 'ramda';
 
 import ErrorPageContainer from '../ErrorPage/ErrorPageContainer';
-import { GridItem, styles } from './YourPlaylistsStyles';
+import { GridItem } from './YourPlaylistsStyles';
 import { TracksGridWrapper, Text } from '../TracksGrid/TracksGridStyles';
 import { Headline, GridItemPlaceholder } from './YourPlaylistsPlaceholders';
 import './styles.css';
@@ -46,26 +46,6 @@ class YourPlaylists extends Component {
     });
   };
 
-  renderPlaceholder = (isLoaded) => (
-    <div>
-      <TracksGridWrapper className="grid__hide">
-        <Text>
-          <span role="img" aria-label="Music Notes">
-            🎶
-          </span>{' '}
-          Your Playlists
-        </Text>
-        <div style={styles.grid} ref={this.setGridElementRef}>
-          []
-        </div>
-      </TracksGridWrapper>
-      <div style={styles.placeholderWrapper}>
-        <Headline />
-        <div style={styles.gridItemPlaceholder}>{this.renderGridItemPlaceholder()}</div>
-      </div>
-    </div>
-  );
-
   renderGridItemPlaceholder = () => {
     let result = [];
 
@@ -103,14 +83,14 @@ class YourPlaylists extends Component {
             </span>{' '}
             Your Playlists
           </Text>
-          <div style={styles.grid} ref={this.setGridElementRef}>
+          <div className="grid" ref={this.setGridElementRef}>
             {renderedPlaylists}
           </div>
         </TracksGridWrapper>
         {!isLoaded && (
-          <div style={styles.placeholderWrapper}>
+          <div className="placeholder-wrapper">
             <Headline />
-            <div style={styles.gridItemPlaceholder}>{this.renderGridItemPlaceholder()}</div>
+            <div className="grid grid-item-placeholder">{this.renderGridItemPlaceholder()}</div>
           </div>
         )}
       </div>
