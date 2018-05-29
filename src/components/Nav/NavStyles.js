@@ -46,7 +46,7 @@ export const AngleWrapper = styled.div`
 `;
 
 export const NavText = styled.a`
-  margin-right: 20px;
+  margin-right: 26px;
   padding-bottom: 16px;
   text-decoration: none;
   color: ${(props) => (props.isSelected ? 'inherit' : 'rgba(99, 111, 123, 0.8)')};

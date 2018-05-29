@@ -55,3 +55,8 @@ export const updateCurrentPlaylist = ({ data }) => ({
 export const currentPlaylistSuccess = () => ({
   type: 'CURRENT_PLAYLIST_SUCCESS'
 });
+
+export const refreshAccessTokenSuccess = ({ access_token }) => ({
+  type: 'REFRESH_ACCESS_TOKEN',
+  accessToken: access_token
+});
