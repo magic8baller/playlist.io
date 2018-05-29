@@ -7,18 +7,7 @@ import { getCurrentTracks } from '../../reducers/playlists';
 import { getDeviceId } from '../../reducers/player';
 import { getAccessToken } from '../../reducers/auth';
 import { getSearchError } from '../../reducers/errors';
-
-const playTrackEndpoint = (deviceId) =>
-  `https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`;
-
-const playTrackReq = ({ uri }, accessToken) => ({
-  method: 'PUT',
-  body: JSON.stringify({ uris: [uri] }),
-  headers: {
-    'Content-Type': 'application/json',
-    Authorization: `Bearer ${accessToken}`
-  }
-});
+import { playTrackEndpoint, playTrackReq } from './helpers';
 
 class AppContainer extends React.Component {
   playTrack = (idx = -1) => {
