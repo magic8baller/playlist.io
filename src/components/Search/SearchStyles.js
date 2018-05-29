@@ -29,9 +29,11 @@ export const Title = styled.div`
   width: 650px;
   margin-bottom: 1rem;
 
-  ${media.phone`margin-bottom: 1rem`};
-  ${media.phone`font-size: 16px`};
-  ${media.phone`width: 300px`};
+  ${media.tablet`margin-bottom: 1rem`};
+  ${media.tablet`font-size: 1.6rem`};
+  ${media.tablet`width: 100%`};
+
+  ${media.phone`font-size: 18px`};
 `;
 
 export const Form = styled.div`

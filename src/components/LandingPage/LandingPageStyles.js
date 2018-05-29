@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import media from '../../utils/mediaTemplate';
+
 export const Wrapper = styled.div`
   margin: 2rem auto;
   display: flex;
@@ -24,6 +26,9 @@ export const CompanyName = styled.div`
 export const Description = styled.div`
   margin: 1rem 0;
   font-size: 1.3rem;
+  text-align: center;
+
+  ${media.phone`width: 85vw`};
 `;
 
 export const Btn = styled.div`
