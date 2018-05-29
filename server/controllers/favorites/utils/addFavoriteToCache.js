@@ -1,14 +1,16 @@
 const map = require('ramda/src/map');
 
-const updateTargetTrackFavoriteProp = (targetTrack) => ({
-  ...targetTrack,
-  isFavorited: false
+const updateTargetTrackFavoriteProp = (favoritedTrack) => ({
+  ...favoritedTrack,
+  isFavorited: true
 });
 
-const isTargetTrack = (targetTrack, currTrack) => targetTrack.id === currTrack.id;
+const isTargetTrack = (favoritedTrack, currTrack) => favoritedTrack.id === currTrack.id;
 
-const getTargetTrack = (targetTrack) => (currTrack) =>
-  isTargetTrack(targetTrack, currTrack) ? updateTargetTrackFavoriteProp(targetTrack) : currTrack;
+const getTargetTrack = (favoritedTrack) => (currTrack) =>
+  isTargetTrack(favoritedTrack, currTrack)
+    ? updateTargetTrackFavoriteProp(favoritedTrack)
+    : currTrack;
 
 const updateTargetTrack = (cachedPlaylist, trackData) => {
   const updatedTracks = map(getTargetTrack(trackData), cachedPlaylist.tracks);
@@ -23,9 +25,9 @@ const updateTargetPlaylist = (query) => (trackData) => (cachedPlaylist) =>
     ? updateTargetTrack(cachedPlaylist, trackData)
     : cachedPlaylist;
 
-const updateCacheDelete = (targetUser, query, trackData) => {
+const addFavoriteToCache = (targetUser, query, trackData) => {
   map(updateTargetPlaylist(query)(trackData), targetUser.cache);
 };
 
-// TODO: better name
-module.exports = updateCacheDelete;
+// TODO: better names
+module.exports = addFavoriteToCache;

@@ -3,7 +3,7 @@ const request = require('request');
 const code = require('../../utils/statusCodes');
 const User = require('../../models/User');
 const deleteFromFavorites = require('./utils/deleteFromFavorites');
-const updateCacheDelete = require('./utils/updateCacheDelete');
+const deleteFavoriteFromCache = require('./utils/deleteFavoriteFromCache');
 const getCurrentTracks = require('./utils/getCurrentTracks');
 const { isTestEnv } = require('../../utils/helpers');
 
@@ -18,7 +18,7 @@ module.exports = async (req, res, next) => {
 
   deleteFromFavorites(parsedTrackData, targetUser);
 
-  updateCacheDelete(targetUser, query, parsedTrackData);
+  deleteFavoriteFromCache(targetUser, query, parsedTrackData);
 
   await targetUser.save();
 

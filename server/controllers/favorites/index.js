@@ -1,4 +1,5 @@
 module.exports = {
   addFavorite: require('./add'),
-  deleteFavorite: require('./delete')
+  deleteFavorite: require('./delete'),
+  fetchAllFavorites: require('./fetchAll')
 };
