@@ -12,6 +12,7 @@ import { getSavedPlaylists, getCache } from '../../reducers/playlists';
 import { fetchAllPlaylists } from '../../actions/playlists';
 import { getIsInitialRender } from '../../reducers/events';
 import { setIsInitialRender } from '../../actions/events';
+import { fetchAllFavorites } from '../../actions/favorites';
 
 const mapStateToProps = (state) => ({
   accessToken: getAccessToken(state),
@@ -28,10 +29,11 @@ export default reduxForm({
   connect(mapStateToProps, {
     fetchPlaylist,
     fetchAllPlaylists,
+    fetchAllFavorites,
+    setIsInitialRender,
+    setCurrentQuery,
     setPath,
     refreshAccessToken,
-    returnCachedPlaylist,
-    setIsInitialRender,
-    setCurrentQuery
+    returnCachedPlaylist
   })(withRouter(Search))
 );

@@ -19,11 +19,6 @@ export const fetchAllPlaylistsSuccess = ({ playlists, cache }) => ({
   cache
 });
 
-export const fetchSavedPlaylistsError = ({ error }) => ({
-  type: 'NO_SAVED_PLAYLISTS_ERROR',
-  message: error.message
-});
-
 export const resolveCurrentPlaylist = () => ({
   type: 'RESOLVE_CURRENT_PLAYLIST'
 });

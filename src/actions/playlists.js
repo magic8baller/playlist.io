@@ -29,7 +29,6 @@ export const fetchAllPlaylists = (spotifyId) => async (dispatch) => {
   const { data } = response;
 
   if (noSavedPlaylists(data)) {
-    dispatch(h.fetchSavedPlaylistsError(data));
     dispatch(h.updateCache(response));
     return;
   }

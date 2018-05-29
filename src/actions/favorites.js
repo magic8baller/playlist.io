@@ -1,7 +1,18 @@
 import { isError } from '../utils/helpers';
 
 import api from '../api';
-import { updateFavorites, updateCache, updateCurrentPlaylist } from '../utils/dispatchHelpers';
+import * as h from '../utils/dispatchHelpers';
+
+const noSavedFavorites = (data) => data.favorites.error;
+
+export const fetchAllFavorites = (spotifyId) => async (dispatch) => {
+  const response = await api.fetchAllFavoritesSent(spotifyId);
+  const { data } = response;
+
+  if (noSavedFavorites(data)) return;
+
+  dispatch(h.updateFavorites(response));
+};
 
 const favoriteAction = (apiReq) => (spotifyId, query, trackData) => async (dispatch) => {
   const response = await apiReq(spotifyId, query, trackData);
@@ -11,9 +22,9 @@ const favoriteAction = (apiReq) => (spotifyId, query, trackData) => async (dispa
     return;
   }
 
-  dispatch(updateFavorites(response));
-  dispatch(updateCache(response));
-  dispatch(updateCurrentPlaylist(response));
+  dispatch(h.updateFavorites(response));
+  dispatch(h.updateCache(response));
+  dispatch(h.updateCurrentPlaylist(response));
 };
 
 export const addFavorite = favoriteAction(api.addFavoriteSent);
