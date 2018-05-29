@@ -2,14 +2,19 @@ import { handleActions } from 'redux-actions';
 
 const initialState = {
   search: 'Invalid search. Please try again.',
-  noPlaylists: 'No playlists have been saved.'
+  noSavedPlaylists: 'No playlists have been saved.',
+  noCurrentPlaylist: false
 };
 
 export default handleActions(
   {
-    NO_SAVED_PLAYLISTS_ERROR: (state, action) => ({
+    NO_CURRENT_PLAYLIST_ERROR: (state, action) => ({
       ...state,
-      noPlaylists: action.message
+      noCurrentPlaylist: 'You must search for a playlist to view results.'
+    }),
+    CURRENT_PLAYLIST_SUCCESS: (state, action) => ({
+      ...state,
+      noCurrentPlaylist: false
     })
   },
   initialState
@@ -17,4 +22,6 @@ export default handleActions(
 
 export const getSearchError = (state) => state.errors.search;
 
-export const getNoSavedPlaylistsError = (state) => state.errors.noPlaylists;
+export const getNoSavedPlaylistsError = (state) => state.errors.noSavedPlaylists;
+
+export const getNoCurrentPlaylistError = (state) => state.errors.noCurrentPlaylist;

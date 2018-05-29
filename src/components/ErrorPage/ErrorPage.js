@@ -6,7 +6,7 @@ const ErrorPage = ({ errorMsg, history, setPath }) => (
   <Wrapper>
     <Text>{errorMsg}</Text>
     <Btn onClick={() => setPath(history, '/')}>
-      <BtnText>Back to Home</BtnText>
+      <BtnText>Back to Search</BtnText>
     </Btn>
   </Wrapper>
 );

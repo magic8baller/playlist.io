@@ -7,6 +7,10 @@ import { isError } from '../utils/helpers';
 import * as h from '../utils/dispatchHelpers';
 import { FETCH_SAVED_PLAYLISTS_ENDPOINT } from '../utils/endpoints';
 
+const noSavedPlaylists = (data) => data.playlists.error;
+
+export const noCurrentPlaylistError = createAction('NO_CURRENT_PLAYLIST_ERROR');
+
 export const savePlaylist = (playlistData, spotifyId) => async (dispatch) => {
   delayedAnimation(dispatch);
 
@@ -22,13 +26,17 @@ export const savePlaylist = (playlistData, spotifyId) => async (dispatch) => {
   dispatch(h.savePlaylistSuccess(playlistId, playlistData));
 };
 
-export const fetchSavedPlaylists = (spotifyId) => async (dispatch) => {
-  const response = await api.fetchSavedPlaylistsSent(spotifyId);
+export const fetchAllPlaylists = (spotifyId) => async (dispatch) => {
+  const response = await api.fetchAllPlaylistsSent(spotifyId);
   const { data } = response;
 
-  isError(response)
-    ? dispatch(h.fetchSavedPlaylistsError(data))
-    : dispatch(h.fetchSavedPlaylistsSuccess(data));
+  if (noSavedPlaylists(data)) {
+    dispatch(h.fetchSavedPlaylistsError(data));
+    dispatch(h.updateCache(response));
+    return;
+  }
+
+  dispatch(h.fetchAllPlaylistsSuccess(data));
 };
 
 export const setCurrentPlaylist = (playlistId, callback) => (dispatch) => {

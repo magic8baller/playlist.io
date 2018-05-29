@@ -9,7 +9,7 @@ import { setPath } from '../../actions/nav';
 import { getAccessToken, getRefreshToken } from '../../reducers/auth';
 import { getSpotifyId } from '../../reducers/auth';
 import { getSavedPlaylists, getCache } from '../../reducers/playlists';
-import { fetchSavedPlaylists } from '../../actions/playlists';
+import { fetchAllPlaylists } from '../../actions/playlists';
 import { getIsInitialRender } from '../../reducers/events';
 import { setIsInitialRender } from '../../actions/events';
 
@@ -27,7 +27,7 @@ export default reduxForm({
 })(
   connect(mapStateToProps, {
     fetchPlaylist,
-    fetchSavedPlaylists,
+    fetchAllPlaylists,
     setPath,
     refreshAccessToken,
     returnCachedPlaylist,

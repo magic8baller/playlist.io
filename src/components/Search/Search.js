@@ -49,11 +49,11 @@ class Search extends Component {
   };
 
   maybeFetchDbData = (cb) => {
-    const { spotifyId, fetchSavedPlaylists, isInitialRender } = this.props;
+    const { spotifyId, fetchAllPlaylists, isInitialRender } = this.props;
 
     if (!isInitialRender) return;
 
-    fetchSavedPlaylists(spotifyId);
+    fetchAllPlaylists(spotifyId);
     cb();
   };
 

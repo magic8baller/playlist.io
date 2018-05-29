@@ -4,7 +4,7 @@ import { FAVORITE_ENDPOINT } from '../utils/endpoints';
 
 const favoriteApiReq = (method, reqType) => (spotifyId, query, trackData) =>
   axios[method](`${FAVORITE_ENDPOINT}/${spotifyId}`, {
-    [reqType]: { spotifyId, query, trackData }
+    [reqType]: { query, trackData }
   });
 
 export default {

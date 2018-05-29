@@ -17,5 +17,5 @@ export default {
     return response.data.items;
   }),
   cachePlaylistInDb: (spotifyId, query, playlist) =>
-    axios.post(`${CACHE_PLAYLIST_ENDPOINT}/${spotifyId}`, { spotifyId, query, playlist })
+    axios.post(`${CACHE_PLAYLIST_ENDPOINT}/${spotifyId}`, { query, playlist })
 };

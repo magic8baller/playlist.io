@@ -14,6 +14,7 @@ export const setCurrentQuery = createAction('SET_CURRENT_QUERY');
 
 export const fetchPlaylist = (spotifyId, token, query) => async (dispatch) => {
   dispatch(h.deleteCurrentPlaylist());
+  dispatch(h.currentPlaylistSuccess());
 
   const config = {
     headers: setHeaders(token)

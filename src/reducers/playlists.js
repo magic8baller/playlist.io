@@ -1,7 +1,7 @@
 import { handleActions } from 'redux-actions';
 import { find, propEq } from 'ramda';
 
-const initialState = { saved: [], current: null, cache: [] };
+const initialState = { saved: [], current: '', cache: [] };
 
 export default handleActions(
   {
@@ -18,6 +18,11 @@ export default handleActions(
       ...state,
       current: [...action.playlist],
       cache: [...state.cache, ...action.playlist]
+    }),
+    UPDATE_ALL_PLAYLISTS: (state, action) => ({
+      ...state,
+      saved: action.saved,
+      cache: action.cache
     }),
     UPDATE_CURRENT_PLAYLIST: (state, action) => ({
       ...state,

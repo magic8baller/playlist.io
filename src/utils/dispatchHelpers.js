@@ -13,14 +13,15 @@ export const setCurrentPlaylistSuccess = (playlistId) => ({
   playlistId
 });
 
+export const fetchAllPlaylistsSuccess = ({ playlists, cache }) => ({
+  type: 'UPDATE_ALL_PLAYLISTS',
+  saved: playlists,
+  cache
+});
+
 export const fetchSavedPlaylistsError = ({ error }) => ({
   type: 'NO_SAVED_PLAYLISTS_ERROR',
   message: error.message
-});
-
-export const fetchSavedPlaylistsSuccess = ({ playlists }) => ({
-  type: 'FETCH_SAVED_PLAYLISTS',
-  playlists
 });
 
 export const resolveCurrentPlaylist = () => ({
@@ -49,4 +50,8 @@ export const updateCache = ({ data }) => ({
 export const updateCurrentPlaylist = ({ data }) => ({
   type: 'UPDATE_CURRENT_PLAYLIST',
   current: data.current
+});
+
+export const currentPlaylistSuccess = () => ({
+  type: 'CURRENT_PLAYLIST_SUCCESS'
 });
