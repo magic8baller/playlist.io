@@ -5,4 +5,5 @@ export const TrackTile = styled(GridTile)`
   &:hover {
     cursor: pointer;
   }
+  border-radius: 4px;
 `;

@@ -1,7 +1,8 @@
 import { css } from 'styled-components';
 
 const sizes = {
-  phone: 768
+  phone: 768,
+  tablet: 1200
 };
 
 export default Object.keys(sizes).reduce((acc, label) => {
@@ -10,6 +11,6 @@ export default Object.keys(sizes).reduce((acc, label) => {
       ${css(...args)};
     }
   `;
-
+  console.log(acc);
   return acc;
 }, {});

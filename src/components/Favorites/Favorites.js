@@ -2,7 +2,7 @@ import React from 'react';
 import { isEmpty } from 'ramda';
 
 import ErrorPageContainer from '../ErrorPage/ErrorPageContainer';
-import { TracksGridWrapper, Text } from '../TracksGrid/TracksGridStyles';
+import { Grid, TracksGridWrapper, Text } from '../TracksGrid/TracksGridStyles';
 import { styles } from '../YourPlaylists/YourPlaylistsStyles';
 import { TrackTile } from '../Tracks/TrackStyle';
 
@@ -25,9 +25,7 @@ const renderFavorites = (favorites, playTrack) => (
         </span>{' '}
         Favorites
       </Text>
-      <div style={styles.grid} ref={this.setGridElementRef}>
-        {favorites.map(renderFavorite(playTrack))}
-      </div>
+      <Grid>{favorites.map(renderFavorite(playTrack))}</Grid>
     </TracksGridWrapper>
   </div>
 );
