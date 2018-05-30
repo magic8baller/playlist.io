@@ -5,7 +5,6 @@ import { values, map, curry } from 'ramda';
 
 import * as Style from './NavStyles.js';
 import Menu from './Menu/Menu';
-import SettingsDropdown from './SettingsDropdown/SettingsDropdown';
 import navOptions, { desktopMenuOption } from './data';
 
 class Nav extends Component {
