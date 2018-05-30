@@ -33,7 +33,7 @@ export const Title = styled.div`
   ${media.tablet`font-size: 1.6rem`};
   ${media.tablet`width: 100%`};
 
-  ${media.phone`font-size: 18px`};
+  ${media.phone`font-size: 14px`};
 `;
 
 export const Form = styled.div`
