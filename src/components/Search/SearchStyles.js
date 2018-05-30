@@ -47,7 +47,6 @@ export const Form = styled.div`
   font-size: 18px;
   margin: 0 auto;
 
-  ${media.phone`height: 50px`};
   ${media.phone`width: 100%`};
 `;
 
@@ -82,7 +81,7 @@ export const Btn = styled.button`
     outline: none;
   }
 
-  ${media.phone`margin-right: 8px`};
+  ${media.phone`margin-left: -30px`};
   ${media.phone`height: 40px`};
 `;
 

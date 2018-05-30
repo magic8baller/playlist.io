@@ -59,6 +59,9 @@ class Search extends Component {
 
   handleFormSubmit = ({ query }) => {
     const { cache, setCurrentQuery } = this.props;
+
+    if (!query) return; // if empty, just return
+
     const normalizedQuery = query.toLowerCase();
 
     setCurrentQuery(normalizedQuery);

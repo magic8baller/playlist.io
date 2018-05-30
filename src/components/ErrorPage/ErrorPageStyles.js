@@ -12,6 +12,8 @@ export const Wrapper = styled.div`
 
 export const Text = styled.div`
   font-size: 1.8rem;
+
+  ${media.phone`font-size: 1.3rem`};
 `;
 
 export const Btn = styled.button`

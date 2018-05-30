@@ -21,6 +21,8 @@ export const InnerWrapper = styled.div`
 export const CompanyName = styled.div`
   font-size: 5rem;
   font-weight: bold;
+
+  ${media.phone`font-size: 3rem`};
 `;
 
 export const Description = styled.div`
@@ -29,6 +31,7 @@ export const Description = styled.div`
   text-align: center;
 
   ${media.phone`width: 85vw`};
+  ${media.phone`font-size: 1.2rem`};
 `;
 
 export const Btn = styled.div`
