@@ -17,6 +17,7 @@ export const Wrapper = styled.div`
 
   ${media.tablet`padding: 0 5px;`};
   ${media.tablet`width: 100%;`};
+  ${media.phone`display: none;`};
 `;
 
 export const Placeholder = styled.div`

@@ -3,7 +3,6 @@ import { isEmpty } from 'ramda';
 
 import ErrorPageContainer from '../ErrorPage/ErrorPageContainer';
 import { Grid, TracksGridWrapper, Text } from '../TracksGrid/TracksGridStyles';
-import { styles } from '../YourPlaylists/YourPlaylistsStyles';
 import { TrackTile } from '../Tracks/TrackStyle';
 
 const renderFavorite = (playTrack) => ({ album: { artists, images }, name }, idx) => (

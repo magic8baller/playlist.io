@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import HamburgerMenu from 'react-hamburger-menu';
-import onClickOutside from 'react-onclickoutside';
 import { map, values } from 'ramda';
 
 import * as Style from './MenuStyles';
