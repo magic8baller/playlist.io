@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import MusicIcon from 'react-icons/lib/fa/music';
-import { values, map, curry } from 'ramda';
 import forEach from 'lodash/forEach';
+import { values, map, curry } from 'ramda';
 
 import * as Style from './NavStyles.js';
+import MobileMenu from './MobileMenu/MobileMenu';
 import SettingsDropdown from './SettingsDropdown/SettingsDropdown';
 import navOptions from './data';
 
@@ -64,6 +65,9 @@ class Nav extends Component {
           <SettingsDropdown handleSignOutClick={this.handleSignOutClick} />
         </Style.Settings>
       </div>
+      <Style.HBMenuWrapper>
+        <MobileMenu />
+      </Style.HBMenuWrapper>
     </Style.Wrapper>
   );
 

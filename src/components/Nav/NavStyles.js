@@ -17,8 +17,7 @@ export const Wrapper = styled.div`
 export const TabsWrapper = styled.div`
   display: flex;
   align-items: center;
-
-  ${media.phone`flex-direction: column`};
+  justify-content: center;
 `;
 
 export const TitleWrapper = styled.a`
@@ -66,12 +65,23 @@ export const Settings = styled.div`
   align-items: center;
   padding-bottom: 16px;
   color: rgba(99, 111, 123, 0.8);
+
+  ${media.phone`display: none`};
 `;
 
 export const Name = styled.div`
   &:hover {
     color: rgb(66, 66, 65);
   }
+`;
+
+export const HBMenuWrapper = styled.div`
+  margin-top: -13px;
+  margin-right: 20px;
+  display: none;
+
+  ${media.phone`display: block`};
+  ${media.phone`cursor: pointer`};
 `;
 
 export const nameStyle = { marginRight: '5px' };
