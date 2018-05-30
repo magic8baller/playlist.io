@@ -15,7 +15,8 @@ export const Wrapper = styled.div`
   z-index: 999;
   padding: 0 2rem;
 
-  ${media.tablet`margin: 0 auto;`};
+  ${media.tablet`padding: 0 5px;`};
+  ${media.tablet`width: 100%;`};
 `;
 
 export const Placeholder = styled.div`

@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import { Heart } from 'react-feather';
 
+import media from '../../../utils/mediaTemplate';
+
 export const ArtistName = styled.div`
   opacity: 0.6;
 `;
@@ -20,6 +22,9 @@ export const TrackWrapper = styled.div`
   &:hover {
     cursor: pointer;
   }
+
+  ${media.phone`margin: 1.5rem 0`};
+  ${media.phone`width: 50vw`};
 `;
 
 export const HeartIcon = styled(Heart)`

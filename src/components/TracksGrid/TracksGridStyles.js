@@ -27,6 +27,7 @@ export const TracksGridWrapper = styled.div`
   margin: 3rem auto 10rem;
 
   ${media.tablet`width: 95vw;`};
+  ${media.phone`margin: 0 auto 10rem`};
 `;
 
 export const Text = styled.div`

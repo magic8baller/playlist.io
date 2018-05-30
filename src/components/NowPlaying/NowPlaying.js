@@ -44,12 +44,12 @@ class NowPlaying extends React.Component {
               </Style.Picture>
             </Style.PictureWrapper>
             <Style.TracksWrapper>
-              <span>
-                <span role="img" aria-label="Hallelujah">
+              <Style.TextWrapper>
+                <Style.FeaturedTracksEmoji role="img" aria-label="Hallelujah">
                   🙌
-                </span>{' '}
+                </Style.FeaturedTracksEmoji>{' '}
                 Featured Tracks
-              </span>
+              </Style.TextWrapper>
               <Style.Tracks>{mappedFeaturedTracks}</Style.Tracks>
             </Style.TracksWrapper>
             <Style.FloatingBtnWrapper>
