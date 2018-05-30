@@ -60,8 +60,9 @@ export const Input = styled.input`
     outline: none;
   }
 
-  ${media.phone`font-size: 16px`};
+  ${media.phone`font-size: 14px`};
   ${media.phone`height: 60%`};
+  ${media.phone`margin-left: 10px`};
 `;
 
 export const Btn = styled.button`
@@ -82,8 +83,10 @@ export const Btn = styled.button`
     outline: none;
   }
 
-  ${media.phone`margin-right: -30px`};
   ${media.phone`height: 40px`};
+  ${media.phone`margin-left: -15px`};
+  ${media.phone`font-size: 14px`};
+  ${media.phone`width: 70px`};
 `;
 
 export const BtnText = styled.div`
@@ -100,4 +103,6 @@ export const SearchIcon = styled(Search)`
   z-index: 999;
   color: black;
   margin-top: 3px;
+  ${media.phone`margin-left: 5px`};
+  ${media.phone`display: none`};
 `;
