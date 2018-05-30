@@ -11,7 +11,7 @@ export const MenuWrapper = styled.div`
   justify-content: space-between;
 `;
 
-export const Menu = styled.div`
+export const MenuBackground = styled.div`
   position: absolute;
   margin-top: 3rem;
   background-color: white;
@@ -45,6 +45,7 @@ export const SignOut = styled.div`
   padding-left: 1rem;
   margin-top: 10px;
   border-radius: 4px;
+  color: rgb(66, 66, 65);
   &:hover {
     background-color: rgba(58, 56, 52, 0.08);
   }

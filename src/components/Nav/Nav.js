@@ -4,9 +4,9 @@ import forEach from 'lodash/forEach';
 import { values, map, curry } from 'ramda';
 
 import * as Style from './NavStyles.js';
-import MobileMenu from './MobileMenu/MobileMenu';
+import Menu from './Menu/Menu';
 import SettingsDropdown from './SettingsDropdown/SettingsDropdown';
-import navOptions from './data';
+import navOptions, { desktopMenuOption } from './data';
 
 class Nav extends Component {
   handleNavOptionClick = (path) => {
@@ -62,12 +62,22 @@ class Nav extends Component {
       <div>
         <Style.Settings>
           <Style.Name>{name}</Style.Name>
-          <SettingsDropdown handleSignOutClick={this.handleSignOutClick} />
+          <Style.HBDesktopMenuWrapper>
+            <Menu
+              color={'rgba(99, 111, 123, 0.8)'}
+              handleSignOutClick={this.handleSignOutClick}
+              menuOptions={desktopMenuOption}
+            />
+          </Style.HBDesktopMenuWrapper>
         </Style.Settings>
       </div>
-      <Style.HBMenuWrapper>
-        <MobileMenu handleSignOutClick={this.handleSignOutClick} menuOptions={navOptions} />
-      </Style.HBMenuWrapper>
+      <Style.HBMobileMenuWrapper>
+        <Menu
+          color={'black'}
+          handleSignOutClick={this.handleSignOutClick}
+          menuOptions={navOptions}
+        />
+      </Style.HBMobileMenuWrapper>
     </Style.Wrapper>
   );
 

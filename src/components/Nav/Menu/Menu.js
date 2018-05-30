@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import HamburgerMenu from 'react-hamburger-menu';
+import onClickOutside from 'react-onclickoutside';
 import { map, values } from 'ramda';
 
-import * as Style from './MobileMenuStyles';
+import * as Style from './MenuStyles';
 
-class MobileMenu extends Component {
+class Menu extends Component {
   state = {
-    menuIsOpen: false
+    isOpen: false
   };
 
   handleMenuClick = () => {
-    this.setState({ menuIsOpen: !this.state.menuIsOpen });
+    this.setState({ isOpen: !this.state.isOpen });
   };
 
   renderMenuOption = ({ name, path, emoji }) => (
@@ -27,7 +28,7 @@ class MobileMenu extends Component {
   );
 
   renderMenuOptions = (menuOptions, handleSignOutClick) => (
-    <Style.Menu>
+    <Style.MenuBackground>
       <div>
         {map(this.renderMenuOption, values(menuOptions))}
         <Style.SignOut onClick={handleSignOutClick}>
@@ -37,26 +38,26 @@ class MobileMenu extends Component {
           Sign Out
         </Style.SignOut>
       </div>
-    </Style.Menu>
+    </Style.MenuBackground>
   );
 
   render() {
-    const { menuOptions, handleSignOutClick } = this.props;
+    const { menuOptions, handleSignOutClick, color } = this.props;
 
     return (
       <div>
         <div />
         <Style.OuterWrapper>
-          {this.state.menuIsOpen && this.renderMenuOptions(menuOptions, handleSignOutClick)}
+          {this.state.isOpen && this.renderMenuOptions(menuOptions, handleSignOutClick)}
           <Style.MenuWrapper>
             <HamburgerMenu
-              isOpen={this.state.menuIsOpen}
+              isOpen={this.state.isOpen}
               menuClicked={this.handleMenuClick}
               width={18}
               height={15}
               strokeWidth={2}
               rotate={0}
-              color="black"
+              color={this.state.isOpen ? 'black' : color}
               borderRadius={0}
               animationDuration={0.2}
             />
@@ -67,4 +68,4 @@ class MobileMenu extends Component {
   }
 }
 
-export default MobileMenu;
+export default Menu;

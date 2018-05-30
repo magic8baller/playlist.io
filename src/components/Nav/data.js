@@ -4,3 +4,7 @@ export default {
   '/favorites': { name: 'Favorites', path: '/favorites', isSelected: null, emoji: '🔥' },
   '/playing': { name: 'Now Playing', path: '/playing', isSelected: null, emoji: '😎' }
 };
+
+export const desktopMenuOption = {
+  feedback: { name: 'Send Feedback', path: 'mailto:patrick.x.rivera@gmail.com', emoji: '📧' }
+};

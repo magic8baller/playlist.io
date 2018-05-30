@@ -75,7 +75,12 @@ export const Name = styled.div`
   }
 `;
 
-export const HBMenuWrapper = styled.div`
+export const HBDesktopMenuWrapper = styled.div`
+  cursor: pointer;
+  margin-left: 10px;
+`;
+
+export const HBMobileMenuWrapper = styled.div`
   margin-top: -13px;
   margin-right: 20px;
   display: none;
