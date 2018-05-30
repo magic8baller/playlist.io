@@ -82,7 +82,7 @@ export const Btn = styled.button`
     outline: none;
   }
 
-  ${media.phone`margin-left: -30px`};
+  ${media.phone`margin-right: -30px`};
   ${media.phone`height: 40px`};
 `;
 
