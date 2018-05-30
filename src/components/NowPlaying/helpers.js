@@ -7,4 +7,4 @@ export const getUri = ({ uri }) => uri;
 export const pageIsLoading = (currentPlaylist) => isNil(currentPlaylist);
 
 export const isError = (currentPlaylist) =>
-  typeof currentPlaylist === 'string' && isEmpty(currentPlaylist);
+  typeof currentPlaylist === 'string' || isEmpty(currentPlaylist);

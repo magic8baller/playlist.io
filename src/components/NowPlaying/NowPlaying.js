@@ -6,82 +6,65 @@ import ScrollableAnchor from 'react-scrollable-anchor';
 
 import * as Style from './NowPlayingStyles';
 import TopTrackCard from '../TopTrackCard/TopTrackCard';
-import ErrorPageContainer from '../ErrorPage/ErrorPageContainer';
 import SaveAnimationContainer from '../SaveAnimation/SaveAnimationContainer';
-import NowPlayingLoader from './NowPlayingLoader';
 import FeaturedTrackContainer from './FeaturedTrack/FeaturedTrackContainer';
 import TracksGrid from '../TracksGrid/TracksGrid';
 import SavePlaylistContainer from '../SavePlaylist/SavePlaylistContainer';
-import { pageIsLoading, isError } from './helpers';
 
-class NowPlaying extends React.Component {
-  mapFeaturedTracks = ([topTrack, ...rest]) => {
-    const featuredTracks = rest.splice(0, 5);
-    const mappedFeaturedTracks = map(featuredTracks, this.renderFeaturedTrack);
-    return [mappedFeaturedTracks, rest];
-  };
+const NowPlaying = ({ playTrack, currentPlaylist }) => {
+  const topTrack = currentPlaylist[0];
+  const [mappedFeaturedTracks, nonFeaturedTracks] = mapFeaturedTracks(currentPlaylist, playTrack);
 
-  renderFeaturedTrack = (...args) => (
-    <FeaturedTrackContainer key={args[1]} args={args} playTrack={this.props.playTrack} />
+  return (
+    <div>
+      <Style.Wrapper>
+        <Style.ContentWrapper>
+          <SaveAnimationContainer />
+          <Style.PictureWrapper>
+            <Style.Picture>
+              <SavePlaylistContainer />
+              <Style.TopTrackWrapper>
+                <TopTrackCard playTrack={playTrack} topTrack={topTrack} />
+              </Style.TopTrackWrapper>
+            </Style.Picture>
+          </Style.PictureWrapper>
+          <Style.TracksWrapper>
+            <Style.TextWrapper>
+              <Style.FeaturedTracksEmoji role="img" aria-label="Hallelujah">
+                🙌
+              </Style.FeaturedTracksEmoji>{' '}
+              Featured Tracks
+            </Style.TextWrapper>
+            <Style.Tracks>{mappedFeaturedTracks}</Style.Tracks>
+          </Style.TracksWrapper>
+          <Style.FloatingBtnWrapper>
+            <a href="#honorable-mentions">
+              <FloatingActionButton backgroundColor={'#1db954'}>
+                <ArrowDownward />
+              </FloatingActionButton>
+            </a>
+          </Style.FloatingBtnWrapper>
+        </Style.ContentWrapper>
+      </Style.Wrapper>
+      <ScrollableAnchor id={'honorable-mentions'}>
+        <Style.TracksGridWrapper>
+          <TracksGrid playTrack={playTrack} nonFeaturedTracks={nonFeaturedTracks} />
+        </Style.TracksGridWrapper>
+      </ScrollableAnchor>
+    </div>
   );
+};
 
-  renderNowPlaying = () => {
-    const { playTrack, currentPlaylist } = this.props;
-    const topTrack = currentPlaylist[0];
-    const [mappedFeaturedTracks, nonFeaturedTracks] = this.mapFeaturedTracks(currentPlaylist);
+const mapFeaturedTracks = ([topTrack, ...rest], playTrack) => {
+  const featuredTracks = rest.splice(0, 5);
+  const mappedFeaturedTracks = map(featuredTracks, renderFeaturedTrack(playTrack));
+  return [mappedFeaturedTracks, rest];
+};
 
-    return (
-      <div>
-        <Style.Wrapper>
-          <Style.ContentWrapper>
-            <SaveAnimationContainer />
-            <Style.PictureWrapper>
-              <Style.Picture>
-                <SavePlaylistContainer />
-                <Style.TopTrackWrapper>
-                  <TopTrackCard playTrack={playTrack} topTrack={topTrack} />
-                </Style.TopTrackWrapper>
-              </Style.Picture>
-            </Style.PictureWrapper>
-            <Style.TracksWrapper>
-              <Style.TextWrapper>
-                <Style.FeaturedTracksEmoji role="img" aria-label="Hallelujah">
-                  🙌
-                </Style.FeaturedTracksEmoji>{' '}
-                Featured Tracks
-              </Style.TextWrapper>
-              <Style.Tracks>{mappedFeaturedTracks}</Style.Tracks>
-            </Style.TracksWrapper>
-            <Style.FloatingBtnWrapper>
-              <a href="#honorable-mentions">
-                <FloatingActionButton backgroundColor={'#1db954'}>
-                  <ArrowDownward />
-                </FloatingActionButton>
-              </a>
-            </Style.FloatingBtnWrapper>
-          </Style.ContentWrapper>
-        </Style.Wrapper>
-        <ScrollableAnchor id={'honorable-mentions'}>
-          <Style.TracksGridWrapper>
-            <TracksGrid playTrack={this.props.playTrack} nonFeaturedTracks={nonFeaturedTracks} />
-          </Style.TracksGridWrapper>
-        </ScrollableAnchor>
-      </div>
-    );
-  };
+const renderFeaturedTrack = (playTrack) => (...args) => (
+  <FeaturedTrackContainer key={args[1]} args={args} playTrack={playTrack} />
+);
 
-  render() {
-    const { currentPlaylist, searchError } = this.props;
-
-    switch (true) {
-      case isError(currentPlaylist):
-        return <ErrorPageContainer errorMsg={searchError} />;
-      case pageIsLoading(currentPlaylist):
-        return <NowPlayingLoader handleLoadedPic={this.handleLoadedPic} />;
-      default:
-        return this.renderNowPlaying();
-    }
-  }
-}
+NowPlaying.propTypes = {};
 
 export default NowPlaying;

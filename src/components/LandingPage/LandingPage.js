@@ -1,4 +1,5 @@
 import React from 'react';
+import { bool, func } from 'prop-types';
 
 import * as Style from './LandingPageStyles.js';
 import { HomeBackgroundPlaceholder } from '../Home/HomePlaceholder';
@@ -7,7 +8,7 @@ import '../Home/styles.css';
 
 const getClassName = (isLoaded) => (isLoaded ? '' : 'wrapper__hide');
 
-export default ({ isLoaded, handleBtnClick, handleLoadedImg }) => (
+const LandingPage = ({ isLoaded, handleBtnClick, handleLoadedImg }) => (
   <div>
     <Style.Wrapper className={getClassName(isLoaded)}>
       <BackgroundImg onLoad={handleLoadedImg} src={require('./landing-page.jpg')} />
@@ -28,3 +29,11 @@ export default ({ isLoaded, handleBtnClick, handleLoadedImg }) => (
     )}
   </div>
 );
+
+LandingPage.propTypes = {
+  isLoaded: bool.isRequired,
+  handleBtnClick: func.isRequired,
+  handleLoadedImg: func.isRequired
+};
+
+export default LandingPage;

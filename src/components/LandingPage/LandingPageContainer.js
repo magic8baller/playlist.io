@@ -2,6 +2,7 @@ import React from 'react';
 import { isEmpty } from 'ramda';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { func, object } from 'prop-types';
 
 import LandingPage from './LandingPage';
 import { signInUser } from '../../actions/auth';
@@ -9,6 +10,11 @@ import { parseAuthParams } from './helpers';
 import { SIGN_IN_USER_ENDPOINT } from '../../utils/endpoints';
 
 class LandingPageContainer extends React.Component {
+  static propTypes = {
+    signInUser: func.isRequired,
+    history: object.isRequired
+  };
+
   state = {
     isLoaded: false
   };
