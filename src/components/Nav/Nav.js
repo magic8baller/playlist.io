@@ -66,7 +66,7 @@ class Nav extends Component {
         </Style.Settings>
       </div>
       <Style.HBMenuWrapper>
-        <MobileMenu menuOptions={navOptions} />
+        <MobileMenu handleSignOutClick={this.handleSignOutClick} menuOptions={navOptions} />
       </Style.HBMenuWrapper>
     </Style.Wrapper>
   );

@@ -11,7 +11,7 @@ export const MenuWrapper = styled.div`
   justify-content: space-between;
 `;
 
-export const Wrapper = styled.div`
+export const Menu = styled.div`
   position: absolute;
   margin-top: 3rem;
   background-color: white;
@@ -20,6 +20,7 @@ export const Wrapper = styled.div`
   border-radius: 4px;
   margin-left: -11rem;
   min-width: 200px;
+  z-index: 99;
 `;
 
 export const MenuItemWrapper = styled.div``;
@@ -30,6 +31,7 @@ export const MenuItem = styled.div`
   padding-top: 0.4rem;
   padding-bottom: 0.4rem;
   padding-left: 1rem;
+  width: 100%;
   &:hover {
     transition: background 100ms ease-in;
     background-color: rgba(58, 56, 52, 0.08);
@@ -46,4 +48,10 @@ export const SignOut = styled.div`
   &:hover {
     background-color: rgba(58, 56, 52, 0.08);
   }
+`;
+
+export const Link = styled.a`
+  text-decoration: none;
+  display: flex;
+  color: rgb(66, 66, 65);
 `;

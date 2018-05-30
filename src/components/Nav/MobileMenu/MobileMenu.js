@@ -15,35 +15,39 @@ class MobileMenu extends Component {
 
   renderMenuOption = ({ name, path, emoji }) => (
     <div key={name}>
-      <Style.MenuItem>
-        <span role="img" aria-label={name}>
-          {emoji}
-        </span>{' '}
-        <div>{name}</div>
-      </Style.MenuItem>
+      <Style.Link href={path}>
+        <Style.MenuItem>
+          <span role="img" aria-label={name}>
+            {emoji}
+          </span>{' '}
+          <div>{name}</div>
+        </Style.MenuItem>
+      </Style.Link>
     </div>
   );
 
-  renderMenuOptions = (menuOptions) => (
-    <Style.Wrapper>
+  renderMenuOptions = (menuOptions, handleSignOutClick) => (
+    <Style.Menu>
       <div>
         {map(this.renderMenuOption, values(menuOptions))}
-        <Style.SignOut>
+        <Style.SignOut onClick={handleSignOutClick}>
           <span role="img" aria-label="Goodbye">
             👋
           </span>{' '}
           Sign Out
         </Style.SignOut>
       </div>
-    </Style.Wrapper>
+    </Style.Menu>
   );
 
   render() {
+    const { menuOptions, handleSignOutClick } = this.props;
+
     return (
       <div>
         <div />
         <Style.OuterWrapper>
-          {this.state.menuIsOpen && this.renderMenuOptions(this.props.menuOptions)}
+          {this.state.menuIsOpen && this.renderMenuOptions(menuOptions, handleSignOutClick)}
           <Style.MenuWrapper>
             <HamburgerMenu
               isOpen={this.state.menuIsOpen}

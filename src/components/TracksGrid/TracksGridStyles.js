@@ -12,6 +12,7 @@ export const Grid = styled.div`
   ${media.tablet`grid-gap: 40px;`};
   ${media.tablet`grid-template-columns: repeat(3, 1fr);`};
   ${media.tablet`grid-auto-rows: minmax(100px, 250px);`};
+  ${media.tablet`margin-left: 1rem;`};
 
   ${media.phone`grid-template-columns: 300px;`};
   ${media.phone`grid-auto-rows: minmax(100px, 250px);`};
