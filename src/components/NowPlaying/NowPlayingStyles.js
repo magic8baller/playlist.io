@@ -20,6 +20,7 @@ export const ContentWrapper = styled.div`
   justify-content: center;
 
   ${media.phone`flex-direction: column`};
+  ${media.phone`margin-top: -1rem`};
 `;
 
 export const Picture = styled.div`
@@ -45,7 +46,7 @@ export const TopTrackWrapper = styled.div`
   margin-top: 2.2rem;
   width: 420px;
 
-  ${media.phone`width: 350px`};
+  ${media.phone`width: 250px`};
 `;
 
 export const TracksGridWrapper = styled.div`

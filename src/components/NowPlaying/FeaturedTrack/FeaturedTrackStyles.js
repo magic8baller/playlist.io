@@ -24,7 +24,7 @@ export const TrackWrapper = styled.div`
   }
 
   ${media.phone`margin: 1.5rem 0`};
-  ${media.phone`width: 50vw`};
+  ${media.phone`width: 89vw`};
 `;
 
 export const HeartIcon = styled(Heart)`

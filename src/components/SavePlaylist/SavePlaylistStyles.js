@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import media from '../../utils/mediaTemplate';
+
 export const Wrapper = styled.div`
   display: flex;
   align-items: center;
@@ -9,6 +11,9 @@ export const Wrapper = styled.div`
     color: inherit;
     cursor: pointer;
   }
+
+  ${media.phone`display: none;`};
+  ${media.phone`margin-top: -2rem;`};
 `;
 
 export const Text = styled.div`

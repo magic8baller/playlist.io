@@ -16,6 +16,7 @@ export const Grid = styled.div`
 
   ${media.phone`grid-template-columns: 300px;`};
   ${media.phone`grid-auto-rows: minmax(100px, 250px);`};
+  ${media.phone`margin-right: 18px;`};
 `;
 
 export const GridWrapper = styled.div`
@@ -35,4 +36,5 @@ export const Text = styled.div`
   margin-bottom: 3rem;
 
   ${media.phone`text-align: center;`};
+  ${media.phone`margin-right: 10px;`};
 `;

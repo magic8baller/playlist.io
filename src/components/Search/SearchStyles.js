@@ -61,6 +61,7 @@ export const Input = styled.input`
   }
 
   ${media.phone`font-size: 16px`};
+  ${media.phone`height: 60%`};
 `;
 
 export const Btn = styled.button`

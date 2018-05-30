@@ -40,5 +40,6 @@
   .grid {
     grid-template-columns: 300px;
     grid-auto-rows: minmax(100px, 250px);
+    margin-right: 18px;
   }
 }
