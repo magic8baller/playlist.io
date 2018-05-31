@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { func, arrayOf, shape, array, bool, string, object } from 'prop-types';
+import { func, arrayOf, shape, array, bool, string, object, oneOfType } from 'prop-types';
 
 import App from './App';
 import { setIsPlaying, setIsActivated, setCurrentTrack, setCurrentIdx } from '../../actions/player';
@@ -12,14 +12,17 @@ import { playTrackEndpoint, playTrackReq } from './helpers';
 
 class AppContainer extends React.Component {
   static propTypes = {
-    currentPlaylist: arrayOf(
-      shape({
-        artists: array.isRequired,
-        isFavorited: bool,
-        id: string.isRequired,
-        album: object.isRequired
-      })
-    ),
+    currentPlaylist: oneOfType([
+      string,
+      arrayOf(
+        shape({
+          artists: array.isRequired,
+          isFavorited: bool,
+          id: string.isRequired,
+          album: object.isRequired
+        })
+      )
+    ]),
     accessToken: string.isRequired,
     deviceId: string,
     searchError: string.isRequired,

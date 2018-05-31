@@ -11,8 +11,6 @@ import { getSavedPlaylists } from '../../reducers/playlists';
 import { getSpotifyId } from '../../reducers/auth';
 import { getNoSavedPlaylistsError } from '../../reducers/errors';
 
-const randomPicRoot = 'https://source.unsplash.com/user/tentides/452x452/?wallpaper&sig=';
-
 const isLoaded = ({ complete }) => complete;
 
 const imagesAreLoaded = (imgElements) => imgElements.every(isLoaded);

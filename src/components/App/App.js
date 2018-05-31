@@ -1,7 +1,7 @@
 import React from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { func, arrayOf, shape, array, bool, string, object } from 'prop-types';
+import { func, arrayOf, shape, array, bool, string, object, oneOfType } from 'prop-types';
 
 import HomeContainer from '../Home/HomeContainer';
 import WebPlayerContainer from '../WebPlayer/WebPlayerContainer';
@@ -30,14 +30,17 @@ const App = ({ playTrack, currentPlaylist }) => (
 
 App.propTypes = {
   playTrack: func.isRequired,
-  currentPlaylist: arrayOf(
-    shape({
-      artists: array.isRequired,
-      isFavorited: bool,
-      id: string.isRequired,
-      album: object.isRequired
-    })
-  )
+  currentPlaylist: oneOfType([
+    string,
+    arrayOf(
+      shape({
+        artists: array.isRequired,
+        isFavorited: bool,
+        id: string.isRequired,
+        album: object.isRequired
+      })
+    )
+  ])
 };
 
 export default App;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, CardMedia, CardTitle } from 'material-ui/Card';
-import { func, arrayOf, shape, array, bool, string, object } from 'prop-types';
+import { arrayOf, shape, array, bool, string, object } from 'prop-types';
 
 const TopTrackCard = ({
   topTrack: { album: { artists, images }, name, popularity },

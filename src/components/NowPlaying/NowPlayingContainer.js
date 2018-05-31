@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { func, arrayOf, shape, array, bool, string, object } from 'prop-types';
 
