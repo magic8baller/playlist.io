@@ -3,7 +3,7 @@ import moment from 'moment';
 import { forEach } from 'ramda';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { func, objectOf, shape, array, bool, string, object } from 'prop-types';
+import { func, objectOf, shape, bool, string, object, number } from 'prop-types';
 
 import PremiumPlayer from './PremiumPlayer';
 import NonPremiumPlayer from './NonPremiumPlayer';
@@ -18,7 +18,7 @@ import {
   getCurrentIdx
 } from '../../reducers/player';
 
-class WebPlayer extends Component {
+class WebPlayerContainer extends Component {
   static propTypes = {
     signOutUser: func.isRequired,
     setDeviceId: func.isRequired,
@@ -30,13 +30,13 @@ class WebPlayer extends Component {
     isPlaying: bool.isRequired,
     isPremiumUser: bool.isRequired,
     accessToken: string.isRequired,
-    currentIdx: string,
+    currentIdx: number,
     currentTrack: objectOf(
       shape({
-        artists: array.isRequired,
+        artists: object.isRequired,
         isFavorited: bool,
         id: string.isRequired,
-        album: object.isRequired
+        album: object
       })
     )
   };
@@ -49,8 +49,7 @@ class WebPlayer extends Component {
     positionFormatted: null,
     durationInMs: null,
     durationFormated: null,
-    progressPercentage: 0,
-    prevTrack: {}
+    progressPercentage: 0
   };
 
   componentDidMount() {
@@ -170,23 +169,20 @@ class WebPlayer extends Component {
     await toggleIsPlaying();
   };
 
-  nextTrack = () => {
-    const { currentIdx, playTrack } = this.props;
-    const nextIdx = currentIdx + 1;
+  nextTrack = () => this.handleTrackChange(1);
 
-    playTrack(nextIdx);
-  };
+  prevTrack = () => this.handleTrackChange(-1);
 
-  prevTrack = () => {
+  handleTrackChange = (change) => {
     const { currentIdx, playTrack } = this.props;
-    const nextIdx = currentIdx - 1;
+    const nextIdx = currentIdx + change;
 
     playTrack(nextIdx);
   };
 
   render() {
     return this.props.isPremiumUser ? (
-      <PremiumPlayer {...this} {...this.props} {...this.state} />
+      <PremiumPlayer {...this.prevTrack} {...this} {...this.props} {...this.state} />
     ) : (
       <NonPremiumPlayer />
     );
@@ -209,4 +205,4 @@ export default connect(mapStateToProps, {
   toggleIsPlaying,
   setIsActivated,
   setPath
-})(withRouter(WebPlayer));
+})(withRouter(WebPlayerContainer));

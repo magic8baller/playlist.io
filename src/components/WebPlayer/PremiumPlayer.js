@@ -6,16 +6,16 @@ import Icon from './icons';
 import * as Style from './WebPlayerStyles';
 import './styles.css';
 
-const PremiumPlayer = (props) => (
+const PremiumPlayer = ({ prevTrack, nextTrack, ...props }) => (
   <Style.Wrapper>
     {props.isActivated ? renderTrackInfoArea(props.currentTrack) : renderPlaceholder()}
     <Style.ControlsWrapper>
       <Style.Controls>
-        {renderSecondaryControl(Icon.SkipBack, props)}
+        {renderSecondaryControl(Icon.SkipBack, prevTrack, props)}
         {props.isActivated
           ? renderActivatedMainControl(props)
           : renderMainControl(Icon.Play, props)}
-        {renderSecondaryControl(Icon.SkipForward, props)}
+        {renderSecondaryControl(Icon.SkipForward, nextTrack, props)}
       </Style.Controls>
       <Style.ProgressBarArea isActivated={props.isActivated}>
         <div>{props.positionFormatted}</div>
@@ -53,14 +53,14 @@ const renderPlaceholder = () => (
 const renderActivatedMainControl = ({ isPlaying, ...rest }) =>
   isPlaying ? renderMainControl(Icon.Pause, rest) : renderMainControl(Icon.Play, rest);
 
-const renderSecondaryControl = (Control, props) => (
+const renderSecondaryControl = (Control, handleClick, props) => (
   <Control
     className="hover-active"
     onMouseEnter={props.handleMouseEnter}
     onMouseLeave={props.handleMouseLeave}
     size={18}
     style={props.isActivated ? Style.secondaryControl : Style.notActivated}
-    onClick={props.handleClick}
+    onClick={handleClick}
   />
 );
 
@@ -82,10 +82,10 @@ PremiumPlayer.propTypes = {
   isActivated: bool.isRequired,
   currentTrack: objectOf(
     shape({
-      artists: array.isRequired,
+      artists: object.isRequired,
       isFavorited: bool,
       id: string.isRequired,
-      album: object.isRequired
+      album: object
     })
   )
 };
