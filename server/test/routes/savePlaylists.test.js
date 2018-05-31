@@ -9,12 +9,12 @@ const { postReq } = require('../testHelpers');
 const expect = chai.expect;
 
 describe('POST /api/playlist/save/:spotifyId', () => {
-  it('should save a playlist', async () => {
+  it.only('should save a playlist', async () => {
     const route = '/api/playlist/save';
     const spotifyId = 123;
     const data = {
       title: 'My Awesome Playlist',
-      tracks: [{ name: 'Heller' }, { name: 'Ayo' }]
+      currentPlaylist: [{ name: 'Heller', uri: 3 }, { name: 'Ayo', uri: 2 }]
     };
 
     let user = new User({ spotifyId });
@@ -23,7 +23,7 @@ describe('POST /api/playlist/save/:spotifyId', () => {
     user = await User.findOne({ spotifyId });
     const oldPlaylistCount = user.playlists.length;
 
-    const res = await postReq(route, spotifyId);
+    const res = await postReq(route, spotifyId, data);
 
     user = await User.findOne({ spotifyId: 123 });
     const newPlaylistCount = user.playlists.length;

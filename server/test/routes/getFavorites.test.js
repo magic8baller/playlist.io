@@ -11,7 +11,7 @@ const { getReq, postReq } = require('../testHelpers');
 chai.use(chaiHttp);
 const expect = chai.expect;
 
-describe.only('GET /api/favorite/:spotifyId', () => {
+describe('GET /api/favorite/:spotifyId', () => {
   beforeEach((done) => {
     const users = mongoose.connection.collections.users;
     users.drop(() => {

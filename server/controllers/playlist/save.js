@@ -1,5 +1,4 @@
 const request = require('request');
-const pluck = require('ramda/src/pluck');
 
 const code = require('../../utils/statusCodes');
 const User = require('../../models/User');
@@ -19,7 +18,7 @@ const saveToDb = async (req, res) => {
 };
 
 const saveToSpotify = (req) => {
-  const { spotifyId, title, accessToken, tracks } = req.body;
+  const { spotifyId, title, accessToken, currentPlaylist } = req.body;
 
   const createPlaylistOptns = {
     url: `https://api.spotify.com/v1/users/${spotifyId}/playlists`,
@@ -33,7 +32,7 @@ const saveToSpotify = (req) => {
   request.post(createPlaylistOptns, async (error, response, body) => {
     const playlistId = body.id;
 
-    const uris = pluck('uri')(tracks);
+    const uris = currentPlaylist.map(({ uri }) => uri);
 
     const addTracksOptns = {
       url: `https://api.spotify.com/v1/users/${spotifyId}/playlists/${playlistId}/tracks`,
