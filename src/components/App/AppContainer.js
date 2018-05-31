@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { func, arrayOf, shape, array, bool, string, object } from 'prop-types';
 
 import App from './App';
 import { setIsPlaying, setIsActivated, setCurrentTrack, setCurrentIdx } from '../../actions/player';
@@ -10,6 +11,24 @@ import { getSearchError } from '../../reducers/errors';
 import { playTrackEndpoint, playTrackReq } from './helpers';
 
 class AppContainer extends React.Component {
+  static propTypes = {
+    currentPlaylist: arrayOf(
+      shape({
+        artists: array.isRequired,
+        isFavorited: bool,
+        id: string.isRequired,
+        album: object.isRequired
+      })
+    ),
+    accessToken: string.isRequired,
+    deviceId: string,
+    searchError: string.isRequired,
+    setIsPlaying: func.isRequired,
+    setIsActivated: func.isRequired,
+    setCurrentTrack: func.isRequired,
+    setCurrentIdx: func.isRequired
+  };
+
   playTrack = (idx = -1) => {
     const {
       deviceId,

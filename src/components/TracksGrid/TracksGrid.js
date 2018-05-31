@@ -1,4 +1,5 @@
 import React from 'react';
+import { func, arrayOf, shape, array, bool, string, object } from 'prop-types';
 
 import Tracks from '../Tracks/Tracks';
 import { Grid, TracksGridWrapper, Text } from './TracksGridStyles';
@@ -16,5 +17,17 @@ const TracksGrid = (props) => (
     </Grid>
   </TracksGridWrapper>
 );
+
+TracksGrid.propTypes = {
+  nonFeaturedTracks: arrayOf(
+    shape({
+      artists: array.isRequired,
+      isFavorited: bool,
+      id: string.isRequired,
+      album: object.isRequired
+    })
+  ),
+  playTrack: func.isRequired
+};
 
 export default TracksGrid;

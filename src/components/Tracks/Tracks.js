@@ -1,6 +1,9 @@
 import React from 'react';
+import { func, arrayOf, shape, array, bool, string, object } from 'prop-types';
 
 import { TrackTile } from './TrackStyle';
+
+const Tracks = ({ nonFeaturedTracks, playTrack }) => nonFeaturedTracks.map(renderTrack(playTrack));
 
 const renderTrack = (playTrack) => ({ album: { artists, images }, name }, idx) => (
   <TrackTile
@@ -13,6 +16,16 @@ const renderTrack = (playTrack) => ({ album: { artists, images }, name }, idx) =
   </TrackTile>
 );
 
-const Tracks = ({ nonFeaturedTracks, playTrack }) => nonFeaturedTracks.map(renderTrack(playTrack));
+Tracks.propTypes = {
+  nonFeaturedTracks: arrayOf(
+    shape({
+      artists: array.isRequired,
+      isFavorited: bool,
+      id: string.isRequired,
+      album: object.isRequired
+    })
+  ),
+  playTrack: func.isRequired
+};
 
 export default Tracks;

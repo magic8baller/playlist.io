@@ -1,7 +1,11 @@
 import React from 'react';
 import { Card, CardMedia, CardTitle } from 'material-ui/Card';
+import { func, arrayOf, shape, array, bool, string, object } from 'prop-types';
 
-export default ({ topTrack: { album: { artists, images }, name, popularity }, playTrack }) => (
+const TopTrackCard = ({
+  topTrack: { album: { artists, images }, name, popularity },
+  playTrack
+}) => (
   <Card onClick={() => playTrack()} style={{ cursor: 'pointer' }}>
     <CardMedia>
       <img src={images[0].url} alt="" />
@@ -9,3 +13,16 @@ export default ({ topTrack: { album: { artists, images }, name, popularity }, pl
     <CardTitle title={name} subtitle={artists[0].name} />
   </Card>
 );
+
+TopTrackCard.propTypes = {
+  topTrackCard: arrayOf(
+    shape({
+      artists: array.isRequired,
+      isFavorited: bool,
+      id: string.isRequired,
+      album: object.isRequired
+    })
+  )
+};
+
+export default TopTrackCard;

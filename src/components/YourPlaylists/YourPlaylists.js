@@ -1,8 +1,6 @@
-import React, { Component } from 'react';
-import map from 'lodash/map';
-import { pipe, isEmpty } from 'ramda';
+import React from 'react';
+import { func, arrayOf, shape, array, bool, string, object } from 'prop-types';
 
-import ErrorPageContainer from '../ErrorPage/ErrorPageContainer';
 import { GridItem } from './YourPlaylistsStyles';
 import { TracksGridWrapper, Text } from '../TracksGrid/TracksGridStyles';
 import { Headline, GridItemPlaceholder } from './YourPlaylistsPlaceholders';
@@ -10,92 +8,65 @@ import './styles.css';
 
 const randomPicRoot = 'https://source.unsplash.com/user/tentides/452x452/?wallpaper&sig=';
 
-const isLoaded = ({ complete }) => complete;
-
-const imagesAreLoaded = (imgElements) => imgElements.every(isLoaded);
-
-const getImgElements = (parentNode) => [...parentNode.querySelectorAll('img')];
-
-const getImageLoadState = (parentNode) => pipe(getImgElements, imagesAreLoaded)(parentNode);
-
 const getClassName = (isLoaded) => (isLoaded ? 'grid__show' : 'grid__hide');
 
-class YourPlaylists extends Component {
-  gridElement = null;
-
-  state = {
-    isLoaded: false
-  };
-
-  setGridElementRef = (element) => {
-    this.gridElement = element;
-  };
-
-  handlePlaylistClick = (playlistId) => {
-    const { setCurrentPlaylist, setPath, history } = this.props;
-
-    setCurrentPlaylist(playlistId, () => {
-      const newPath = '/playing';
-      setPath(history, newPath);
-    });
-  };
-
-  handleLoadedImg = () => {
-    this.setState({
-      isLoaded: getImageLoadState(this.gridElement)
-    });
-  };
-
-  renderGridItemPlaceholder = () => {
-    let result = [];
-
-    for (let i = 0; i < 8; i++) {
-      result = [...result, <GridItemPlaceholder key={i} />];
-    }
-
-    return result;
-  };
-
-  renderPlaylist = ({ title, playlistId }, idx) => (
-    <GridItem onClick={() => this.handlePlaylistClick(playlistId)} key={title} title={title}>
-      <img
-        alt={`Playlist: ${title}`}
-        src={`${randomPicRoot}${idx}`}
-        onLoad={this.handleLoadedImg}
-      />
-    </GridItem>
-  );
-
-  render() {
-    const { savedPlaylists, noSavedPlaylistsError } = this.props;
-    const { isLoaded } = this.state;
-
-    const renderedPlaylists = map(savedPlaylists, this.renderPlaylist);
-
-    if (isEmpty(savedPlaylists)) return <ErrorPageContainer errorMsg={noSavedPlaylistsError} />;
-
-    return (
-      <div>
-        <TracksGridWrapper className={getClassName(isLoaded)}>
-          <Text>
-            <span role="img" aria-label="Music Notes">
-              🎶
-            </span>{' '}
-            Your Playlists
-          </Text>
-          <div className="grid" ref={this.setGridElementRef}>
-            {renderedPlaylists}
-          </div>
-        </TracksGridWrapper>
-        {!isLoaded && (
-          <div className="placeholder-wrapper">
-            <Headline />
-            <div className="grid grid-item-placeholder">{this.renderGridItemPlaceholder()}</div>
-          </div>
-        )}
+const YourPlaylists = (props) => (
+  <div>
+    <TracksGridWrapper className={getClassName(props.isLoaded)}>
+      <Text>
+        <span role="img" aria-label="Music Notes">
+          🎶
+        </span>{' '}
+        Your Playlists
+      </Text>
+      <div className="grid" ref={props.setGridElementRef}>
+        {props.savedPlaylists.map(renderPlaylist(props.handleLoadedImg, props.handlePlaylistClick))}
       </div>
-    );
+    </TracksGridWrapper>
+    {!props.isLoaded && (
+      <div className="placeholder-wrapper">
+        <Headline />
+        <div className="grid grid-item-placeholder">{renderGridItemPlaceholder()}</div>
+      </div>
+    )}
+  </div>
+);
+
+const renderPlaylist = (handleLoadedImg, handlePlaylistClick) => ({ title, playlistId }, idx) => (
+  <GridItem onClick={() => handlePlaylistClick(playlistId)} key={title} title={title}>
+    <img alt={`Playlist: ${title}`} src={`${randomPicRoot}${idx}`} onLoad={handleLoadedImg} />
+  </GridItem>
+);
+
+const renderGridItemPlaceholder = () => {
+  let result = [];
+
+  for (let i = 0; i < 8; i++) {
+    result = [...result, <GridItemPlaceholder key={i} />];
   }
-}
+
+  return result;
+};
+
+YourPlaylists.propTypes = {
+  savedPlaylists: arrayOf(
+    shape({
+      title: string.isRequired,
+      _id: string,
+      tracks: arrayOf(
+        shape({
+          artists: array,
+          isFavorited: bool,
+          id: string.isRequired,
+          album: object.isRequired
+        })
+      )
+    })
+  ),
+  isLoaded: bool.isRequired,
+  handleLoadedImg: func.isRequired,
+  handlePlaylistClick: func.isRequired,
+  setGridElementRef: func.isRequired
+};
 
 export default YourPlaylists;

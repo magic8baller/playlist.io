@@ -12,6 +12,7 @@ export const Wrapper = styled.div`
     cursor: pointer;
   }
 
+  ${media.tablet`margin-right: 17rem;`};
   ${media.phone`display: none;`};
   ${media.phone`margin-top: -2rem;`};
 `;
