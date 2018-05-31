@@ -23,7 +23,7 @@ class AppContainer extends React.Component {
         })
       )
     ]),
-    accessToken: string.isRequired,
+    accessToken: string,
     deviceId: string,
     searchError: string.isRequired,
     setIsPlaying: func.isRequired,

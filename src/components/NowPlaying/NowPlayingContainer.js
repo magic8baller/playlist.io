@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { func, arrayOf, shape, array, bool, string, object } from 'prop-types';
+import { func, oneOfType, arrayOf, shape, array, bool, string, object } from 'prop-types';
 
 import NowPlaying from './NowPlaying';
 import ErrorPageContainer from '../ErrorPage/ErrorPageContainer';
@@ -11,14 +11,17 @@ import { getSearchError } from '../../reducers/errors';
 
 class NowPlayingContainer extends React.Component {
   static propTypes = {
-    currentPlaylist: arrayOf(
-      shape({
-        artists: array.isRequired,
-        isFavorited: bool,
-        id: string.isRequired,
-        album: object.isRequired
-      })
-    ),
+    currentPlaylist: oneOfType([
+      string,
+      arrayOf(
+        shape({
+          artists: array.isRequired,
+          isFavorited: bool,
+          id: string.isRequired,
+          album: object.isRequired
+        })
+      )
+    ]),
     searchError: string.isRequired,
     playTrack: func.isRequired
   };
