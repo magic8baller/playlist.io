@@ -33,7 +33,7 @@ App.propTypes = {
   currentPlaylist: arrayOf(
     shape({
       artists: array.isRequired,
-      isFavorited: bool.isRequired,
+      isFavorited: bool,
       id: string.isRequired,
       album: object.isRequired
     })
