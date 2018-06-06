@@ -1,6 +1,5 @@
 import React from 'react';
-import { Field } from 'redux-form';
-import { reduxForm } from 'redux-form';
+import { Field, reduxForm } from 'redux-form';
 import { func, bool, string } from 'prop-types';
 
 import * as Style from './SearchStyles';
