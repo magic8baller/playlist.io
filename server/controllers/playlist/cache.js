@@ -5,7 +5,7 @@ const code = require('../../utils/statusCodes');
 const User = require('../../models/User');
 
 const formatPlaylist = curry((query, playlist) => ({
-  query,
+  query: query.toLowerCase(),
   tracks: [...playlist]
 }));
 

@@ -18,7 +18,7 @@ const saveToDb = async (req, res) => {
 };
 
 const saveToSpotify = (req) => {
-  const { spotifyId, title, accessToken, currentPlaylist } = req.body;
+  const { spotifyId, title, accessToken, tracks } = req.body;
 
   const createPlaylistOptns = {
     url: `https://api.spotify.com/v1/users/${spotifyId}/playlists`,
@@ -32,7 +32,7 @@ const saveToSpotify = (req) => {
   request.post(createPlaylistOptns, async (error, response, body) => {
     const playlistId = body.id;
 
-    const uris = currentPlaylist.map(({ uri }) => uri);
+    const uris = tracks.map(({ uri }) => uri);
 
     const addTracksOptns = {
       url: `https://api.spotify.com/v1/users/${spotifyId}/playlists/${playlistId}/tracks`,
@@ -42,12 +42,12 @@ const saveToSpotify = (req) => {
     };
 
     request.post(addTracksOptns, (err, response, body) => {
-      isTestEnv() ? null : console.log(body);
+      console.log(body);
     });
   });
 };
 
 module.exports = (req, res) => {
   saveToDb(req, res);
-  saveToSpotify(req);
+  isTestEnv() ? null : saveToSpotify(req); // don't run during tests
 };

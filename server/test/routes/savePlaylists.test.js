@@ -9,7 +9,7 @@ const { postReq } = require('../testHelpers');
 const expect = chai.expect;
 
 describe('POST /api/playlist/save/:spotifyId', () => {
-  it.only('should save a playlist', async () => {
+  it('should save a playlist', async () => {
     const route = '/api/playlist/save';
     const spotifyId = 123;
     const data = {

@@ -13,6 +13,7 @@ const TrackSchema = new Schema({
 
 const PlaylistSchema = new Schema({
   title: { type: String },
+  query: { type: String },
   tracks: [TrackSchema]
 });
 
