@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Search } from 'react-feather';
+import { Search, ChevronDown } from 'react-feather';
 
 import media from '../../utils/mediaTemplate';
 
@@ -41,6 +41,7 @@ export const Form = styled.div`
   height: 65px;
   border-radius: 4px;
   box-shadow: rgba(29, 29, 31, 0.15) 0 10px 60px;
+  border: 2px solid #ecf0f1;
   display: flex;
   align-items: center;
   background-color: #fff;
@@ -53,8 +54,8 @@ export const Form = styled.div`
 export const Input = styled.input`
   height: 95%;
   flex: 1;
-  margin-left: 1rem;
   border: none;
+  margin-left: 8px;
   font-size: 18px;
   &:focus {
     outline: none;
@@ -105,4 +106,59 @@ export const SearchIcon = styled(Search)`
   margin-top: 3px;
   ${media.phone`margin-left: 5px`};
   ${media.phone`display: none`};
+`;
+
+export const DropdownWrapper = styled.div`
+  width: 116px;
+  display: flex;
+  align-items: center;
+  border: 2px solid #ecf0f1;
+  height: 100%;
+`;
+
+export const MainDropdownText = styled.div`
+  color: rgb(66, 66, 65);
+  font-size: 18px;
+  opacity: 0.6;
+  width: 93px;
+  margin-left: 8px;
+  cursor: pointer;
+  &:hover {
+    opacity: 1;
+    transition: 80ms ease;
+  }
+`;
+
+export const ChevronIcon = styled(ChevronDown)`
+  color: #95a5a6;
+  opacity: 0.8;
+  margin-right: 10px;
+  cursor: pointer;
+  &:hover {
+    color: black;
+    transition: 80ms ease;
+  }
+`;
+
+export const DropdownMenu = styled.div`
+  width: 111.5px;
+  border: 2px solid #ecf0f1;
+  height: auto;
+  background-color: #fff;
+  margin-top: -3px;
+  border-radius: 3px;
+  opacity: ${({ isOpen }) => (isOpen ? '1' : '0')};
+`;
+
+export const DropdownItem = styled.div`
+  color: rgb(66, 66, 65);
+  font-size: 18px;
+  opacity: 0.6;
+  margin-left: 8px;
+  padding: 1rem 0;
+  cursor: pointer;
+  &:hover {
+    opacity: 1;
+    transition: 80ms ease;
+  }
 `;

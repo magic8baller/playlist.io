@@ -19,23 +19,15 @@ export const fetchPlaylist = (spotifyId, token, query) => async (dispatch) => {
     headers: setHeaders(token)
   };
 
-  const playlistResponse = await api.fetchPlaylistSent(token, query, config);
+  const playlist = await api.fetchPlaylistSent(token, query, config);
 
-  if (isError(playlistResponse)) {
-    console.error(playlistResponse.statusText);
+  if (isError(playlist)) {
+    console.error(playlist.statusText);
     return;
   }
+  console.log(playlist.data.tracks);
+  dispatch(h.fetchPlaylistSuccess(playlist.data.tracks));
 
-  const playlists = playlistResponse.data.playlists.items;
-
-  if (isEmpty(playlists)) {
-    dispatch(h.resolveCurrentPlaylist());
-    return;
-  }
-
-  const playlist = await createPlaylist(playlists, config);
-  dispatch(h.fetchPlaylistSuccess(playlist));
-
-  const cacheResponse = await api.cachePlaylistInDb(spotifyId, query, playlist);
-  dispatch(h.updateCache(cacheResponse));
+  // const cacheResponse = await api.cachePlaylistInDb(spotifyId, query, playlist);
+  // dispatch(h.updateCache(cacheResponse));
 };

@@ -62,7 +62,16 @@ class SearchContainer extends Component {
 
   state = {
     isLoaded: false,
-    query: ''
+    query: '',
+    dropdownIsOpen: false,
+    mainDropdown: {
+      text: 'By Artist',
+      type: 'artist'
+    },
+    otherDropdown: {
+      text: 'By Genre',
+      type: 'genre'
+    }
   };
 
   componentDidMount() {
@@ -126,6 +135,18 @@ class SearchContainer extends Component {
     const { fetchPlaylist, spotifyId, accessToken } = this.props;
 
     fetchPlaylist(spotifyId, accessToken, query);
+  };
+
+  toggleDropdown = () => {
+    this.setState({ dropdownIsOpen: !this.state.dropdownIsOpen });
+  };
+
+  updateDropdown = () => {
+    this.setState({
+      mainDropdown: this.state.otherDropdown,
+      otherDropdown: this.state.mainDropdown,
+      dropdownIsOpen: false
+    });
   };
 
   setNextPath = () => {

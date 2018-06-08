@@ -5,6 +5,8 @@ const DEV_BASE_API = 'http://localhost:8080/api';
 
 export const SPOTIFY_SEARCH_ENDPOINT = `${SPOTIFY_BASE_API}search?limit=50&type=playlist&`;
 
+export const SPOTIFY_RECOMMENDATION_ENDPOINT = `${SPOTIFY_BASE_API}recommendations?limit=100&seed_genres=`;
+
 // TODO: Refactor duplicate isProdEnv() calls
 export const SIGN_IN_USER_ENDPOINT = isProdEnv()
   ? process.env.REACT_APP_PROD_SIGN_IN_USER
