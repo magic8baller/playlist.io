@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { pipe, isEmpty } from 'ramda';
+import { pipe, isEmpty, find, propEq } from 'ramda';
 import { func, arrayOf, shape, array, bool, string, object } from 'prop-types';
 
 import ErrorPageContainer from '../ErrorPage/ErrorPageContainer';
 import YourPlaylists from './YourPlaylists';
 import { setCurrentPlaylist } from '../../actions/playlists';
 import { setPath } from '../../actions/nav';
+import { setCurrentQuery } from '../../actions/search';
 import { getSavedPlaylists } from '../../reducers/playlists';
 import { getSpotifyId } from '../../reducers/auth';
 import { getNoSavedPlaylistsError } from '../../reducers/errors';
@@ -52,11 +53,14 @@ class YourPlaylistsContainer extends Component {
   };
 
   handlePlaylistClick = (playlistId) => {
-    const { setCurrentPlaylist, setPath, history } = this.props;
+    const { setCurrentPlaylist, setPath, history, savedPlaylists, setCurrentQuery } = this.props;
 
     setCurrentPlaylist(playlistId, () => {
       const newPath = '/playing';
       setPath(history, newPath);
+
+      const targetPlaylist = find(propEq('playlistId', playlistId), savedPlaylists);
+      setCurrentQuery(targetPlaylist.query);
     });
   };
 
@@ -83,4 +87,6 @@ const mapStateToProps = (state) => ({
   noSavedPlaylistsError: getNoSavedPlaylistsError(state)
 });
 
-export default connect(mapStateToProps, { setCurrentPlaylist, setPath })(YourPlaylistsContainer);
+export default connect(mapStateToProps, { setCurrentPlaylist, setPath, setCurrentQuery })(
+  YourPlaylistsContainer
+);

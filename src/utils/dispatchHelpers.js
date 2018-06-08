@@ -3,9 +3,9 @@ export const setPathSuccess = (path) => ({
   path
 });
 
-export const savePlaylistSuccess = (playlistId, { title, tracks }) => ({
+export const savePlaylistSuccess = (playlistId, { title, query, tracks }) => ({
   type: 'SAVE_PLAYLIST',
-  payload: { playlistId, title, tracks }
+  payload: { playlistId, title, query, tracks }
 });
 
 export const setCurrentPlaylistSuccess = (playlistId) => ({

@@ -29,15 +29,15 @@ class FeaturedTrack extends Component {
     const { spotifyId, query, addFavorite, deleteFavorite } = this.props;
 
     // Higher order functions to reduce duplication
-    const handleIsFavorited = this.handleFavorited(deleteFavorite, this.uncolorIcon);
-    const handleIsNotFavorited = this.handleFavorited(addFavorite, this.colorIcon);
+    const handleIsFavorited = this.handleFavoriting(deleteFavorite, this.uncolorIcon);
+    const handleIsNotFavorited = this.handleFavoriting(addFavorite, this.colorIcon);
 
     trackData.isFavorited
       ? handleIsFavorited(spotifyId, query, trackData)
       : handleIsNotFavorited(spotifyId, query, trackData);
   };
 
-  handleFavorited = (favoriteAction, colorAction) => (...queryData) => {
+  handleFavoriting = (favoriteAction, colorAction) => (...queryData) => {
     colorAction();
     favoriteAction(...queryData);
   };

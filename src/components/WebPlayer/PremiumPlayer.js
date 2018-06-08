@@ -1,6 +1,6 @@
 import React from 'react';
 import Devices from 'react-icons/lib/md/devices';
-import { func, objectOf, shape, array, bool, string, object } from 'prop-types';
+import { func, objectOf, shape, bool, string, object } from 'prop-types';
 
 import Icon from './icons';
 import * as Style from './WebPlayerStyles';

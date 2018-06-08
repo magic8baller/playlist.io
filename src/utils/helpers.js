@@ -11,3 +11,5 @@ export const isSuccess = (response) => response.status === 200;
 export const isError = not(isSuccess);
 
 export const isUserError = (response) => response.data.error;
+
+export const isArtist = ({ type }) => type === 'artist';

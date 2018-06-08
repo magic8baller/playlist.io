@@ -1,5 +1,4 @@
 import React from 'react';
-import { Dropdown } from 'semantic-ui-react';
 import { Field, reduxForm } from 'redux-form';
 import { func, bool, string } from 'prop-types';
 
@@ -9,12 +8,6 @@ import { HomePlaceholderWrapper, BackgroundImg } from '../Home/HomeStyles';
 import '../Home/styles.css';
 
 const getClassName = (isLoaded) => (isLoaded ? '' : 'wrapper__hide');
-
-const options = [
-  { text: 'By Artist', value: 'By Artist' },
-  { text: 'By Genre', value: 'By Genre' }
-];
-const defaultOption = options[0];
 
 const Search = (props) => (
   <div>
@@ -46,9 +39,9 @@ const Search = (props) => (
 const renderSearchField = ({ handleInputChange, query, dropdownIsOpen, ...props }) => (
   <div>
     <Style.Form>
-      <Style.DropdownWrapper>
+      <Style.DropdownWrapper onClick={props.toggleDropdown}>
         <Style.MainDropdownText>{props.mainDropdown.text}</Style.MainDropdownText>
-        <Style.ChevronIcon onClick={props.toggleDropdown} />
+        <Style.ChevronIcon />
       </Style.DropdownWrapper>
       <Style.Input autoFocus value={query} onChange={handleInputChange} />
       <Style.Btn type="submit">

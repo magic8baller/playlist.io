@@ -114,6 +114,7 @@ export const DropdownWrapper = styled.div`
   align-items: center;
   border: 2px solid #ecf0f1;
   height: 100%;
+  cursor: pointer;
 `;
 
 export const MainDropdownText = styled.div`

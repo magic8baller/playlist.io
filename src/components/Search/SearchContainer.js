@@ -108,7 +108,7 @@ class SearchContainer extends Component {
   handleFormSubmit = (e) => {
     e.preventDefault();
 
-    const { query } = this.state;
+    const { query, mainDropdown } = this.state;
     const { cache, setCurrentQuery } = this.props;
 
     if (!query) return; // if empty, just return
@@ -119,7 +119,7 @@ class SearchContainer extends Component {
 
     isCached(cache, normalizedQuery)
       ? this.handleCachedQuery(query, cache)
-      : this.handleNonCachedQuery(query);
+      : this.handleNonCachedQuery(query, mainDropdown);
 
     this.setNextPath();
   };
@@ -131,10 +131,10 @@ class SearchContainer extends Component {
     returnCachedPlaylist(playlist);
   };
 
-  handleNonCachedQuery = (query) => {
+  handleNonCachedQuery = (query, mainDropdown) => {
     const { fetchPlaylist, spotifyId, accessToken } = this.props;
 
-    fetchPlaylist(spotifyId, accessToken, query);
+    fetchPlaylist(spotifyId, accessToken, query, mainDropdown);
   };
 
   toggleDropdown = () => {
