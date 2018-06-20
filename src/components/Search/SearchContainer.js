@@ -118,14 +118,15 @@ class SearchContainer extends Component {
     setCurrentQuery(normalizedQuery);
 
     isCached(cache, normalizedQuery)
-      ? this.handleCachedQuery(query, cache)
-      : this.handleNonCachedQuery(query, mainDropdown);
+      ? this.handleCachedQuery(normalizedQuery, cache)
+      : this.handleNonCachedQuery(normalizedQuery, mainDropdown);
 
     this.setNextPath();
   };
 
   handleCachedQuery = (query, cache) => {
     const { returnCachedPlaylist } = this.props;
+
     const playlist = getCachedPlaylist(query, cache);
 
     returnCachedPlaylist(playlist);
