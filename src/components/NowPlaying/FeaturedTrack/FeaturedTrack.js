@@ -3,13 +3,11 @@ import { Music, Heart } from 'react-feather';
 import colors from '../../../utils/colors';
 
 import {
-  AllTracksWrapper,
   AllTrackWrapper,
   Left,
   TrackInfoWrapper,
   AllTrackName,
-  AllTrackArtistName,
-  FavoritedHeart
+  AllTrackArtistName
 } from '../../AllTracks/styles';
 
 class FeaturedTrack extends Component {
@@ -53,8 +51,7 @@ class FeaturedTrack extends Component {
 
   render() {
     const { isColored } = this.state;
-    const { idx, playTrack } = this.props;
-    const { album: { artists, images }, name } = this.props.track;
+    const { album: { artists }, name } = this.props.track;
 
     return (
       <AllTrackWrapper>

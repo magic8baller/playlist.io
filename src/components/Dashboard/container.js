@@ -43,6 +43,7 @@ class DashboardContainer extends Component {
 
   render() {
     if (!this.props.tracks) return <div>Loading</div>;
+
     return <Dashboard tracks={this.state.tracks} playTrack={this.props.playTrack} />;
   }
 }

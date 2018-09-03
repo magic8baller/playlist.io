@@ -9,10 +9,10 @@ const noSavedPlaylists = (data) => data.playlists.error;
 
 export const noCurrentPlaylistError = createAction('NO_CURRENT_PLAYLIST_ERROR');
 
-export const savePlaylist = (playlistData, spotifyId) => async (dispatch) => {
+export const savePlaylist = (playlistData, userId) => async (dispatch) => {
   delayedAnimation(dispatch);
 
-  const response = await api.savePlaylistSent(playlistData, spotifyId);
+  const response = await api.savePlaylistSent(playlistData, userId);
 
   if (isError(response)) {
     console.error(response.statusText);

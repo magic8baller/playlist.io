@@ -21,6 +21,14 @@ export const Heading = styled.div`
 export const MenuItem = styled.div`
   display: flex;
   align-items: center;
+  color: #3b364e;
+  opacity: 0.5;
+
+  &:hover {
+    opacity: 1;
+    transition: background 120ms ease-in;
+    cursor: pointer;
+  }
 `;
 
 export const MenuItemText = styled.div`

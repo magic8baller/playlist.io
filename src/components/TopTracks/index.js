@@ -9,7 +9,7 @@ import {
 } from './styles';
 
 const renderTopTrack = (playTrack) => ({ album: { artists, images }, name }, idx) => (
-  <TopTrackWrapper onClick={() => playTrack(idx)}>
+  <TopTrackWrapper onClick={() => playTrack(idx)} key={`${name}-${idx}`}>
     <AlbumArt src={images[0].url} />
     <TopTrackName>{name.length < 22 ? name : name.slice(0, 22) + '...'}</TopTrackName>
     <TopTrackArtistName>{artists[0].name}</TopTrackArtistName>

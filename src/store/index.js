@@ -6,24 +6,16 @@ import reducers from '../reducers';
 import { loadState, saveState } from './localStorage.js';
 
 const key = 'state';
-const stateToOmit = ['form', 'errors', 'player'];
+const stateToOmit = ['form', 'player'];
 
 const persistedState = loadState(key);
 
 const store = createStore(reducers, persistedState, applyMiddleware(reduxThunk));
 
-const save = curry((key, stateToSave) => {
-  saveState(stateToSave, key);
-});
-
-const omitState = curry((stateToOmit, currentState) => omit(stateToOmit, currentState));
-
-const getCurrentState = (store) => store.getState();
-
-const initSavedState = pipe(getCurrentState, omitState(stateToOmit), save(key));
-
 store.subscribe(() => {
-  initSavedState(store);
+  const currState = store.getState();
+  const persistedState = omit(stateToOmit, currState);
+  saveState(persistedState, key);
 });
 
 export default store;

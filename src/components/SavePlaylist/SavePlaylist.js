@@ -1,6 +1,5 @@
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
-import { Plus } from 'react-feather';
 import Dialog from 'material-ui/Dialog';
 import './styles.css';
 

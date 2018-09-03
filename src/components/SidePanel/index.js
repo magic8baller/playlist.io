@@ -1,5 +1,5 @@
 import React from 'react';
-import { Download, Search, Heart, Headphones } from 'react-feather';
+import { Download, Search, Heart, Headphones, LogOut, Star } from 'react-feather';
 import {
   SidePanelWrapper,
   StyledLink,
@@ -9,11 +9,10 @@ import {
   activeStyle
 } from './styles';
 import SavePlaylistContainer from '../SavePlaylist/SavePlaylistContainer';
-import colors from '../../utils/colors';
 
-const ICON_SIZE = 16;
+const ICON_SIZE = 20;
 
-const SidePanel = () => (
+const SidePanel = ({ handleSignOutClick }) => (
   <SidePanelWrapper>
     <Heading>Menu</Heading>
     <div>
@@ -33,13 +32,17 @@ const SidePanel = () => (
       </StyledLink>
     </div>
     <Heading style={{ marginTop: '4rem' }}>Actions</Heading>
-    <div>
-      <SavePlaylistContainer>
-        <MenuItem>
-          <Download size={ICON_SIZE} />
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
+      <MenuItem>
+        <SavePlaylistContainer>
+          <Star size={ICON_SIZE} />
           <MenuItemText>Save to Spotify</MenuItemText>
-        </MenuItem>
-      </SavePlaylistContainer>
+        </SavePlaylistContainer>
+      </MenuItem>
+      <MenuItem style={{ marginTop: '1.25rem' }} onClick={handleSignOutClick}>
+        <LogOut size={ICON_SIZE} />
+        <MenuItemText>Log Out</MenuItemText>
+      </MenuItem>
     </div>
   </SidePanelWrapper>
 );

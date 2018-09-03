@@ -7,7 +7,6 @@ export const Wrapper = styled.div`
   display: flex;
   align-items: center;
   width: 150px;
-  color: rgba(99, 111, 123, 0.8);
   &:hover {
     color: inherit;
     cursor: pointer;

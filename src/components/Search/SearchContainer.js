@@ -75,25 +75,10 @@ class SearchContainer extends Component {
   };
 
   componentDidMount() {
-    this.handleRefreshAccessToken();
-    this.handleSetCurrPath();
     this.maybeFetchDbData(() => {
       this.props.setIsInitialRender();
     });
   }
-
-  handleRefreshAccessToken = async () => {
-    const { refreshToken, refreshAccessToken } = this.props;
-    // TODO: come up with better names to differentiate these two
-    refreshAccessToken(refreshToken);
-  };
-
-  handleSetCurrPath = () => {
-    const { setPath, history } = this.props;
-    const currPath = '/';
-
-    setPath(history, currPath);
-  };
 
   maybeFetchDbData = (cb) => {
     const { spotifyId, fetchAllPlaylists, isInitialRender, fetchAllFavorites } = this.props;

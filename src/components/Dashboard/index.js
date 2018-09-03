@@ -1,9 +1,6 @@
 import React from 'react';
-import styled from 'styled-components';
 
 import {
-  DashboardWrapper,
-  ContentWrapper,
   HeadingText,
   FeaturedWrapper,
   AllTracksWrapper,
@@ -13,11 +10,8 @@ import {
 import Template from '../Template';
 import PopularTracks from '../PopularTracks';
 import TrendingTracks from '../TrendingTracks';
-import SidePanelContainer from '../SidePanel/container';
 import TopTracks from '../TopTracks';
 import AllTracks from '../AllTracks';
-import colors from '../../utils/colors';
-import SaveAnimationContainer from '../SaveAnimation/SaveAnimationContainer';
 
 const Dashboard = ({ tracks: { popular, featured, other, trending }, playTrack }) => (
   <Template>

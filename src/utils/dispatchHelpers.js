@@ -55,3 +55,13 @@ export const refreshAccessTokenSuccess = ({ access_token }) => ({
   type: 'REFRESH_ACCESS_TOKEN',
   accessToken: access_token
 });
+
+export const signInUserSuccess = (userData) => ({
+  type: 'SIGN_IN_USER',
+  userData
+});
+
+export const addUserId = (userId) => ({
+  type: 'ADD_USER_ID',
+  userId
+});

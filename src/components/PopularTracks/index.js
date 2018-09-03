@@ -10,7 +10,7 @@ import {
 } from './styles';
 
 const renderPopularTrack = (playTrack) => ({ album: { artists, images }, name }, idx) => (
-  <PopularTrackWrapper onClick={() => playTrack(idx + 6)}>
+  <PopularTrackWrapper onClick={() => playTrack(idx + 6)} key={`${name}-${idx}`}>
     <PopularAlbumArt src={images[1].url} />
     <PopularTrackInfoWrapper>
       <PopularTrackName>{name}</PopularTrackName>

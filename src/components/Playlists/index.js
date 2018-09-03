@@ -16,8 +16,8 @@ import {
 
 const getAlbumArtForFirstTrack = ({ album: { images } }) => images[1].url;
 
-const renderPlaylist = (handlePlaylistClick) => ({ title, tracks, _id, idx }) => (
-  <PlaylistWrapper onClick={handlePlaylistClick(_id)}>
+const renderPlaylist = (handlePlaylistClick) => ({ title, tracks, _id }) => (
+  <PlaylistWrapper onClick={handlePlaylistClick(_id)} key={_id}>
     <AlbumArt src={getAlbumArtForFirstTrack(...tracks)} />
     <AnotherTextWrapper>
       <TitleText>{title}</TitleText>

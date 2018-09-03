@@ -1,11 +1,21 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import SidePanel from './';
+import { signOutUser } from '../../actions/auth';
 
 class SidePanelContainer extends Component {
+  handleSignOutClick = () => {
+    const { history, signOutUser } = this.props;
+
+    signOutUser();
+    history.push('/');
+  };
+
   render() {
-    return <SidePanel />;
+    return <SidePanel handleSignOutClick={this.handleSignOutClick} />;
   }
 }
 
-export default SidePanelContainer;
+export default connect(null, { signOutUser })(withRouter(SidePanelContainer));
