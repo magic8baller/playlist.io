@@ -8,6 +8,7 @@ export const Grid = styled.div`
   grid-gap: 30px;
   grid-auto-rows: minmax(100px, 250px);
   justify-content: center;
+  border-radius: 4px;
 
   ${media.tablet`grid-gap: 40px;`};
   ${media.tablet`grid-template-columns: repeat(3, 1fr);`};

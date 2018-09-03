@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import colors from '../../utils/colors';
+import { Link } from 'react-router-dom';
 
 export const SidePanelWrapper = styled.div`
   background-color: #fff;
@@ -35,4 +36,14 @@ export const MenuItemText = styled.div`
   margin-left: 10px;
   font-weight: 500;
   color: ${({ isSelected }) => (isSelected ? colors.primary : 'default')};
+`;
+
+export const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: inherit;
+
+  &:visited {
+    text-decoration: none;
+    color: inherit;
+  }
 `;

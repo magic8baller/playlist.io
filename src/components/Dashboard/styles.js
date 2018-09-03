@@ -4,6 +4,7 @@ import colors from '../../utils/colors';
 export const DashboardWrapper = styled.div`
   background-color: #e9ebee;
   display: flex;
+  height: 100vh;
 `;
 
 export const ContentWrapper = styled.div`
