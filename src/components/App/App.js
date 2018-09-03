@@ -19,7 +19,7 @@ const App = ({ playTrack, currentPlaylist }) => (
         <Switch>
           <Route exact path="/" component={HomeContainer} />
           <Route path="/playlists" component={YourPlaylistsContainer} />
-          <Route path="/playing" component={DashboardContainer} />
+          <Route path="/dashboard" render={() => <DashboardContainer playTrack={playTrack} />} />
           <Route path="/favorites" component={FavoritesContainer} />
         </Switch>
         {currentPlaylist && <WebPlayerContainer playTrack={playTrack} />}

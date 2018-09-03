@@ -1,6 +1,7 @@
 import React from 'react';
-import { Search, Heart, Headphones } from 'react-feather';
+import { Download, Search, Heart, Headphones } from 'react-feather';
 import { SidePanelWrapper, Heading, MenuItem, MenuItemText } from './styles';
+import SavePlaylistContainer from '../SavePlaylist/SavePlaylistContainer';
 
 const ICON_SIZE = 16;
 
@@ -20,6 +21,15 @@ const SidePanel = () => (
         <Heart size={ICON_SIZE} />
         <MenuItemText>Favorites</MenuItemText>
       </MenuItem>
+    </div>
+    <Heading style={{ marginTop: '4rem' }}>Actions</Heading>
+    <div>
+      <SavePlaylistContainer>
+        <MenuItem>
+          <Download size={ICON_SIZE} />
+          <MenuItemText>Save to Spotify</MenuItemText>
+        </MenuItem>
+      </SavePlaylistContainer>
     </div>
   </SidePanelWrapper>
 );

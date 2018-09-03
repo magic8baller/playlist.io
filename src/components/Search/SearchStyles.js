@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { Search, ChevronDown } from 'react-feather';
 
 import media from '../../utils/mediaTemplate';
+import colors from '../../utils/colors';
 
 export const Wrapper = styled.div`
   margin: 2.5rem auto;
@@ -73,7 +74,7 @@ export const Btn = styled.button`
   margin-left: 20px;
   border-radius: 4px;
   cursor: pointer;
-  background-color: #1db954;
+  background-color: ${colors.primary};
   display: flex;
   align-items: center;
   justify-content: center;

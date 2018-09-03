@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 import media from '../../utils/mediaTemplate';
+import colors from '../../utils/colors';
 
 export const Wrapper = styled.div`
   display: flex;
@@ -91,7 +92,7 @@ export const ProgressBarWrapper = styled.div`
 export const ProgressBar = styled.div`
   width: ${(props) => props.progressPercentage};
   height: 100%;
-  background-color: #1db954;
+  background-color: ${colors.primary};
   border-radius: 12px;
 `;
 

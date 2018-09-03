@@ -8,8 +8,7 @@ import * as Style from './SavePlaylistStyles.js';
 
 const SavePlaylist = (props) => (
   <Style.Wrapper onClick={props.handleOpen}>
-    <Plus size={20} style={Style.icon} />
-    <Style.Text>Save to Spotify</Style.Text>
+    {props.children}
     <Dialog
       title="Save Playlist"
       actions={renderActions(props)}

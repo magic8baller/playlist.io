@@ -152,7 +152,7 @@ class SearchContainer extends Component {
 
   setNextPath = () => {
     const { history, setPath } = this.props;
-    const nextPath = '/playing';
+    const nextPath = '/dashboard';
 
     setPath(history, nextPath);
   };

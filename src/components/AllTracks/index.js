@@ -1,32 +1,15 @@
 import React from 'react';
 import { Music, Heart } from 'react-feather';
+import colors from '../../utils/colors';
+import { AllTracksWrapper } from './styles';
+import FeaturedTrackContainer from '../NowPlaying/FeaturedTrack/FeaturedTrackContainer';
 
-import {
-  AllTracksWrapper,
-  AllTrackWrapper,
-  Left,
-  TrackInfoWrapper,
-  AllTrackName,
-  AllTrackArtistName
-} from './styles';
-
-const renderAllTrack = ({ album: { artists, images }, name }, idx) => (
-  <AllTrackWrapper>
-    <Left>
-      <Music size={18} />
-      <TrackInfoWrapper>
-        <AllTrackName>{name}</AllTrackName>
-        <AllTrackArtistName>{artists[0].name}</AllTrackArtistName>
-      </TrackInfoWrapper>
-    </Left>
-    <div>
-      <Heart size={16} />
-    </div>
-  </AllTrackWrapper>
-);
-
-const AllTracks = ({ allTracks }) => (
-  <AllTracksWrapper>{allTracks.map(renderAllTrack)}</AllTracksWrapper>
+const AllTracks = ({ allTracks, playTrack }) => (
+  <AllTracksWrapper>
+    {allTracks.map((track, idx) => (
+      <FeaturedTrackContainer playTrack={playTrack} track={track} idx={idx + 12} />
+    ))}
+  </AllTracksWrapper>
 );
 
 export default AllTracks;

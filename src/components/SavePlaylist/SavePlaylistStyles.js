@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 import media from '../../utils/mediaTemplate';
+import colors from '../../utils/colors';
 
 export const Wrapper = styled.div`
   display: flex;
@@ -62,7 +63,7 @@ export const Btn = styled.button`
   color: ${(props) => props.theme.fg};
   background: ${(props) => props.theme.bg};
 
-  border: 2px solid #1db954;
+  border: 2px solid ${colors.primary};
   font-size: 1em;
   margin: 1em;
   margin-left: 3px;
@@ -79,7 +80,7 @@ export const Btn = styled.button`
 `;
 
 export const theme = {
-  fg: '#1db954',
+  fg: `${colors.primary}`,
   bg: 'white'
 };
 

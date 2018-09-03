@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { Heart } from 'react-feather';
+import colors from '../../utils/colors';
 
 export const AllTracksWrapper = styled.div`
   overflow-y: scroll;
@@ -32,6 +34,7 @@ export const TrackInfoWrapper = styled.div`
 export const Left = styled.div`
   display: flex;
   align-items: center;
+  width: 100%;
 `;
 
 export const AllTrackName = styled.div`
@@ -40,4 +43,8 @@ export const AllTrackName = styled.div`
 
 export const AllTrackArtistName = styled.div`
   opacity: 0.5;
+`;
+
+export const FavoritedHeart = styled(Heart)`
+  color: ${colors.primary};
 `;

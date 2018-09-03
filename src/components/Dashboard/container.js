@@ -20,7 +20,7 @@ class DashboardContainer extends Component {
   };
 
   componentDidMount() {
-    this.pushTracks();
+    this.props.tracks && this.pushTracks();
   }
 
   pushTracks = () => {
@@ -42,7 +42,8 @@ class DashboardContainer extends Component {
   };
 
   render() {
-    return <Dashboard tracks={this.state.tracks} />;
+    if (!this.props.tracks) return <div>Loading</div>;
+    return <Dashboard tracks={this.state.tracks} playTrack={this.props.playTrack} />;
   }
 }
 

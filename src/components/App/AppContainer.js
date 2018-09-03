@@ -32,7 +32,7 @@ class AppContainer extends React.Component {
     setCurrentIdx: func.isRequired
   };
 
-  playTrack = (idx = -1) => {
+  playTrack = (idx = 0) => {
     const {
       deviceId,
       accessToken,
@@ -43,7 +43,7 @@ class AppContainer extends React.Component {
       setCurrentIdx
     } = this.props;
 
-    const currentTrack = currentPlaylist[idx + 1];
+    const currentTrack = currentPlaylist[idx];
 
     fetch(playTrackEndpoint(deviceId), playTrackReq(currentTrack, accessToken));
 

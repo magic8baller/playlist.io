@@ -14,6 +14,12 @@ export const TrendingTrackWrapper = styled.div`
   height: 50px;
   padding: 1rem;
   display: flex;
+
+  &:hover {
+    opacity: 0.8;
+    transition: 20ms 10ms ease-in;
+    cursor: pointer;
+  }
 `;
 
 export const TrendingTrackAlbumArt = styled.img`
