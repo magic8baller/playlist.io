@@ -40,7 +40,7 @@ module.exports = async (req, res, next) => {
   const { favorites, cache } = targetUser;
 
   const current = getCurrentTracks(cache, query.toLowerCase());
-  console.log({ favorites, cache, current });
+
   res.send({
     success: true,
     // if current playlist is empty, return an empty object -- useful for testing

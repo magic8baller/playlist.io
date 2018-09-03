@@ -10,7 +10,8 @@ const saveToDb = async (req, res) => {
   const targetUser = await User.findOne({ spotifyId: req.params.spotifyId });
 
   targetUser.playlists.push(req.body);
-  await targetUser.save();
+
+  const test = await targetUser.save();
 
   const playlistId = getPlaylistId(targetUser);
 
@@ -42,12 +43,12 @@ const saveToSpotify = (req) => {
     };
 
     request.post(addTracksOptns, (err, response, body) => {
-      console.log(body);
+      // success!
     });
   });
 };
 
 module.exports = (req, res) => {
   saveToDb(req, res);
-  isTestEnv() ? null : saveToSpotify(req); // don't run during tests
+  !isTestEnv() && saveToSpotify(req); // don't run during tests
 };
