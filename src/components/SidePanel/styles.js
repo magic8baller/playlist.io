@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import colors from '../../utils/colors';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 export const SidePanelWrapper = styled.div`
   background-color: #fff;
@@ -21,15 +21,6 @@ export const Heading = styled.div`
 export const MenuItem = styled.div`
   display: flex;
   align-items: center;
-  margin-bottom: 1.3rem;
-  color: #3b364e;
-  opacity: ${({ isSelected }) => (isSelected ? '1' : '.5')};
-
-  &:hover {
-    opacity: 1;
-    transition: background 120ms ease-in;
-    cursor: pointer;
-  }
 `;
 
 export const MenuItemText = styled.div`
@@ -38,12 +29,27 @@ export const MenuItemText = styled.div`
   color: ${({ isSelected }) => (isSelected ? colors.primary : 'default')};
 `;
 
-export const StyledLink = styled(Link)`
+export const StyledLink = styled(NavLink)`
   text-decoration: none;
-  color: inherit;
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.3rem;
+  color: #3b364e;
+  opacity: 0.5;
+
+  &:hover {
+    opacity: 1;
+    transition: background 120ms ease-in;
+    cursor: pointer;
+  }
 
   &:visited {
     text-decoration: none;
     color: inherit;
   }
 `;
+
+export const activeStyle = {
+  color: `${colors.primary}`,
+  opacity: 1
+};
