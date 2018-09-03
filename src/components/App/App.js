@@ -9,17 +9,17 @@ import NavContainer from '../Nav/NavContainer';
 import NowPlayingContainer from '../NowPlaying/NowPlayingContainer';
 import YourPlaylistsContainer from '../YourPlaylists/YourPlaylistsContainer';
 import FavoritesContainer from '../Favorites/FavoritesContainer';
+import DashboardContainer from '../Dashboard/container';
 import { Wrapper } from './AppStyles';
 
 const App = ({ playTrack, currentPlaylist }) => (
   <MuiThemeProvider>
     <Router>
       <Wrapper>
-        <NavContainer />
         <Switch>
           <Route exact path="/" component={HomeContainer} />
           <Route path="/playlists" component={YourPlaylistsContainer} />
-          <Route path="/playing" render={() => <NowPlayingContainer playTrack={playTrack} />} />
+          <Route path="/playing" component={DashboardContainer} />
           <Route path="/favorites" component={FavoritesContainer} />
         </Switch>
         {currentPlaylist && <WebPlayerContainer playTrack={playTrack} />}

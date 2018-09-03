@@ -49,6 +49,7 @@ export const Controls = styled.div`
   justify-content: center;
   align-items: center;
   align-self: center;
+  color: #1b9cfc;
 `;
 
 export const DeviceText = styled.div`
@@ -108,11 +109,11 @@ export const NonPremiumWrapper = styled.div`
 
 export const play = {
   margin: '0 2rem',
-  fill: 'rgb(66,66,65)'
+  fill: '#1B9CFC'
 };
 
 export const secondaryControl = {
-  fill: 'rgb(66,66,65)'
+  fill: '#1B9CFC'
 };
 
 export const devices = {
