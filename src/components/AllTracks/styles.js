@@ -2,6 +2,8 @@ import styled from 'styled-components';
 
 export const AllTracksWrapper = styled.div`
   overflow-y: scroll;
+  margin-bottom: 2rem;
+  max-height: 287px;
 `;
 
 export const AllTrackWrapper = styled.div`
@@ -13,6 +15,12 @@ export const AllTrackWrapper = styled.div`
   border-radius: 3.5px;
   font-size: 11.5px;
   padding: 10px;
+
+  &:hover {
+    background-color: #ecf0f1;
+    transition: 20ms 10ms ease-in;
+    cursor: pointer;
+  }
 `;
 
 export const TrackInfoWrapper = styled.div`

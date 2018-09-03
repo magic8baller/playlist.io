@@ -5,6 +5,11 @@ export const AlbumArt = styled.img`
   width: 130px;
   height: 130px;
   border-radius: 4px;
+
+  &:hover {
+    transition: 20ms 10ms ease-in;
+    cursor: pointer;
+  }
 `;
 
 export const TopTracksWrapper = styled.div`
