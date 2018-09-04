@@ -15,7 +15,7 @@ class PlaylistsContainer extends Component {
 
       setCurrentQuery(targetPlaylist.query);
 
-      history.push('/dashboard');
+      history.push('/songs');
     });
   };
 

@@ -14,12 +14,9 @@ import TopTracks from '../TopTracks';
 import AllTracks from '../AllTracks';
 
 const Dashboard = ({ tracks: { popular, featured, other, trending }, playTrack }) => (
-  <Template>
-    <div>
-      <FeaturedWrapper>
-        <HeadingText>Featured</HeadingText>
-        <TopTracks topTracks={featured} playTrack={playTrack} />
-      </FeaturedWrapper>
+  <Template headingText="Featured">
+    <div style={{ marginTop: '-1.3rem' }}>
+      <TopTracks topTracks={featured} playTrack={playTrack} />
     </div>
     <NonFeaturedWrapper>
       <AllTracksWrapper>

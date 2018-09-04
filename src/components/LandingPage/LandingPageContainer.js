@@ -26,7 +26,8 @@ class LandingPageContainer extends React.Component {
     if (isEmpty(parsedAuthParams)) return;
 
     signInUser(parsedAuthParams);
-    history.push('/');
+
+    history.push('/search');
   }
 
   handleBtnClick = () => {

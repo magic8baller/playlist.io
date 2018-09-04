@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Dashboard from './';
+import Loading from '../Loading';
 
 const pushTrack = (type) => (track, tracks) => tracks[type].push(track);
 
@@ -10,41 +11,35 @@ const pushTrending = pushTrack('trending');
 const pushOther = pushTrack('other');
 
 class DashboardContainer extends Component {
-  state = {
-    tracks: {
+  pushTracks = (tracks) => {
+    const tracksByCategory = {
       featured: [],
       popular: [],
       trending: [],
       other: []
-    }
-  };
+    };
 
-  componentDidMount() {
-    this.props.tracks && this.pushTracks();
-  }
-
-  pushTracks = () => {
-    const tracks = Object.assign({}, this.state.tracks);
-
-    this.props.tracks.forEach((track, idx) => {
+    tracks.forEach((track, idx) => {
       if (idx < 6) {
-        pushFeatured(track, tracks);
+        pushFeatured(track, tracksByCategory);
       } else if (idx < 9) {
-        pushPopular(track, tracks);
+        pushPopular(track, tracksByCategory);
       } else if (idx < 12) {
-        pushTrending(track, tracks);
+        pushTrending(track, tracksByCategory);
       } else {
-        pushOther(track, tracks);
+        pushOther(track, tracksByCategory);
       }
     });
 
-    this.setState({ tracks });
+    return tracksByCategory;
   };
 
   render() {
-    if (!this.props.tracks) return <div>Loading</div>;
+    if (!this.props.tracks) return <Loading />;
 
-    return <Dashboard tracks={this.state.tracks} playTrack={this.props.playTrack} />;
+    const tracks = this.pushTracks(this.props.tracks);
+
+    return <Dashboard tracks={tracks} playTrack={this.props.playTrack} />;
   }
 }
 

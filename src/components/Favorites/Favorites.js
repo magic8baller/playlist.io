@@ -4,12 +4,19 @@ import { func, arrayOf, shape, array, bool, string, object } from 'prop-types';
 
 import ErrorPageContainer from '../ErrorPage/ErrorPageContainer';
 import { Grid, TracksGridWrapper, Text } from '../TracksGrid/TracksGridStyles';
+import Template from '../Template';
+import { HeadingText } from '../Dashboard/styles';
+import { Wrapper, TextWrapper, Subtext } from '../Playlists/styles';
 import { TrackTile } from '../Tracks/TrackStyle';
+import { getSubtext } from '../../utils/helpers';
 
-const Favorites = ({ favorites, noSavedFavoritesError, playTrack }) =>
-  isEmpty(favorites)
-    ? renderErrorPage(noSavedFavoritesError)
-    : renderFavorites(favorites, playTrack);
+const Favorites = ({ favorites, noSavedFavoritesError, playTrack }) => (
+  <Template headingText="Favorites" subtext={getSubtext(favorites, 'favorite')}>
+    {isEmpty(favorites)
+      ? renderErrorPage(noSavedFavoritesError)
+      : renderFavorites(favorites, playTrack)}
+  </Template>
+);
 
 const renderErrorPage = (noSavedFavoritesError) => (
   <ErrorPageContainer errorMsg={noSavedFavoritesError} />

@@ -2,8 +2,8 @@ import axios from 'axios';
 
 import { FETCH_ALL_FAVORITES_ENDPOINT, FAVORITE_ENDPOINT } from '../utils/endpoints';
 
-const favoriteApiReq = (method, reqType) => (spotifyId, query, trackData) =>
-  axios[method](`${FAVORITE_ENDPOINT}/${spotifyId}`, {
+const favoriteApiReq = (method, reqType) => (userId, query, trackData) =>
+  axios[method](`${FAVORITE_ENDPOINT}/${userId}`, {
     [reqType]: { query, trackData }
   });
 

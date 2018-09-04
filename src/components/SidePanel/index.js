@@ -1,5 +1,5 @@
 import React from 'react';
-import { Download, Search, Heart, Headphones, LogOut, Star } from 'react-feather';
+import { Volume1, Search, Heart, Headphones, LogOut, Star } from 'react-feather';
 import {
   SidePanelWrapper,
   StyledLink,
@@ -16,9 +16,14 @@ const SidePanel = ({ handleSignOutClick }) => (
   <SidePanelWrapper>
     <Heading>Menu</Heading>
     <div>
-      <StyledLink to="/dashboard" activeStyle={activeStyle}>
-        <Search size={ICON_SIZE} style={{ strokeWidth: '3' }} />
-        <MenuItemText>Discover</MenuItemText>
+      <StyledLink to="/search" activeStyle={activeStyle}>
+        <Search size={ICON_SIZE} style={{ strokeWidth: '2.5' }} />
+        <MenuItemText>Search</MenuItemText>
+      </StyledLink>
+
+      <StyledLink to="/songs" activeStyle={activeStyle}>
+        <Volume1 size={ICON_SIZE} />
+        <MenuItemText>Songs</MenuItemText>
       </StyledLink>
 
       <StyledLink to="/playlists" activeStyle={activeStyle}>

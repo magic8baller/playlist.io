@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { string, object, func } from 'prop-types';
 
 import { Wrapper, Text, Btn, BtnText } from './ErrorPageStyles';
@@ -6,8 +7,11 @@ import { Wrapper, Text, Btn, BtnText } from './ErrorPageStyles';
 const ErrorPage = ({ errorMsg, history, setPath }) => (
   <Wrapper>
     <Text>{errorMsg}</Text>
-    <Btn onClick={() => setPath(history, '/')}>
-      <BtnText>Back to Search</BtnText>
+
+    <Btn>
+      <Link to="/search" style={{ textDecoration: 'none' }}>
+        <BtnText>Back to Search</BtnText>
+      </Link>
     </Btn>
   </Wrapper>
 );

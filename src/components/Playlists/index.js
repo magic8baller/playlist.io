@@ -13,6 +13,7 @@ import {
   TitleText,
   SongCount
 } from './styles';
+import { getSubtext } from '../../utils/helpers';
 
 const getAlbumArtForFirstTrack = ({ album: { images } }) => images[1].url;
 
@@ -27,16 +28,10 @@ const renderPlaylist = (handlePlaylistClick) => ({ title, tracks, _id }) => (
 );
 
 const Playlists = ({ playlists, handlePlaylistClick }) => (
-  <Template>
-    <Wrapper>
-      <TextWrapper>
-        <HeadingText>Playlists</HeadingText>
-        <Subtext>{playlists.length} playlists</Subtext>
-      </TextWrapper>
-      <div style={{ marginBottom: '10rem' }}>
-        <Grid>{playlists.map(renderPlaylist(handlePlaylistClick))}</Grid>
-      </div>
-    </Wrapper>
+  <Template headingText="Playlists" subtext={getSubtext(playlists, 'playlist')}>
+    <div style={{ marginBottom: '10rem' }}>
+      <Grid>{playlists.map(renderPlaylist(handlePlaylistClick))}</Grid>
+    </div>
   </Template>
 );
 

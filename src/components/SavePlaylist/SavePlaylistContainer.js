@@ -46,12 +46,12 @@ class SavePlaylistContainer extends Component {
   };
 
   handleSubmit = () => {
-    const { spotifyId, tracks, savePlaylist, accessToken, query } = this.props;
+    const { userId, spotifyId, tracks, savePlaylist, accessToken, query } = this.props;
     const { title } = this.state;
 
-    const playlistData = { spotifyId, title, tracks, accessToken, query };
+    const playlistData = { spotifyId, userId, title, tracks, accessToken, query };
 
-    savePlaylist(playlistData, spotifyId);
+    savePlaylist(playlistData, userId);
     this.handleClose();
   };
 

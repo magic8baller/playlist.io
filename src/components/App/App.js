@@ -8,6 +8,7 @@ import WebPlayerContainer from '../WebPlayer/WebPlayerContainer';
 import PlaylistsContainer from '../Playlists/container';
 import FavoritesContainer from '../Favorites/FavoritesContainer';
 import DashboardContainer from '../Dashboard/container';
+import SearchContainer from '../Search/container';
 import { Wrapper } from './AppStyles';
 
 const App = ({ playTrack, currentPlaylist }) => (
@@ -17,7 +18,8 @@ const App = ({ playTrack, currentPlaylist }) => (
         <Switch>
           <Route exact path="/" component={HomeContainer} />
           <Route path="/playlists" component={PlaylistsContainer} />
-          <Route path="/dashboard" render={() => <DashboardContainer playTrack={playTrack} />} />
+          <Route path="/search" component={SearchContainer} />
+          <Route path="/songs" render={() => <DashboardContainer playTrack={playTrack} />} />
           <Route path="/favorites" component={FavoritesContainer} />
         </Switch>
         {currentPlaylist && <WebPlayerContainer playTrack={playTrack} />}

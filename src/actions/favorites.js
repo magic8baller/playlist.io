@@ -14,8 +14,8 @@ export const fetchAllFavorites = (spotifyId) => async (dispatch) => {
   dispatch(h.updateFavorites(response));
 };
 
-const favoriteAction = (apiReq) => (spotifyId, query, trackData) => async (dispatch) => {
-  const response = await apiReq(spotifyId, query, trackData);
+const favoriteAction = (apiReq) => (userId, query, trackData) => async (dispatch) => {
+  const response = await apiReq(userId, query, trackData);
 
   if (isError(response)) {
     console.log(response.data.error.message);
