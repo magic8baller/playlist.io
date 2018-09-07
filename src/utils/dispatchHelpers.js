@@ -5,7 +5,7 @@ export const setPathSuccess = (path) => ({
 
 export const savePlaylistSuccess = (playlistId, { title, query, tracks }) => ({
   type: 'SAVE_PLAYLIST',
-  payload: { playlistId, title, query, tracks }
+  payload: { _id: playlistId, title, query, tracks }
 });
 
 export const setCurrentPlaylistSuccess = (playlistId) => ({
@@ -21,6 +21,11 @@ export const fetchAllPlaylistsSuccess = ({ playlists, cache }) => ({
 
 export const resolveCurrentPlaylist = () => ({
   type: 'RESOLVE_CURRENT_PLAYLIST'
+});
+
+export const saveDemoFavorites = (favorites) => ({
+  type: 'SAVE_DEMO_FAVORITES',
+  favorites
 });
 
 export const fetchPlaylistSuccess = (playlist) => ({
@@ -54,4 +59,24 @@ export const currentPlaylistSuccess = () => ({
 export const refreshAccessTokenSuccess = ({ access_token }) => ({
   type: 'REFRESH_ACCESS_TOKEN',
   accessToken: access_token
+});
+
+export const signInUserSuccess = (userData) => ({
+  type: 'SIGN_IN_USER',
+  userData
+});
+
+export const saveDemoPlaylists = (playlists) => ({
+  type: 'SAVE_DEMO_PLAYLISTS',
+  saved: playlists
+});
+
+export const addUserId = (userId) => ({
+  type: 'ADD_USER_ID',
+  userId
+});
+
+export const saveDemoCurrentPlaylist = (playlist) => ({
+  type: 'SAVE_DEMO_CURRENT_PLAYLIST',
+  current: playlist
 });

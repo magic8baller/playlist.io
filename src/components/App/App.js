@@ -5,21 +5,21 @@ import { func, arrayOf, shape, array, bool, string, object, oneOfType } from 'pr
 
 import HomeContainer from '../Home/HomeContainer';
 import WebPlayerContainer from '../WebPlayer/WebPlayerContainer';
-import NavContainer from '../Nav/NavContainer';
-import NowPlayingContainer from '../NowPlaying/NowPlayingContainer';
-import YourPlaylistsContainer from '../YourPlaylists/YourPlaylistsContainer';
+import PlaylistsContainer from '../Playlists/container';
 import FavoritesContainer from '../Favorites/FavoritesContainer';
+import DashboardContainer from '../Dashboard/container';
+import SearchContainer from '../Search/container';
 import { Wrapper } from './AppStyles';
 
 const App = ({ playTrack, currentPlaylist }) => (
   <MuiThemeProvider>
     <Router>
       <Wrapper>
-        <NavContainer />
         <Switch>
           <Route exact path="/" component={HomeContainer} />
-          <Route path="/playlists" component={YourPlaylistsContainer} />
-          <Route path="/playing" render={() => <NowPlayingContainer playTrack={playTrack} />} />
+          <Route path="/playlists" component={PlaylistsContainer} />
+          <Route path="/search" component={SearchContainer} />
+          <Route path="/songs" render={() => <DashboardContainer playTrack={playTrack} />} />
           <Route path="/favorites" component={FavoritesContainer} />
         </Switch>
         {currentPlaylist && <WebPlayerContainer playTrack={playTrack} />}

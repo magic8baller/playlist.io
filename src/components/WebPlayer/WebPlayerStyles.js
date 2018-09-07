@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 import media from '../../utils/mediaTemplate';
+import colors from '../../utils/colors';
 
 export const Wrapper = styled.div`
   display: flex;
@@ -49,6 +50,7 @@ export const Controls = styled.div`
   justify-content: center;
   align-items: center;
   align-self: center;
+  color: #1b9cfc;
 `;
 
 export const DeviceText = styled.div`
@@ -90,7 +92,7 @@ export const ProgressBarWrapper = styled.div`
 export const ProgressBar = styled.div`
   width: ${(props) => props.progressPercentage};
   height: 100%;
-  background-color: #1db954;
+  background-color: ${colors.primary};
   border-radius: 12px;
 `;
 
@@ -104,15 +106,19 @@ export const NonPremiumWrapper = styled.div`
   text-align: center;
   font-size: 14px;
   width: 100%;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const play = {
   margin: '0 2rem',
-  fill: 'rgb(66,66,65)'
+  fill: '#1B9CFC'
 };
 
 export const secondaryControl = {
-  fill: 'rgb(66,66,65)'
+  fill: '#1B9CFC'
 };
 
 export const devices = {

@@ -1,20 +1,22 @@
 import { handleActions } from 'redux-actions';
 
-const initialState = {
-  isAuthenticated: false
-};
+const initialState = { isAuthenticated: false };
 
 export default handleActions(
   {
-    SIGN_IN_USER: (state, action) => ({
+    SIGN_IN_USER: (state, { userData }) => ({
       ...state,
-      ...action.payload,
+      ...userData,
       isAuthenticated: true,
-      isPremium: Boolean(action.payload.isPremium === 'true')
+      isPremium: Boolean(userData.isPremium === 'true')
     }),
     REFRESH_ACCESS_TOKEN: (state, action) => ({
       ...state,
       accessToken: action.accessToken
+    }),
+    REGISTER_DEMO_USER: (state) => ({
+      ...state,
+      isDemoUser: true
     })
   },
   initialState

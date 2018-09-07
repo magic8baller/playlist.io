@@ -5,6 +5,7 @@ import { func, arrayOf, shape, array, bool, string, object } from 'prop-types';
 import SavePlaylist from './SavePlaylist';
 import { savePlaylist } from '../../actions/playlists';
 import { getSpotifyId, getAccessToken } from '../../reducers/auth';
+import { getUserId } from '../../reducers/userId';
 import { getCurrentQuery } from '../../reducers/search';
 import { getCurrentTracks } from '../../reducers/playlists';
 
@@ -45,12 +46,12 @@ class SavePlaylistContainer extends Component {
   };
 
   handleSubmit = () => {
-    const { spotifyId, tracks, savePlaylist, accessToken, query } = this.props;
+    const { userId, spotifyId, tracks, savePlaylist, accessToken, query, isDemoUser } = this.props;
     const { title } = this.state;
 
-    const playlistData = { spotifyId, title, tracks, accessToken, query };
+    const playlistData = { spotifyId, userId, title, tracks, accessToken, query };
 
-    savePlaylist(playlistData, spotifyId);
+    savePlaylist(playlistData, userId, isDemoUser);
     this.handleClose();
   };
 
@@ -63,9 +64,11 @@ class SavePlaylistContainer extends Component {
 
 const mapStateToProps = (state) => ({
   spotifyId: getSpotifyId(state),
+  userId: getUserId(state),
   accessToken: getAccessToken(state),
   tracks: getCurrentTracks(state),
-  query: getCurrentQuery(state)
+  query: getCurrentQuery(state),
+  isDemoUser: state.auth.isDemoUser
 });
 
 export default connect(mapStateToProps, { savePlaylist })(SavePlaylistContainer);

@@ -3,40 +3,46 @@ import { isEmpty } from 'ramda';
 import { func, arrayOf, shape, array, bool, string, object } from 'prop-types';
 
 import ErrorPageContainer from '../ErrorPage/ErrorPageContainer';
-import { Grid, TracksGridWrapper, Text } from '../TracksGrid/TracksGridStyles';
-import { TrackTile } from '../Tracks/TrackStyle';
+import { Grid } from '../TracksGrid/TracksGridStyles';
+import Template from '../Template';
+import { HeadingText } from '../Dashboard/styles';
+import { getSubtext } from '../../utils/helpers';
+import {
+  Wrapper,
+  TextWrapper,
+  Subtext,
+  PlaylistWrapper,
+  AlbumArt,
+  AnotherTextWrapper,
+  TitleText,
+  SongCount
+} from '../Playlists/styles';
 
 const Favorites = ({ favorites, noSavedFavoritesError, playTrack }) =>
-  isEmpty(favorites)
-    ? renderErrorPage(noSavedFavoritesError)
-    : renderFavorites(favorites, playTrack);
-
-const renderErrorPage = (noSavedFavoritesError) => (
-  <ErrorPageContainer errorMsg={noSavedFavoritesError} />
-);
+  isEmpty(favorites) ? (
+    <ErrorPageContainer
+      headingText="Favorites"
+      subtext={getSubtext(favorites, 'favorite')}
+      errorMsg={noSavedFavoritesError}
+    />
+  ) : (
+    renderFavorites(favorites, playTrack)
+  );
 
 const renderFavorites = (favorites, playTrack) => (
-  <div>
-    <TracksGridWrapper>
-      <Text>
-        <span role="img" aria-label="Fire">
-          🔥
-        </span>{' '}
-        Favorites
-      </Text>
-      <Grid>{favorites.map(renderFavorite(playTrack))}</Grid>
-    </TracksGridWrapper>
-  </div>
+  <Template headingText="Favorites" subtext={getSubtext(favorites, 'favorite')}>
+    <Grid>{favorites.map(renderFavorite(playTrack))}</Grid>
+  </Template>
 );
 
 const renderFavorite = (playTrack) => ({ album: { artists, images }, name }, idx) => (
-  <TrackTile
-    key={`${name}-${idx}`}
-    onClick={() => playTrack(idx)}
-    title={name}
-    subtitle={<span>{artists[0].name}</span>}>
-    <img alt="Album" src={images[0].url} />
-  </TrackTile>
+  <PlaylistWrapper onClick={() => playTrack(idx)} key={`${name}-${idx}`}>
+    <AlbumArt src={images[1].url} />
+    <AnotherTextWrapper>
+      <TitleText>{name}</TitleText>
+      <SongCount>{artists[0].name}</SongCount>
+    </AnotherTextWrapper>
+  </PlaylistWrapper>
 );
 
 Favorites.propTypes = {

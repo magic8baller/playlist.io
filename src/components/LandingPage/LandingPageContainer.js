@@ -5,7 +5,9 @@ import { withRouter } from 'react-router-dom';
 import { func, object } from 'prop-types';
 
 import LandingPage from './LandingPage';
-import { signInUser } from '../../actions/auth';
+import spotifyData from '../../utils/data/marshmello';
+import { saveDemoCurrentPlaylist } from '../../actions/playlists';
+import { signInUser, registerDemoUser } from '../../actions/auth';
 import { parseAuthParams } from './helpers';
 import { SIGN_IN_USER_ENDPOINT } from '../../utils/endpoints';
 
@@ -16,7 +18,7 @@ class LandingPageContainer extends React.Component {
   };
 
   state = {
-    isLoaded: false
+    isLoading: false
   };
 
   componentDidMount() {
@@ -26,10 +28,12 @@ class LandingPageContainer extends React.Component {
     if (isEmpty(parsedAuthParams)) return;
 
     signInUser(parsedAuthParams);
-    history.push('/');
+
+    history.push('/search');
   }
 
-  handleBtnClick = () => {
+  handleAuth = () => {
+    this.setState({ isLoading: true });
     window.location = SIGN_IN_USER_ENDPOINT;
   };
 
@@ -37,17 +41,29 @@ class LandingPageContainer extends React.Component {
     this.setState({ isLoaded: true });
   };
 
+  handleDemoClick = () => {
+    const { registerDemoUser, history, saveDemoCurrentPlaylist } = this.props;
+
+    saveDemoCurrentPlaylist(spotifyData, () => {
+      registerDemoUser();
+      history.push('/songs');
+    });
+  };
+
   render() {
     const { isLoaded } = this.state;
 
     return (
       <LandingPage
-        isLoaded={isLoaded}
-        handleBtnClick={this.handleBtnClick}
+        {...this.state}
+        handleAuth={this.handleAuth}
         handleLoadedImg={this.handleLoadedImg}
+        handleDemoClick={this.handleDemoClick}
       />
     );
   }
 }
 
-export default connect(null, { signInUser })(withRouter(LandingPageContainer));
+export default connect(null, { signInUser, registerDemoUser, saveDemoCurrentPlaylist })(
+  withRouter(LandingPageContainer)
+);

@@ -7,7 +7,7 @@ export default handleActions(
   {
     SET_CURRENT_PLAYLIST: (state, action) => {
       const { playlistId } = action;
-      const newCurrentPlaylist = find(propEq('playlistId', playlistId), state.saved);
+      const newCurrentPlaylist = find(propEq('_id', playlistId), state.saved);
 
       return {
         ...state,
@@ -51,6 +51,14 @@ export default handleActions(
     FETCH_SAVED_PLAYLISTS: (state, action) => ({
       ...state,
       saved: action.playlists
+    }),
+    SAVE_DEMO_PLAYLISTS: (state, { saved }) => ({
+      ...state,
+      saved
+    }),
+    SAVE_DEMO_CURRENT_PLAYLIST: (state, { current }) => ({
+      ...state,
+      current
     })
   },
   initialState

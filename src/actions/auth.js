@@ -2,9 +2,14 @@ import { createAction } from 'redux-actions';
 
 import api from '../api';
 import { isSuccess } from '../utils/helpers';
-import { refreshAccessTokenSuccess } from '../utils/dispatchHelpers';
+import { refreshAccessTokenSuccess, signInUserSuccess, addUserId } from '../utils/dispatchHelpers';
 
-export const signInUser = createAction('SIGN_IN_USER');
+export const registerDemoUser = createAction('REGISTER_DEMO_USER');
+
+export const signInUser = (userData) => (dispatch) => {
+  dispatch(signInUserSuccess(userData));
+  dispatch(addUserId(userData.userId));
+};
 
 export const signOutUser = createAction('SIGN_OUT_USER');
 

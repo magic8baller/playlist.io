@@ -9,6 +9,7 @@ import eventsReducer from './events';
 import playerReducer from './player';
 import favoritesReducer from './favorites';
 import searchReducer from './search';
+import userIdReducer from './userId';
 
 const appReducer = combineReducers({
   form: formReducer,
@@ -19,7 +20,8 @@ const appReducer = combineReducers({
   events: eventsReducer,
   player: playerReducer,
   favorites: favoritesReducer,
-  search: searchReducer
+  search: searchReducer,
+  userId: userIdReducer
 });
 
 // clear state on sign out

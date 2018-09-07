@@ -13,3 +13,6 @@ export const isError = not(isSuccess);
 export const isUserError = (response) => response.data.error;
 
 export const isArtist = ({ type }) => type === 'artist';
+
+export const getSubtext = (item, name) =>
+  item.length === 1 ? `${item.length} ${name}` : `${item.length} ${name}s`;

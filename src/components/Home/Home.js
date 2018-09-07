@@ -2,7 +2,7 @@ import React from 'react';
 import { bool } from 'prop-types';
 
 import LandingPageContainer from '../LandingPage/LandingPageContainer';
-import SearchContainer from '../Search/SearchContainer';
+import SearchContainer from '../Search/container';
 
 const Home = ({ isAuthenticated }) => (
   <div>{isAuthenticated ? <SearchContainer /> : <LandingPageContainer />}</div>

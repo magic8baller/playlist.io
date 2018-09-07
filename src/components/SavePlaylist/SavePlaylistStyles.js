@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 
 import media from '../../utils/mediaTemplate';
+import colors from '../../utils/colors';
 
 export const Wrapper = styled.div`
   display: flex;
   align-items: center;
   width: 150px;
-  color: rgba(99, 111, 123, 0.8);
   &:hover {
     color: inherit;
     cursor: pointer;
@@ -62,7 +62,7 @@ export const Btn = styled.button`
   color: ${(props) => props.theme.fg};
   background: ${(props) => props.theme.bg};
 
-  border: 2px solid #1db954;
+  border: 2px solid ${colors.primary};
   font-size: 1em;
   margin: 1em;
   margin-left: 3px;
@@ -79,7 +79,7 @@ export const Btn = styled.button`
 `;
 
 export const theme = {
-  fg: '#1db954',
+  fg: `${colors.primary}`,
   bg: 'white'
 };
 
@@ -95,3 +95,8 @@ export const customContentStyle = {
 export const icon = {
   marginRight: '6px'
 };
+
+export const DemoText = styled.div`
+  margin-top: 1rem;
+  font-size: 16px;
+`;

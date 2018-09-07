@@ -1,15 +1,14 @@
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
-import { Plus } from 'react-feather';
 import Dialog from 'material-ui/Dialog';
 import './styles.css';
 
+import { SIGN_IN_USER_ENDPOINT } from '../../utils/endpoints';
 import * as Style from './SavePlaylistStyles.js';
 
 const SavePlaylist = (props) => (
   <Style.Wrapper onClick={props.handleOpen}>
-    <Plus size={20} style={Style.icon} />
-    <Style.Text>Save to Spotify</Style.Text>
+    {props.children}
     <Dialog
       title="Save Playlist"
       actions={renderActions(props)}
@@ -28,6 +27,14 @@ const SavePlaylist = (props) => (
             autoFocus={true}
           />
         </Style.InputWrapper>
+        {props.isDemoUser && (
+          <Style.DemoText
+            onClick={() => {
+              window.location = SIGN_IN_USER_ENDPOINT;
+            }}>
+            Note: You can only save playlists to Spotify with Spotify Premium. Sign in here.
+          </Style.DemoText>
+        )}
       </div>
     </Dialog>
   </Style.Wrapper>
