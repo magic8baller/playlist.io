@@ -37,17 +37,21 @@ module.exports = (body, res) => {
       return;
     }
 
-    userExists ? await updateUser(spotifyId, accessToken) : await createUser(userData);
+    const userId = userExists
+      ? await updateUser(spotifyId, accessToken)
+      : await createUser(userData);
 
-    res.redirect(
+    const domain =
       keys.frontendDomain +
-        queryString.stringify({
-          accessToken,
-          refreshToken,
-          spotifyId,
-          isPremium,
-          name
-        })
-    );
+      queryString.stringify({
+        userId,
+        accessToken,
+        refreshToken,
+        spotifyId,
+        isPremium,
+        name
+      });
+
+    res.redirect(domain);
   });
 };

@@ -22,14 +22,17 @@ const CacheSchema = new Schema({
   tracks: [TrackSchema]
 });
 
-const UserSchema = new Schema({
-  spotifyId: { type: String },
-  name: { type: String },
-  accessToken: { type: String },
-  refreshToken: { type: String },
-  playlists: [PlaylistSchema],
-  favorites: [TrackSchema],
-  cache: [CacheSchema]
-});
+const UserSchema = new Schema(
+  {
+    spotifyId: { type: String, index: true },
+    name: { type: String },
+    accessToken: { type: String },
+    refreshToken: { type: String },
+    playlists: [PlaylistSchema],
+    favorites: [TrackSchema],
+    cache: [CacheSchema]
+  },
+  { autoIndex: false }
+);
 
 module.exports = mongoose.model('User', UserSchema);

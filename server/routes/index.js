@@ -16,10 +16,10 @@ module.exports = (app) => {
   app.get('/api/playlists/saved/:spotifyId', PlaylistController.fetchSavedPlaylists);
   app.get('/api/playlists/all/:spotifyId', PlaylistController.fetchAllPlaylists);
   app.post('/api/playlist/cache/:spotifyId', PlaylistController.cachePlaylist);
-  app.post('/api/playlist/save/:spotifyId', PlaylistController.savePlaylist);
+  app.post('/api/playlist/save/:userId', PlaylistController.savePlaylist);
 
   // Favorites
   app.get('/api/favorites/:spotifyId', FavoritesController.fetchAllFavorites);
-  app.post('/api/favorite/:spotifyId', FavoritesController.addFavorite);
-  app.delete('/api/favorite/:spotifyId', FavoritesController.deleteFavorite);
+  app.post('/api/favorite/:userId', FavoritesController.addFavorite);
+  app.delete('/api/favorite/:userId', FavoritesController.deleteFavorite);
 };
