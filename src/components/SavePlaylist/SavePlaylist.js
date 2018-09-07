@@ -32,7 +32,8 @@ const SavePlaylist = (props) => (
             onClick={() => {
               window.location = SIGN_IN_USER_ENDPOINT;
             }}>
-            Note: You can only save playlists to Spotify with Spotify Premium. Sign in here.
+            Note: You can only save playlists to Spotify with Spotify Premium. Sign in{' '}
+            <span style={{ textDecoration: 'underline' }}>here.</span>
           </Style.DemoText>
         )}
       </div>

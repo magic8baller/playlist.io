@@ -10,7 +10,8 @@ const handleSignIn = () => {
 const NonPremiumPlayer = () => (
   <Style.Wrapper>
     <Style.NonPremiumWrapper onClick={handleSignIn}>
-      You must have Spotify Premium to use the Web Player. Sign in here.
+      You must have Spotify Premium to use the Web Player. Sign in{' '}
+      <span style={{ textDecoration: 'underline' }}>here.</span>
     </Style.NonPremiumWrapper>
   </Style.Wrapper>
 );

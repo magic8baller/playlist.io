@@ -13,6 +13,10 @@ import {
   DemoText
 } from './styles';
 
+const handleSignIn = () => {
+  window.location = SIGN_IN_USER_ENDPOINT;
+};
+
 const SearchComponent = ({ handleInputChange, handleFormSubmit, query, isDemoUser }) => (
   <Template headingText="Search">
     <ContentWrapper>
@@ -31,11 +35,9 @@ const SearchComponent = ({ handleInputChange, handleFormSubmit, query, isDemoUse
         </form>
       </SearchInputWrapper>
       {isDemoUser && (
-        <DemoText
-          onClick={() => {
-            window.location = SIGN_IN_USER_ENDPOINT;
-          }}>
-          Note: You can only search for artists with Spotify Premium. Sign in here.
+        <DemoText onClick={handleSignIn}>
+          Note: You can only search for artists with Spotify Premium. Sign in{' '}
+          <span style={{ textDecoration: 'underline' }}>here.</span>
         </DemoText>
       )}
     </ContentWrapper>

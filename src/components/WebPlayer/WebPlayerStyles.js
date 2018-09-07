@@ -106,10 +106,7 @@ export const NonPremiumWrapper = styled.div`
   text-align: center;
   font-size: 14px;
   width: 100%;
-
-  &:hover {
-    cursor: pointer;
-  }
+  cursor: pointer;
 `;
 
 export const play = {
