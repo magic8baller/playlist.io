@@ -14,6 +14,24 @@ const pushTrending = pushTrack('trending');
 const pushOther = pushTrack('other');
 
 class DashboardContainer extends Component {
+  state = {
+    width: 0,
+    height: 0
+  };
+
+  componentDidMount() {
+    this.updateWindowDimensions();
+    window.addEventListener('resize', this.updateWindowDimensions);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updateWindowDimensions);
+  }
+
+  updateWindowDimensions = () => {
+    this.setState({ width: window.innerWidth, height: window.innerHeight });
+  };
+
   pushTracks = (tracks) => {
     const tracksByCategory = {
       featured: [],
@@ -52,7 +70,7 @@ class DashboardContainer extends Component {
 
     const formattedTracks = this.pushTracks(tracks);
 
-    return <Dashboard tracks={formattedTracks} playTrack={playTrack} />;
+    return <Dashboard {...this.state} tracks={formattedTracks} playTrack={playTrack} />;
   }
 }
 

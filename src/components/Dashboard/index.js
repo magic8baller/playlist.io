@@ -13,8 +13,8 @@ import TrendingTracks from '../TrendingTracks';
 import TopTracks from '../TopTracks';
 import AllTracks from '../AllTracks';
 
-const Dashboard = ({ tracks: { popular, featured, other, trending }, playTrack }) => (
-  <Template headingText="Featured">
+const Dashboard = ({ tracks: { popular, featured, other, trending }, playTrack, height }) => (
+  <Template height={height} headingText="Featured">
     <div style={{ marginTop: '-1.3rem' }}>
       <TopTracks topTracks={featured} playTrack={playTrack} />
     </div>

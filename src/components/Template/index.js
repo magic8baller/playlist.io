@@ -6,20 +6,24 @@ import { Wrapper, TextWrapper, Subtext } from '../Playlists/styles';
 import SidePanelContainer from '../SidePanel/container';
 import SaveAnimationContainer from '../SaveAnimation/SaveAnimationContainer';
 
-const Template = ({ children, headingText, subtext }) => (
-  <DashboardWrapper>
-    <SaveAnimationContainer />
-    <SidePanelContainer />
-    <ContentWrapper>
-      <Wrapper>
-        <TextWrapper>
-          <HeadingText>{headingText}</HeadingText>
-          <Subtext>{subtext}</Subtext>
-        </TextWrapper>
-      </Wrapper>
-      {children}
-    </ContentWrapper>
-  </DashboardWrapper>
-);
+const Template = ({ children, headingText, subtext, height }) => {
+  console.log({ height });
+
+  return (
+    <DashboardWrapper>
+      <SaveAnimationContainer />
+      <SidePanelContainer />
+      <ContentWrapper height={height}>
+        <Wrapper>
+          <TextWrapper>
+            <HeadingText>{headingText}</HeadingText>
+            <Subtext>{subtext}</Subtext>
+          </TextWrapper>
+        </Wrapper>
+        {children}
+      </ContentWrapper>
+    </DashboardWrapper>
+  );
+};
 
 export default Template;

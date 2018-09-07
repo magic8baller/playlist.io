@@ -4,7 +4,6 @@ import colors from '../../utils/colors';
 export const DashboardWrapper = styled.div`
   background-color: #e9ebee;
   display: flex;
-  min-height: 100vh;
 `;
 
 export const ContentWrapper = styled.div`
@@ -12,6 +11,9 @@ export const ContentWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+  overflow-y: ${({ height }) => (height < 749 ? 'scroll' : 'auto')};
+  height: ${({ height }) => (height < 749 ? 'auto' : '100vh')};
+  max-height: ${({ height }) => (height < 749 ? '620px' : 'none')};
 `;
 
 export const HeadingText = styled.div`
