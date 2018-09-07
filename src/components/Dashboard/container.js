@@ -14,16 +14,6 @@ const pushTrending = pushTrack('trending');
 const pushOther = pushTrack('other');
 
 class DashboardContainer extends Component {
-  state = {
-    tracks: []
-  };
-
-  componentDidMount() {
-    const { tracks } = this.props;
-
-    tracks === '' ? this.setState({ tracks: '' }) : this.pushTracks(tracks);
-  }
-
   pushTracks = (tracks) => {
     const tracksByCategory = {
       featured: [],
@@ -44,11 +34,11 @@ class DashboardContainer extends Component {
       }
     });
 
-    this.setState({ tracks: tracksByCategory });
+    return tracksByCategory;
   };
 
   render() {
-    const { tracks } = this.state;
+    const { tracks, playTrack } = this.props;
 
     if (tracks === '')
       return (
@@ -58,9 +48,11 @@ class DashboardContainer extends Component {
         />
       );
 
-    if (isEmpty(tracks)) return <Loading />;
+    if (!tracks) return <Loading />;
 
-    return <Dashboard tracks={tracks} playTrack={this.props.playTrack} />;
+    const formattedTracks = this.pushTracks(tracks);
+
+    return <Dashboard tracks={formattedTracks} playTrack={playTrack} />;
   }
 }
 

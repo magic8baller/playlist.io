@@ -3,6 +3,7 @@ import { func } from 'prop-types';
 import styled from 'styled-components';
 import { Github, Twitter, Linkedin, Download, Search, Headphones } from 'react-feather';
 import colors from '../../utils/colors';
+import ReactLoading from 'react-loading';
 
 import {
   Wrapper,
@@ -31,8 +32,9 @@ import {
 
 const ICON_SIZE = 40;
 const SOCIAL_ICON_SIZE = 16;
+const LOADING_SIZE = 25;
 
-const LandingPage = ({ handleAuth, handleDemoClick }) => (
+const LandingPage = ({ handleAuth, handleDemoClick, isLoading }) => (
   <Wrapper>
     <Header>
       <div>
@@ -45,7 +47,13 @@ const LandingPage = ({ handleAuth, handleDemoClick }) => (
     <Body>
       <MainText>Create Spotify playlists with a keyword search</MainText>
       <Description>The easiest way to create a playlist.</Description>
-      <Button onClick={handleAuth}>Start</Button>
+      <Button onClick={handleAuth}>
+        {isLoading ? (
+          <ReactLoading type="spinningBubbles" height={LOADING_SIZE} width={LOADING_SIZE} />
+        ) : (
+          'Start'
+        )}
+      </Button>
       <SecondaryButton onClick={handleDemoClick}>Demo</SecondaryButton>
     </Body>
     <FeaturesWrapper>

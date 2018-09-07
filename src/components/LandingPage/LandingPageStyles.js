@@ -68,7 +68,6 @@ export const Button = styled.button`
   z-index: 1;
   min-width: 168px;
   padding: 10px 15px;
-  display: inline-block;
   vertical-align: middle;
   outline: 0;
   font-size: 1rem;
@@ -84,6 +83,8 @@ export const Button = styled.button`
   width: 150px;
   height: 43px;
   text-transform: uppercase;
+  display: flex;
+  justify-content: center;
 
   &:hover {
     background: rgba(9, 132, 280, 1);

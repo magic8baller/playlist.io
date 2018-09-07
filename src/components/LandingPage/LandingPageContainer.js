@@ -18,7 +18,7 @@ class LandingPageContainer extends React.Component {
   };
 
   state = {
-    isLoaded: false
+    isLoading: false
   };
 
   componentDidMount() {
@@ -33,6 +33,7 @@ class LandingPageContainer extends React.Component {
   }
 
   handleAuth = () => {
+    this.setState({ isLoading: true });
     window.location = SIGN_IN_USER_ENDPOINT;
   };
 
@@ -54,7 +55,7 @@ class LandingPageContainer extends React.Component {
 
     return (
       <LandingPage
-        isLoaded={isLoaded}
+        {...this.state}
         handleAuth={this.handleAuth}
         handleLoadedImg={this.handleLoadedImg}
         handleDemoClick={this.handleDemoClick}
