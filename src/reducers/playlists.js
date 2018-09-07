@@ -51,6 +51,14 @@ export default handleActions(
     FETCH_SAVED_PLAYLISTS: (state, action) => ({
       ...state,
       saved: action.playlists
+    }),
+    SAVE_DEMO_PLAYLISTS: (state, { saved }) => ({
+      ...state,
+      saved
+    }),
+    SAVE_DEMO_CURRENT_PLAYLIST: (state, { current }) => ({
+      ...state,
+      current
     })
   },
   initialState

@@ -18,18 +18,21 @@ import {
   SongCount
 } from '../Playlists/styles';
 
-const Favorites = ({ favorites, noSavedFavoritesError, playTrack }) => (
-  <Template headingText="Favorites" subtext={getSubtext(favorites, 'favorite')}>
-    {isEmpty(favorites) ? (
-      <ErrorPageContainer errorMsg={noSavedFavoritesError} />
-    ) : (
-      renderFavorites(favorites, playTrack)
-    )}
-  </Template>
-);
+const Favorites = ({ favorites, noSavedFavoritesError, playTrack }) =>
+  isEmpty(favorites) ? (
+    <ErrorPageContainer
+      headingText="Favorites"
+      subtext={getSubtext(favorites, 'favorite')}
+      errorMsg={noSavedFavoritesError}
+    />
+  ) : (
+    renderFavorites(favorites, playTrack)
+  );
 
 const renderFavorites = (favorites, playTrack) => (
-  <Grid>{favorites.map(renderFavorite(playTrack))}</Grid>
+  <Template headingText="Favorites" subtext={getSubtext(favorites, 'favorite')}>
+    <Grid>{favorites.map(renderFavorite(playTrack))}</Grid>
+  </Template>
 );
 
 const renderFavorite = (playTrack) => ({ album: { artists, images }, name }, idx) => (

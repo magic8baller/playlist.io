@@ -46,12 +46,12 @@ class SavePlaylistContainer extends Component {
   };
 
   handleSubmit = () => {
-    const { userId, spotifyId, tracks, savePlaylist, accessToken, query } = this.props;
+    const { userId, spotifyId, tracks, savePlaylist, accessToken, query, isDemoUser } = this.props;
     const { title } = this.state;
 
     const playlistData = { spotifyId, userId, title, tracks, accessToken, query };
 
-    savePlaylist(playlistData, userId);
+    savePlaylist(playlistData, userId, isDemoUser);
     this.handleClose();
   };
 
@@ -67,7 +67,8 @@ const mapStateToProps = (state) => ({
   userId: getUserId(state),
   accessToken: getAccessToken(state),
   tracks: getCurrentTracks(state),
-  query: getCurrentQuery(state)
+  query: getCurrentQuery(state),
+  isDemoUser: state.auth.isDemoUser
 });
 
 export default connect(mapStateToProps, { savePlaylist })(SavePlaylistContainer);

@@ -131,7 +131,8 @@ const mapStateToProps = (state) => ({
   spotifyId: getSpotifyId(state),
   savedPlaylists: getSavedPlaylists(state),
   cache: getCache(state),
-  isInitialRender: getIsInitialRender(state)
+  isInitialRender: getIsInitialRender(state),
+  isDemoUser: state.auth.isDemoUser
 });
 
 export default connect(mapStateToProps, {

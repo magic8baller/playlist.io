@@ -83,6 +83,11 @@ class WebPlayerContainer extends Component {
 
     const progressPercentage = positionInMs / this.state.durationInMs * 100;
 
+    if (progressPercentage > 99) {
+      this.nextTrack();
+      return;
+    }
+
     this.setState({
       positionInMs,
       positionFormatted,
@@ -141,15 +146,18 @@ class WebPlayerContainer extends Component {
   };
 
   createErrorHandlers = () => {
-    const { signOutUser, history, setPath } = this.props;
+    const { signOutUser, isDemoUser, history, setPath } = this.props;
     const errorNames = ['initialization_error', 'account_error', 'playback_error'];
 
     forEach(this.errorHandler, errorNames);
 
     this.player.on('authentication_error', (e) => {
       console.error(e);
-      signOutUser();
-      setPath(history, '/');
+
+      if (!isDemoUser) {
+        signOutUser();
+        setPath(history, '/');
+      }
     });
   };
 
@@ -196,6 +204,7 @@ const mapStateToProps = (state, { playTrack }) => ({
   currentTrack: getCurrentTrack(state),
   currentIdx: getCurrentIdx(state),
   isPremiumUser: getIsPremium(state),
+  isDemoUser: state.auth.isDemoUser,
   playTrack
 });
 

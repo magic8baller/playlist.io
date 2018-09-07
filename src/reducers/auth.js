@@ -13,6 +13,10 @@ export default handleActions(
     REFRESH_ACCESS_TOKEN: (state, action) => ({
       ...state,
       accessToken: action.accessToken
+    }),
+    REGISTER_DEMO_USER: (state) => ({
+      ...state,
+      isDemoUser: true
     })
   },
   initialState

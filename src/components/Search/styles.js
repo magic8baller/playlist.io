@@ -39,3 +39,12 @@ export const Subtext = styled.div`
   margin-top: 1.2rem;
   opacity: 0.7;
 `;
+
+export const DemoText = styled.div`
+  margin-top: 1rem;
+  font-size: 1.2rem;
+
+  &:hover {
+    cursor: pointer;
+  }
+`;

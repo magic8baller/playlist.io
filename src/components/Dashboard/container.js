@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Dashboard from './';
 import Loading from '../Loading';
+import ErrorPageContainer from '../ErrorPage/ErrorPageContainer';
+
+const isEmpty = (tracks) => Object.keys(tracks).length === 0;
 
 const pushTrack = (type) => (track, tracks) => tracks[type].push(track);
 
@@ -11,6 +14,16 @@ const pushTrending = pushTrack('trending');
 const pushOther = pushTrack('other');
 
 class DashboardContainer extends Component {
+  state = {
+    tracks: []
+  };
+
+  componentDidMount() {
+    const { tracks } = this.props;
+
+    tracks === '' ? this.setState({ tracks: '' }) : this.pushTracks(tracks);
+  }
+
   pushTracks = (tracks) => {
     const tracksByCategory = {
       featured: [],
@@ -31,20 +44,29 @@ class DashboardContainer extends Component {
       }
     });
 
-    return tracksByCategory;
+    this.setState({ tracks: tracksByCategory });
   };
 
   render() {
-    if (!this.props.tracks) return <Loading />;
+    const { tracks } = this.state;
 
-    const tracks = this.pushTracks(this.props.tracks);
+    if (tracks === '')
+      return (
+        <ErrorPageContainer
+          headingText="Songs"
+          errorMsg="You haven't searched for any artists yet."
+        />
+      );
+
+    if (isEmpty(tracks)) return <Loading />;
 
     return <Dashboard tracks={tracks} playTrack={this.props.playTrack} />;
   }
 }
 
 const mapStateToProps = (state) => ({
-  tracks: state.playlists.current
+  tracks: state.playlists.current,
+  isDemoUser: state.auth.isDemoUser
 });
 
 export default connect(mapStateToProps)(DashboardContainer);

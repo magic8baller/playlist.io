@@ -1,6 +1,7 @@
 import { isError } from '../utils/helpers';
 
 import api from '../api';
+import favorites from '../utils/data/favorites';
 import * as h from '../utils/dispatchHelpers';
 
 const noSavedFavorites = (data) => data.favorites.error;
@@ -25,6 +26,10 @@ const favoriteAction = (apiReq) => (userId, query, trackData) => async (dispatch
   dispatch(h.updateFavorites(response));
   dispatch(h.updateCache(response));
   dispatch(h.updateCurrentPlaylist(response));
+};
+
+export const saveDemoFavorites = () => (dispatch) => {
+  dispatch(h.saveDemoFavorites(favorites));
 };
 
 export const addFavorite = favoriteAction(api.addFavoriteSent);

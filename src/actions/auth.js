@@ -4,6 +4,8 @@ import api from '../api';
 import { isSuccess } from '../utils/helpers';
 import { refreshAccessTokenSuccess, signInUserSuccess, addUserId } from '../utils/dispatchHelpers';
 
+export const registerDemoUser = createAction('REGISTER_DEMO_USER');
+
 export const signInUser = (userData) => (dispatch) => {
   dispatch(signInUserSuccess(userData));
   dispatch(addUserId(userData.userId));

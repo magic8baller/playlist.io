@@ -2,9 +2,18 @@ import React from 'react';
 import { Search } from 'react-feather';
 
 import Template from '../Template';
-import { ContentWrapper, Title, Subtext, SearchInputWrapper, SearchInput } from './styles';
+import { SIGN_IN_USER_ENDPOINT } from '../../utils/endpoints';
+import { StyledLink } from '../LandingPage/LandingPageStyles';
+import {
+  ContentWrapper,
+  Title,
+  Subtext,
+  SearchInputWrapper,
+  SearchInput,
+  DemoText
+} from './styles';
 
-const SearchComponent = ({ handleInputChange, handleFormSubmit, query }) => (
+const SearchComponent = ({ handleInputChange, handleFormSubmit, query, isDemoUser }) => (
   <Template headingText="Search">
     <ContentWrapper>
       <Title style={{ marginTop: '4rem' }}>Enter an artist and receive</Title>
@@ -21,6 +30,14 @@ const SearchComponent = ({ handleInputChange, handleFormSubmit, query }) => (
           />
         </form>
       </SearchInputWrapper>
+      {isDemoUser && (
+        <DemoText
+          onClick={() => {
+            window.location = SIGN_IN_USER_ENDPOINT;
+          }}>
+          Note: You can only search for artists with Spotify Premium. Sign in here.
+        </DemoText>
+      )}
     </ContentWrapper>
   </Template>
 );

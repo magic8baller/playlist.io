@@ -95,3 +95,8 @@ export const customContentStyle = {
 export const icon = {
   marginRight: '6px'
 };
+
+export const DemoText = styled.div`
+  margin-top: 1rem;
+  font-size: 16px;
+`;

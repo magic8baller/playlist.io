@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
 
 import FeaturedTrack from './FeaturedTrack';
-import { addFavorite, deleteFavorite } from '../../../actions/favorites';
-import { getSpotifyId } from '../../../reducers/auth';
-import { getCurrentQuery } from '../../../reducers/search';
-import { getUserId } from '../../../reducers/userId';
+import { addFavorite, deleteFavorite } from '../../actions/favorites';
+import { getSpotifyId } from '../../reducers/auth';
+import { getCurrentQuery } from '../../reducers/search';
+import { getUserId } from '../../reducers/userId';
 
 const mapStateToProps = (state) => ({
   spotifyId: getSpotifyId(state),

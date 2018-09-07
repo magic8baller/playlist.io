@@ -4,9 +4,13 @@ const initialState = { all: [] };
 
 export default handleActions(
   {
-    UPDATE_FAVORITES: (state, action) => ({
+    UPDATE_FAVORITES: (state, { favorites }) => ({
       ...state,
-      all: action.favorites
+      all: favorites
+    }),
+    SAVE_DEMO_FAVORITES: (state, { favorites }) => ({
+      ...state,
+      all: favorites
     })
   },
   initialState

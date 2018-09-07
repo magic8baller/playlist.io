@@ -1,6 +1,6 @@
 import React from 'react';
 import { AllTracksWrapper } from './styles';
-import FeaturedTrackContainer from '../NowPlaying/FeaturedTrack/FeaturedTrackContainer';
+import FeaturedTrackContainer from '../FeaturedTrack/FeaturedTrackContainer';
 
 const AllTracks = ({ allTracks, playTrack }) => (
   <AllTracksWrapper>

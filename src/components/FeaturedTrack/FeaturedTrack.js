@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Music, Heart } from 'react-feather';
-import colors from '../../../utils/colors';
+import colors from '../../utils/colors';
 
 import {
   AllTrackWrapper,
@@ -8,7 +8,7 @@ import {
   TrackInfoWrapper,
   AllTrackName,
   AllTrackArtistName
-} from '../../AllTracks/styles';
+} from '../AllTracks/styles';
 
 class FeaturedTrack extends Component {
   state = {
