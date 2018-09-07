@@ -13,10 +13,10 @@ const isEqualTo = curry((trackData, targetUser) => trackData.id === targetUser.i
 const isDuplicate = (targetUser, trackData) => targetUser.favorites.some(isEqualTo(trackData));
 
 module.exports = async (req, res, next) => {
-  const { spotifyId } = req.params;
+  const { userId } = req.params;
   const { trackData, query } = req.body.data;
 
-  const targetUser = await User.findOne({ spotifyId });
+  const targetUser = await User.findById(userId);
 
   if (isNil(targetUser)) {
     const errMsg = 'Invalid Spotify ID.';
