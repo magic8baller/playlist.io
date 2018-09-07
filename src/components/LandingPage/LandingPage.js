@@ -56,48 +56,90 @@ const LandingPage = ({ handleAuth, handleDemoClick, isLoading }) => (
       </Button>
       <SecondaryButton onClick={handleDemoClick}>Demo</SecondaryButton>
     </Body>
-    <FeaturesWrapper>
-      <FeaturesHeadingText>Why use Playlist.io?</FeaturesHeadingText>
-      <FeaturesIconsWrapper>
-        <FeaturesIconWrapper>
-          <Search color={colors.primary} size={ICON_SIZE} />
-          <FeaturesSubheadingText>Search</FeaturesSubheadingText>
-          <FeaturesDescriptionText>
-            We leverage Spotify's extensive catalog so you can search for all your favorite artists.
-          </FeaturesDescriptionText>
-        </FeaturesIconWrapper>
-        <FeaturesIconWrapper>
-          <Headphones color={colors.primary} size={ICON_SIZE} />
-          <FeaturesSubheadingText>Listen</FeaturesSubheadingText>
-          <FeaturesDescriptionText>
-            Jam out to your playlist with a fully-featured web music player. *Note: only for Spotify
-            Premium subscribers.
-          </FeaturesDescriptionText>
-        </FeaturesIconWrapper>
-        <FeaturesIconWrapper>
-          <Download color={colors.primary} size={ICON_SIZE} />
-          <FeaturesSubheadingText>Save</FeaturesSubheadingText>
-          <FeaturesDescriptionText>
-            Save your playlists to your Spotify account so you can listen on the go.
-          </FeaturesDescriptionText>
-        </FeaturesIconWrapper>
-      </FeaturesIconsWrapper>
-    </FeaturesWrapper>
-    <Footer>
-      <CopyrightText>© Copyright 2018. All Rights Reserved.</CopyrightText>
-      <SocialIcons>
-        <StyledATag href="https://github.com/pxr13" target="_blank">
-          <Github size={SOCIAL_ICON_SIZE} />
-        </StyledATag>
-        <StyledATag href="https://linkedin.com/in/patrickxrivera" target="_blank">
-          <Linkedin size={SOCIAL_ICON_SIZE} />
-        </StyledATag>
-        <StyledATag href="https://twitter.com/pxr13" target="_blank">
-          <Twitter size={SOCIAL_ICON_SIZE} />
-        </StyledATag>
-      </SocialIcons>
-    </Footer>
+    <Features />
+    <Images />
+    <Footer_ />
   </Wrapper>
+);
+
+const Images = () => (
+  <div>
+    <div style={{ display: 'flex', marginTop: '8rem' }}>
+      <div>
+        <img
+          style={{ height: '300px', width: '600px', borderRadius: '4px', marginRight: '2rem' }}
+          src={require('./search.png')}
+        />
+      </div>
+      <div>
+        <div style={{ fontSize: '1.4rem', marginBottom: '.5rem' }}>Simple Search</div>
+        <span style={{ opacity: '.7' }}>
+          Search for your favorite artists and receive a recommended playlist in seconds.
+        </span>
+      </div>
+    </div>
+    <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '8rem' }}>
+      <div>
+        <div style={{ fontSize: '1.4rem', marginBottom: '.5rem' }}>Music Dashhboard</div>
+        <span style={{ opacity: '.7' }}>
+          Choose from hundreds of songs and play them directly in the browser
+        </span>
+      </div>
+      <div>
+        <img
+          style={{ height: '300px', width: '600px', borderRadius: '4px', marginRight: '2rem' }}
+          src={require('./dashboard.png')}
+        />
+      </div>
+    </div>
+  </div>
+);
+
+const Features = () => (
+  <FeaturesWrapper>
+    <FeaturesHeadingText>Why use Playlist.io?</FeaturesHeadingText>
+    <FeaturesIconsWrapper>
+      <FeaturesIconWrapper>
+        <Search color={colors.primary} size={ICON_SIZE} />
+        <FeaturesSubheadingText>Search</FeaturesSubheadingText>
+        <FeaturesDescriptionText>
+          We leverage Spotify's extensive catalog so you can search for all your favorite artists.
+        </FeaturesDescriptionText>
+      </FeaturesIconWrapper>
+      <FeaturesIconWrapper>
+        <Headphones color={colors.primary} size={ICON_SIZE} />
+        <FeaturesSubheadingText>Listen</FeaturesSubheadingText>
+        <FeaturesDescriptionText>
+          Jam out to your playlist with a fully-featured web music player. *Note: only for Spotify
+          Premium subscribers.
+        </FeaturesDescriptionText>
+      </FeaturesIconWrapper>
+      <FeaturesIconWrapper>
+        <Download color={colors.primary} size={ICON_SIZE} />
+        <FeaturesSubheadingText>Save</FeaturesSubheadingText>
+        <FeaturesDescriptionText>
+          Save your playlists to your Spotify account so you can listen on the go.
+        </FeaturesDescriptionText>
+      </FeaturesIconWrapper>
+    </FeaturesIconsWrapper>
+  </FeaturesWrapper>
+);
+
+const Footer_ = () => (
+  <Footer>
+    <CopyrightText>© Copyright 2018. All Rights Reserved.</CopyrightText>
+    <SocialIcons>
+      <StyledATag href="https://github.com/pxr13" target="_blank">
+        <Github size={SOCIAL_ICON_SIZE} />
+      </StyledATag>
+      <StyledATag href="https://linkedin.com/in/patrickxrivera" target="_blank">
+        <Linkedin size={SOCIAL_ICON_SIZE} />
+      </StyledATag>
+      <StyledATag href="https://twitter.com/pxr13" target="_blank">
+        <Twitter size={SOCIAL_ICON_SIZE} />
+      </StyledATag>
+    </SocialIcons>
+  </Footer>
 );
 
 LandingPage.propTypes = {
