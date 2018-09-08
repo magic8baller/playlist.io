@@ -1,1 +1,1 @@
-# playlist-io
+# frontend-playlist-app
