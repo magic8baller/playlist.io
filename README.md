@@ -1,1 +1,1 @@
-# frontend-playlist-app
+# backend-playlists-app
